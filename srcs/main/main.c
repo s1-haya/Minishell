@@ -24,6 +24,7 @@ void	minishell(char *line, char const *envp[])
 	token = head;
 	while (token)
 	{
+		builtins(token->str);
 		printf("  str:%s---\n", token->str);
 		printf("e str:%s---\n", token->expanded_str);
 		token = token->next;
