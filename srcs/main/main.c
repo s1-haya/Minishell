@@ -16,8 +16,6 @@ void	minishell(char *line, char const *envp[])
 {
 	t_token	*head;
 	int		tmp_fd;
-	int		num_wait;
-	int		status;
 
 	head = NULL;
 	tokenize(&head, line);
@@ -37,11 +35,11 @@ void	minishell(char *line, char const *envp[])
 	parse(&head, envp);
 	if (dup2(tmp_fd, STDIN_FILENO) < 0)
 		dup2_failed("dup2");
-	num_wait = get_num_wait(&head);
-	while (num_wait--)
-		wait(&status);
+	wait_child_process(&head);
 	free_tokens(&head);
 }
+
+g_status = 0;
 
 int	main(int argc, char *argv[], char const *envp[])
 {

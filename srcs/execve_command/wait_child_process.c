@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_failures3.c                                 :+:      :+:    :+:   */
+/*   wait_child_process.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/17 14:59:54 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/17 14:59:56 by tterao           ###   ########.fr       */
+/*   Created: 2023/05/18 19:36:24 by tterao            #+#    #+#             */
+/*   Updated: 2023/05/18 19:36:26 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	*command_not_found(char *command)
+void	wait_child_process(t_token **head)
 {
-	printf("%s: command not found\n", command);
-	return (NULL);
-}
+	int		num_wait;
 
-void	syntax_error(char *str)
-{
-	perror(str);
-	exit(EXIT_FAILURE);
-}
-
-void	wait_failed(char *str)
-{
-	perror(str);
-	exit(EXIT_FAILURE);
+	num_wait = get_num_wait(head);
+	while (num_wait--)
+	{
+		if (wait(&g_status) < 0)
+			wait_failed("wait");
+	}
 }

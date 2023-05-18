@@ -68,6 +68,9 @@ typedef struct s_command_data
 // 	bool	is_error;
 // }	t_env_var;
 
+
+extern	int	g_status;
+
 //tokenize
 void	tokenize(t_token **head, char *line);
 void	set_token_kind(t_token **head, t_token *token);
@@ -96,7 +99,7 @@ void	execute_command(t_token **head, t_command_data *d,
 			t_token_kind output_direction);
 void	child_process(t_command_data *d, t_token_kind output_direction,
 			char *outfile, int *pipefd);
-
+void	wait_child_process(t_token **head);
 
 //is_sth
 bool	is_space(char c);
@@ -117,6 +120,7 @@ void	write_failed(char *str);
 void	pipe_failed(char *str);
 void	fork_failed(char *str);
 void	execve_failed(char *str);
+void	wait_failed(char *str);
 void	*command_not_found(char *command);
 void	syntax_error(char *str);
 

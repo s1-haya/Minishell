@@ -25,7 +25,8 @@ SRCS_PARSE = parse.c	\
 PARSE_DIR = srcs/parse
 
 SRCS_EXECVE_COMMAND = execve_command.c	\
-					  child_process.c
+					  child_process.c	\
+					  wait_child_process.c
 EXECVE_COMMAND_DIR = srcs/execve_command
 
 SRCS_IS_STH = is_1.c	\
