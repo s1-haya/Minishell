@@ -7,6 +7,7 @@ SRCS_MAIN =	main.c
 MAIN_DIR = srcs/main
 
 SRCS_TOKEN = tokenize.c	\
+			 token.c	\
 			 token_kind.c	\
 			 free_tokens.c
 TOKEN_DIR = srcs/tokenize

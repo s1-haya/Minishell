@@ -71,6 +71,8 @@ typedef struct s_command_data
 //tokenize
 void	tokenize(t_token **head, char *line);
 void	set_token_kind(t_token **head, t_token *token);
+int		newtoken(t_token **head, char *line, size_t start, size_t end);
+void	addback(t_token **head, t_token *newtoken);
 t_token	*lasttoken(t_token **head);
 int		free_token(t_token *token);
 void	free_tokens(t_token **head);

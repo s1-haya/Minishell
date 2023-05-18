@@ -59,7 +59,7 @@ void	free_data(t_command_data *d)
 	size_t	i;
 
 	i = 0;
-	while (d->command && d->command[i])
+	while (d->command[i])
 	{
 		free(d->command[i]);
 		i++;
@@ -87,7 +87,7 @@ void	parse(t_token **head, char const *envp[])
 	{
 		free_data(&d);
 		parse_output_direction(head);
-		parse(head, envp);
+		return (parse(head, envp));
 	}
 	execute_command(head, &d, parse_output_direction(head));
 	free_data(&d);
