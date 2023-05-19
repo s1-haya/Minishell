@@ -12,6 +12,8 @@
 
 #include "../../includes/minishell.h"
 
+int	g_status = 0;
+
 void	minishell(char *line, char const *envp[])
 {
 	t_token	*head;
@@ -20,15 +22,14 @@ void	minishell(char *line, char const *envp[])
 	head = NULL;
 	tokenize(&head, line);
 	expancion(&head);
-
-	// t_token	*token;
-	// token = head;
-	// while (token)
-	// {
-	// 	printf("  str:%s---\n", token->str);
-	// 	printf("e str:%s---\n", token->expanded_str);
-	// 	token = token->next;
-	// }
+	t_token	*token;
+	token = head;
+	while (token)
+	{
+		printf("  str:%s---\n", token->str);
+		printf("e str:%s---\n", token->expanded_str);
+		token = token->next;
+	}
 	tmp_fd = dup(STDIN_FILENO);
 	if (tmp_fd < 0)
 		dup_failed("dup");
@@ -39,12 +40,11 @@ void	minishell(char *line, char const *envp[])
 	free_tokens(&head);
 }
 
-g_status = 0;
-
 int	main(int argc, char *argv[], char const *envp[])
 {
 	char	*line;
 
+	printf("g_status:%d\n", g_status);
 	while (true)
 	{
 		line = readline("minishell$ ");

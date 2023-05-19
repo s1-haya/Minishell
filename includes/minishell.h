@@ -68,7 +68,6 @@ typedef struct s_command_data
 // 	bool	is_error;
 // }	t_env_var;
 
-
 extern	int	g_status;
 
 //tokenize
