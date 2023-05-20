@@ -37,7 +37,7 @@ char	*make_filepath(char **dirs, char *command)
 		free(filepath);
 	}
 	free(dirs);
-	return (command_not_found(command));
+	return (NULL);
 }
 
 char	*get_filepath(char *command)
@@ -56,7 +56,7 @@ char	*get_filepath(char *command)
 	}
 	path = getenv("PATH");
 	if (!path)
-		return (command_not_found(command));
+		return (NULL);
 	dirs = ft_split(path, ':');
 	if (!dirs)
 		malloc_failed("malloc");

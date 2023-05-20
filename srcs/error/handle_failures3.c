@@ -12,16 +12,22 @@
 
 #include "../../includes/minishell.h"
 
-void	*command_not_found(char *command)
+void	command_not_found(char *command)
 {
 	printf("%s: command not found\n", command);
-	return (NULL);
+	exit(COMMAND_NOT_FOUND);
 }
 
-void	syntax_error(char *str)
+void	syntax_error_c(char c)
 {
-	perror(str);
-	exit(EXIT_FAILURE);
+	printf("syntax error near unexpected token `%c'\n", c);
+	g_status = 1;
+}
+
+void	syntax_error_str(char *str)
+{
+	printf("syntax error near unexpected token `%s'\n", str);
+	g_status = 1;
 }
 
 void	wait_failed(char *str)

@@ -21,23 +21,23 @@ void	malloc_failed(char *str)
 void	open_failed(char *str)
 {
 	perror(str);
-	exit(EXIT_FAILURE);
+	g_status = 1;
 }
 
 void	close_failed(char *str)
 {
 	perror(str);
-	exit(EXIT_FAILURE);
+	g_status = 1;
 }
 
 void	read_failed(char *str)
 {
 	perror(str);
-	exit(EXIT_FAILURE);
+	g_status = 1;
 }
 
 void	write_failed(char *str)
 {
 	perror(str);
-	exit(EXIT_FAILURE);
+	g_status = 1;
 }

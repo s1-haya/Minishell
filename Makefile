@@ -9,7 +9,8 @@ MAIN_DIR = srcs/main
 SRCS_TOKEN = tokenize.c	\
 			 token.c	\
 			 token_kind.c	\
-			 free_tokens.c
+			 free_tokens.c	\
+			 syntax_error.c
 TOKEN_DIR = srcs/tokenize
 
 SRCS_EXPANCION = expancion.c	\

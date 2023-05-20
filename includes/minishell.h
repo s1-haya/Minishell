@@ -23,7 +23,6 @@
 
 # define BUFFERSIZE 1000
 
-
 typedef	enum	e_token_kind
 {
 	WORD,
@@ -44,6 +43,12 @@ enum	e_pipefd
 {
 	R = 0,
 	W = 1,
+};
+
+enum	e_exit_status
+{
+	COMMAND_NOT_EXECUTABLE = 126,
+	COMMAND_NOT_FOUND = 127,
 };
 
 typedef struct s_token
@@ -71,13 +76,14 @@ typedef struct s_command_data
 extern	int	g_status;
 
 //tokenize
-void	tokenize(t_token **head, char *line);
+int		tokenize(t_token **head, char *line);
 void	set_token_kind(t_token **head, t_token *token);
 int		newtoken(t_token **head, char *line, size_t start, size_t end);
 void	addback(t_token **head, t_token *newtoken);
 t_token	*lasttoken(t_token **head);
 int		free_token(t_token *token);
 void	free_tokens(t_token **head);
+bool	is_syntax_error(t_token **head, t_token *token);
 
 //expancion
 void	expancion(t_token **head);
@@ -120,7 +126,8 @@ void	pipe_failed(char *str);
 void	fork_failed(char *str);
 void	execve_failed(char *str);
 void	wait_failed(char *str);
-void	*command_not_found(char *command);
-void	syntax_error(char *str);
+void	command_not_found(char *command);
+void	syntax_error_c(char c);
+void	syntax_error_str(char *str);
 
 #endif

@@ -83,12 +83,12 @@ void	parse(t_token **head, char const *envp[])
 	parse_in_redirection(head);
 	d.command = make_command_array(head);
 	d.filepath = get_filepath(d.command[0]);
-	if (!d.filepath)
-	{
-		free_data(&d);
-		parse_output_direction(head);
-		return (parse(head, envp));
-	}
+	// if (!d.filepath)
+	// {
+	// 	free_data(&d);
+	// 	parse_output_direction(head);
+	// 	return (parse(head, envp));
+	// }
 	execute_command(head, &d, parse_output_direction(head));
 	free_data(&d);
 	parse(head, envp);

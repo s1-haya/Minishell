@@ -56,11 +56,12 @@ size_t	get_end_index(char *line, size_t i)
 	return (i);
 }
 
-void	tokenize(t_token **head, char *line)
+int	tokenize(t_token **head, char *line)
 {
 	t_token	*token;
 	size_t	i;
 	size_t	start;
+	int		ret;
 
 	i = 0;
 	while (line[i])
@@ -69,7 +70,9 @@ void	tokenize(t_token **head, char *line)
 			i++;
 		start = i;
 		i = get_end_index(line, i);
-		if (newtoken(head, line, start, i))
+		ret = newtoken(head, line, start, i);
+		if (ret > 0)
 			break ;
 	}
+	return (ret);
 }

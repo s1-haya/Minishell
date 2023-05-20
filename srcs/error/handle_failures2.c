@@ -39,5 +39,5 @@ void	fork_failed(char *str)
 void	execve_failed(char *str)
 {
 	perror(str);
-	exit(EXIT_FAILURE);
+	g_status = COMMAND_NOT_EXECUTABLE;
 }

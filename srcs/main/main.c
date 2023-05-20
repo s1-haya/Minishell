@@ -20,6 +20,15 @@ void	minishell(char *line, char const *envp[])
 	int		tmp_fd;
 
 	head = NULL;
+	if (tokenize(&head, line) > 1)
+	{
+		free_tokens(&head);
+		return ;
+	}
+	expancion(&head);
+	/*
+	トークン確認用
+
 	tokenize(&head, line);
 	expancion(&head);
 	t_token	*token;
@@ -30,6 +39,7 @@ void	minishell(char *line, char const *envp[])
 		printf("e str:%s---\n", token->expanded_str);
 		token = token->next;
 	}
+	*/
 	tmp_fd = dup(STDIN_FILENO);
 	if (tmp_fd < 0)
 		dup_failed("dup");
@@ -44,7 +54,6 @@ int	main(int argc, char *argv[], char const *envp[])
 {
 	char	*line;
 
-	printf("g_status:%d\n", g_status);
 	while (true)
 	{
 		line = readline("minishell$ ");

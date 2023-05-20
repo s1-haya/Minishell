@@ -21,7 +21,10 @@ void	pipe_child_process(t_command_data *d, int *pipefd)
 	if (close(pipefd[W]) < 0)
 		close_failed("close");
 	execve(d->filepath, d->command, d->envp);
-	execve_failed("execve");
+	// execve_failed("execve");
+	if (!d->filepath)
+		command_not_found(d->command[0]);
+	exit(COMMAND_NOT_EXECUTABLE);
 }
 
 void	redirect_output_child_process(t_command_data *d, int *pipefd,
@@ -39,7 +42,10 @@ void	redirect_output_child_process(t_command_data *d, int *pipefd,
 	if (close(fd) < 0)
 		close_failed("close");
 	execve(d->filepath, d->command, d->envp);
-	execve_failed("execve");
+	// execve_failed("execve");
+	if (!d->filepath)
+		command_not_found(d->command[0]);
+	exit(COMMAND_NOT_EXECUTABLE);
 }
 
 void	append_child_process(t_command_data *d, int *pipefd, char *outfile)
@@ -56,7 +62,10 @@ void	append_child_process(t_command_data *d, int *pipefd, char *outfile)
 	if (close(fd) < 0)
 		close_failed("close");
 	execve(d->filepath, d->command, d->envp);
-	execve_failed("execve");
+	// execve_failed("execve");
+	if (!d->filepath)
+		command_not_found(d->command[0]);
+	exit(COMMAND_NOT_EXECUTABLE);
 }
 
 void	stdout_child_process(t_command_data *d, int *pipefd)
@@ -65,7 +74,10 @@ void	stdout_child_process(t_command_data *d, int *pipefd)
 		close_failed("close");
 	// printf("stdout_child_process:%s\n", d->filepath);
 	execve(d->filepath, d->command, d->envp);
-	execve_failed("execve");
+	// execve_failed("execve");
+	if (!d->filepath)
+		command_not_found(d->command[0]);
+	exit(COMMAND_NOT_EXECUTABLE);
 }
 
 void	child_process(t_command_data *d, t_token_kind output_direction,
