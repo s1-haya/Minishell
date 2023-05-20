@@ -49,6 +49,7 @@ enum	e_exit_status
 {
 	COMMAND_NOT_EXECUTABLE = 126,
 	COMMAND_NOT_FOUND = 127,
+	SYNTAX_ERROR = 258,
 };
 
 typedef struct s_token
@@ -76,7 +77,7 @@ typedef struct s_command_data
 extern	int	g_status;
 
 //tokenize
-int		tokenize(t_token **head, char *line);
+bool	tokenize(t_token **head, char *line);
 void	set_token_kind(t_token **head, t_token *token);
 int		newtoken(t_token **head, char *line, size_t start, size_t end);
 void	addback(t_token **head, t_token *newtoken);
@@ -91,7 +92,7 @@ char	*env_var_helper1(char *str, char *new_str, size_t start, size_t end);
 char	*env_var_helper2(char *str, char *new_str, size_t start, size_t end);
 
 //parse
-void	parse(t_token **head, char const *envp[]);
+int		parse(t_token **head, char const *envp[]);
 t_token	*get_next_token(t_token **head);
 void	parse_in_redirection(t_token **head);
 t_token	*here_documents(t_token *token);
@@ -127,7 +128,7 @@ void	fork_failed(char *str);
 void	execve_failed(char *str);
 void	wait_failed(char *str);
 void	command_not_found(char *command);
-void	syntax_error_c(char c);
-void	syntax_error_str(char *str);
+void	*syntax_error_c(char c);
+void	*syntax_error_str(char *str);
 
 #endif

@@ -54,7 +54,7 @@ int	get_num_wait(t_token **head)
 	return (num_wait);
 }
 
-void	free_data(t_command_data *d)
+int	free_data(t_command_data *d)
 {
 	size_t	i;
 
@@ -67,9 +67,10 @@ void	free_data(t_command_data *d)
 	free(d->command);
 	if (d->filepath)
 		free(d->filepath);
+	return (1);
 }
 
-void	parse(t_token **head, char const *envp[])
+int	parse(t_token **head, char const *envp[])
 {
 	t_command_data	d;
 	int				output_direction;
@@ -77,19 +78,15 @@ void	parse(t_token **head, char const *envp[])
 	if (get_next_token(head) == NULL)
 	{
 		// printf("parser end\n");
-		return ;
+		return (0);
 	}
 	d.envp = (char **)envp;
 	parse_in_redirection(head);
 	d.command = make_command_array(head);
 	d.filepath = get_filepath(d.command[0]);
-	// if (!d.filepath)
-	// {
-	// 	free_data(&d);
-	// 	parse_output_direction(head);
-	// 	return (parse(head, envp));
-	// }
+	if (!d.command[0] && !d.filepath)
+		return (free_data(&d));
 	execute_command(head, &d, parse_output_direction(head));
 	free_data(&d);
-	parse(head, envp);
+	return (parse(head, envp));
 }

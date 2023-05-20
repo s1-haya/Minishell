@@ -47,6 +47,8 @@ char	*get_filepath(char *command)
 	char	**dirs;
 	size_t	i;
 
+	if (!command)
+		return (NULL);
 	if (access(command, X_OK) == 0)
 	{
 		path = ft_strdup(command);

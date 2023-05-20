@@ -56,7 +56,7 @@ size_t	get_end_index(char *line, size_t i)
 	return (i);
 }
 
-int	tokenize(t_token **head, char *line)
+bool	tokenize(t_token **head, char *line)
 {
 	t_token	*token;
 	size_t	i;
@@ -74,5 +74,5 @@ int	tokenize(t_token **head, char *line)
 		if (ret > 0)
 			break ;
 	}
-	return (ret);
+	return (ret > 1);
 }

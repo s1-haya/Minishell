@@ -34,6 +34,11 @@ void	redirect_output_child_process(t_command_data *d, int *pipefd,
 
 	if (close(pipefd[R]) + close(pipefd[W]) < 0)
 		close_failed("close");
+	if (!outfile)
+	{
+		syntax_error_str("newline");
+		exit(SYNTAX_ERROR);
+	}
 	fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (fd < 0)
 		open_failed(outfile);
@@ -54,6 +59,11 @@ void	append_child_process(t_command_data *d, int *pipefd, char *outfile)
 
 	if (close(pipefd[R]) + close(pipefd[W]) < 0)
 		close_failed("close");
+	if (!outfile)
+	{
+		syntax_error_str("newline");
+		exit(SYNTAX_ERROR);
+	}
 	fd = open(outfile, O_CREAT | O_WRONLY | O_APPEND, 0666);
 	if (fd < 0)
 		open_failed(outfile);

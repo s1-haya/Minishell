@@ -91,6 +91,8 @@ t_token	*here_documents(t_token *token)
 
 	token->is_read = true;
 	delimiter = token->next;
+	if (!delimiter)
+		return (syntax_error_str("newline"));
 	here_doc = get_here_documents(delimiter->str);
 	if (pipe(pipefd) < 0)
 		pipe_failed("pipe");

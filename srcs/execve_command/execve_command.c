@@ -18,7 +18,7 @@ char	*get_output_file(t_token **head)
 
 	token = get_next_token(head);
 	if (!token)
-		syntax_error_str("newline");
+		return (NULL);
 	token->is_read = true;
 	return (token->expanded_str);
 }
