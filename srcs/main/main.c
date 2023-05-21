@@ -28,7 +28,7 @@ void	minishell(char *line, char const *envp[])
 	}
 	expancion(&head);
 	/*
-	トークン確認用
+	// トークン確認用
 
 	tokenize(&head, line);
 	expancion(&head);

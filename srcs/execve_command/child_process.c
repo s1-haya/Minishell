@@ -16,14 +16,16 @@ void	pipe_child_process(t_command_data *d, int *pipefd)
 {
 	if (close(pipefd[R]) < 0)
 		close_failed("close");
+	if (!d->filepath)
+		command_not_found(d->command[0]);
 	if (dup2(pipefd[W], STDOUT_FILENO) < 0)
 		dup2_failed("dup2");
 	if (close(pipefd[W]) < 0)
 		close_failed("close");
 	execve(d->filepath, d->command, d->envp);
+	// if (!d->filepath)
+	// 	command_not_found(d->command[0]);
 	// execve_failed("execve");
-	if (!d->filepath)
-		command_not_found(d->command[0]);
 	exit(COMMAND_NOT_EXECUTABLE);
 }
 
@@ -39,6 +41,8 @@ void	redirect_output_child_process(t_command_data *d, int *pipefd,
 		syntax_error_str("newline");
 		exit(SYNTAX_ERROR);
 	}
+	if (!d->filepath)
+		command_not_found(d->command[0]);
 	fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (fd < 0)
 		open_failed(outfile);
@@ -48,8 +52,6 @@ void	redirect_output_child_process(t_command_data *d, int *pipefd,
 		close_failed("close");
 	execve(d->filepath, d->command, d->envp);
 	// execve_failed("execve");
-	if (!d->filepath)
-		command_not_found(d->command[0]);
 	exit(COMMAND_NOT_EXECUTABLE);
 }
 
@@ -64,6 +66,8 @@ void	append_child_process(t_command_data *d, int *pipefd, char *outfile)
 		syntax_error_str("newline");
 		exit(SYNTAX_ERROR);
 	}
+	if (!d->filepath)
+		command_not_found(d->command[0]);
 	fd = open(outfile, O_CREAT | O_WRONLY | O_APPEND, 0666);
 	if (fd < 0)
 		open_failed(outfile);
@@ -73,8 +77,6 @@ void	append_child_process(t_command_data *d, int *pipefd, char *outfile)
 		close_failed("close");
 	execve(d->filepath, d->command, d->envp);
 	// execve_failed("execve");
-	if (!d->filepath)
-		command_not_found(d->command[0]);
 	exit(COMMAND_NOT_EXECUTABLE);
 }
 

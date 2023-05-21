@@ -14,17 +14,10 @@
 
 size_t	get_end_index_helper(char *line, size_t i)
 {
-	if (line[i] == '|')
-	{
-		while (line[i] == '|' && line[i] != '\0')
-			i++;
-	}
-	else
-	{
-		while (!is_space(line[i]) && !is_quotation_mark(line[i])
-			&& line[i] != '|' && line[i] != '\0')
-			i++;
-	}
+
+	while (!is_space(line[i]) && !is_quotation_mark(line[i])
+		&& !is_meta_character(line[i]) && line[i] != '\0')
+		i++;
 	return (i);
 }
 
@@ -40,15 +33,10 @@ size_t	get_end_index(char *line, size_t i)
 		if (line[i] != '\0')
 			i++;
 	}
-	else if (is_redirection(line[i]))
+	else if (is_redirection(line[i]) || line[i] == '|')
 	{
 		c = line[i];
 		while (line[i] == c && line[i] != '\0')
-			i++;
-	}
-	else if (line[i] == '|')
-	{
-		while (line[i] == '|' && line[i] != '\0')
 			i++;
 	}
 	else
@@ -61,7 +49,6 @@ bool	tokenize(t_token **head, char *line)
 	t_token	*token;
 	size_t	i;
 	size_t	start;
-	int		ret;
 
 	i = 0;
 	while (line[i])
@@ -70,9 +57,8 @@ bool	tokenize(t_token **head, char *line)
 			i++;
 		start = i;
 		i = get_end_index(line, i);
-		ret = newtoken(head, line, start, i);
-		if (ret > 0)
+		if (newtoken(head, line, start, i))
 			break ;
 	}
-	return (ret > 1);
+	return (is_syntax_error(head));
 }

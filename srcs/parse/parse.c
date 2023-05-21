@@ -26,18 +26,6 @@ t_token	*get_next_token(t_token **head)
 	return (node);
 }
 
-t_token_kind	parse_output_direction(t_token **head)
-{
-	t_token	*node;
-
-	node = get_next_token(head);
-	if (!node)
-		return (STDOUT);
-	node->is_read = true;
-	// printf("output:%s %d\n", node->expanded_str, node->kind);
-	return (node->kind);
-}
-
 int	get_num_wait(t_token **head)
 {
 	t_token	*token;
@@ -70,11 +58,22 @@ int	free_data(t_command_data *d)
 	return (1);
 }
 
+t_token_kind	parse_output_direction(t_token **head)
+{
+	t_token	*token;
+
+	token = get_next_token(head);
+	if (!token)
+		return (STDOUT);
+	return (token->kind);
+}
+
 int	parse(t_token **head, char const *envp[])
 {
 	t_command_data	d;
 	int				output_direction;
 
+	// printf("parser\n");
 	if (get_next_token(head) == NULL)
 	{
 		// printf("parser end\n");
@@ -84,9 +83,12 @@ int	parse(t_token **head, char const *envp[])
 	parse_in_redirection(head);
 	d.command = make_command_array(head);
 	d.filepath = get_filepath(d.command[0]);
+	// printf("%s\n", d.command[0]);
+	// printf("%s\n", d.filepath);
 	if (!d.command[0] && !d.filepath)
 		return (free_data(&d));
-	execute_command(head, &d, parse_output_direction(head));
+	execute_command(head, &d, parse_out_redirection(head));
+	// execute_command(head, &d, parse_output_direction(head));
 	free_data(&d);
 	return (parse(head, envp));
 }

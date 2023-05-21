@@ -55,8 +55,6 @@ int	newtoken(t_token **head, char *line, size_t start, size_t end)
 	if ((!ft_strncmp(token->str, "\'\'", 2) || !ft_strncmp(token->str, "\"\"", 2))
 		&& ft_strlen(token->str) == 2)
 		return (free_token(token));
-	if (is_syntax_error(head, token))
-		return (2);
 	set_token_kind(head, token);
 	addback(head, token);
 	return (0);

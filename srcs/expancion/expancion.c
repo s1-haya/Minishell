@@ -66,22 +66,11 @@ char	*expand_env_var(char *str)
 	return (new_str);
 }
 
-bool	have_env_var(char *str)
-{
-	while (*str)
-	{
-		if (*str == '$')
-			return (true);
-		str++;
-	}
-	return (false);
-}
-
 void	make_expanded_str(t_token *node)
 {
 	if (is_quotation_mark(node->str[0]) || node->str[0] == '$')
 	{
-		if (node->str[0] != '\'' && have_env_var(node->str))
+		if (node->str[0] != '\'' && have_dollermark(node->str))
 			node->expanded_str = expand_env_var(node->str);
 		else
 			node->expanded_str = ft_substr

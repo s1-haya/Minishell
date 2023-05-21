@@ -22,7 +22,8 @@ SRCS_PARSE = parse.c	\
 			 here_documents.c	\
 			 make_command_array.c	\
 			 parse_in_redirection.c	\
-			 parse_output_direction.c
+			 parse_output_direction.c	\
+			 parse_out_helper.c
 PARSE_DIR = srcs/parse
 
 SRCS_EXECVE_COMMAND = execve_command.c	\
