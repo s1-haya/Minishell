@@ -23,7 +23,7 @@ char	*get_output_file(t_token **head)
 	return (token->expanded_str);
 }
 
-void	execute_fork(t_command_data *d, int output_direction, char *outfile)
+void	execute_fork(t_command_data *d, t_output *out)
 {
 	int		pipefd[2];
 	pid_t	pid;
@@ -34,10 +34,10 @@ void	execute_fork(t_command_data *d, int output_direction, char *outfile)
 	if (pid < 0)
 		fork_failed("fork");
 	else if (pid == 0)
-		child_process(d, output_direction, outfile, pipefd);
+		child_process(d, out->kind, out->outfile, pipefd);
 	else
 	{
-		if (output_direction == PIPE)
+		if (out->have_pipe)
 		{
 			if (dup2(pipefd[R], STDIN_FILENO) < 0)
 				dup2_failed("dup2");
@@ -47,28 +47,15 @@ void	execute_fork(t_command_data *d, int output_direction, char *outfile)
 	}
 }
 
-// void	execute_command(t_token **head, t_command_data *d,
-// 						t_token_kind output_direction)
-// {
-// 	if (output_direction == PIPE)
-// 		execute_fork(d, output_direction, NULL);
-// 	else if (output_direction == REDIRECT_OUTPUT)
-// 		execute_fork(d, output_direction, get_output_file(head));
-// 	else if (output_direction == APPEND)
-// 		execute_fork(d, output_direction, get_output_file(head));
-// 	else if (output_direction == STDOUT)
-// 		execute_fork(d, output_direction, NULL);
-// }
-
 void	execute_command(t_token **head, t_command_data *d, t_output *out)
 {
 	if (out->kind == PIPE)
-		execute_fork(d, out->kind, out->outfile);
+		execute_fork(d, out);
 	else if (out->kind == REDIRECT_OUTPUT)
-		execute_fork(d, out->kind, out->outfile);
+		execute_fork(d, out);
 	else if (out->kind == APPEND)
-		execute_fork(d, out->kind, out->outfile);
+		execute_fork(d, out);
 	else if (out->kind == STDOUT)
-		execute_fork(d, out->kind, out->outfile);
+		execute_fork(d, out);
 	free(out);
 }

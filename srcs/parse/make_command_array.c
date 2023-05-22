@@ -23,9 +23,9 @@ size_t	count_tokens(t_token **head)
 	{
 		if (token->kind == WORD)
 			count++;
-		token = token->next;
-		if (!token || is_eoc(token->str[0]))
+		if (token->kind == PIPE)
 			break ;
+		token = token->next;
 	}
 	return (count);
 }
@@ -51,8 +51,8 @@ char	**make_command_array(t_token **head)
 			array[i] = ft_strdup(token->expanded_str);
 			if (!array[i++])
 				malloc_failed("malloc");
+			token->is_read = true;
 		}
-		token->is_read = true;
 		token = token->next;
 	}
 	array[i] = NULL;

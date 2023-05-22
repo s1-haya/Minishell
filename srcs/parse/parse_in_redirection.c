@@ -47,20 +47,23 @@ t_token	*redirect_stdin(t_token *token)
 	token->is_read = true;
 	infile = token->next;
 	// printf("infile:%s\n", infile->expanded_str);
+	infile->is_read = true;
 	if (!infile)
 		return (syntax_error_str("newline"));
 	fd = open(infile->expanded_str, O_RDONLY);
 	if (fd < 0)
+	{
 		open_failed(infile->expanded_str);
+		return (NULL);
+	}
 	if (dup2(fd, STDIN_FILENO) < 0)
 		dup2_failed("dup2");
 	if (close(fd) < 0)
 		close_failed("close");
-	infile->is_read = true;
 	return (infile);
 }
 
-void	parse_in_redirection(t_token **head)
+int	parse_in_redirection(t_token **head)
 {
 	t_token	*token;
 
@@ -71,6 +74,8 @@ void	parse_in_redirection(t_token **head)
 		// printf(" kind: %d\n", token->kind);
 		if (token->kind == STDIN)
 			token = redirect_stdin(token);
+		if (!token)
+			return (read_till_pipe(head));
 		else if (token->kind == HEREDOC)
 			token = here_documents(token);
 		else if (token->kind == HERESTRING)
@@ -81,5 +86,6 @@ void	parse_in_redirection(t_token **head)
 		else
 			token = token->next;
 	}
+	return (0);
 	// printf("token end%p\n", token);
 }

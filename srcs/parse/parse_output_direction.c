@@ -20,7 +20,21 @@ t_output	*malloc_output(void)
 	if (!out)
 		malloc_failed("malloc");
 	out->outfile = NULL;
+	out->have_pipe = false;
 	return (out);
+}
+
+void	check_pipe(t_token *token, t_output *out)
+{
+	while (token)
+	{
+		if (token->kind == PIPE)
+		{
+			out->have_pipe = true;
+			break ;
+		}
+		token = token->next;
+	}
 }
 
 t_output	*parse_out_redirection(t_token **head)
@@ -32,35 +46,8 @@ t_output	*parse_out_redirection(t_token **head)
 	out_redirection = false;
 	token = get_next_token(head);
 	out = malloc_output();
-	// printf("parseout token:%s\n", token->expanded_str);
+	check_pipe(token, out);
 	token = parse_out_helper(head, token, out, &out_redirection);
-	// while (token)
-	// {
-	// 	if (token->is_read)
-	// 	{
-	// 		token = token->next;
-	// 		continue ;
-	// 	}
-	// 	token->is_read = true;
-	// 	if (token->kind == PIPE)
-	// 	{
-	// 		if (!out_redirection)
-	// 			out->kind = PIPE;
-	// 		break ;
-	// 	}
-	// 	if (token->kind == REDIRECT_OUTPUT || token->kind == APPEND)
-	// 	{
-	// 		out_redirection = true;
-	// 		token = create_outfile(token, out);
-	// 	}
-	// 	if (!token)
-	// 	{
-	// 		read_till_pipe(head);
-	// 		break ;
-	// 	}
-	// 	token = token->next;
-	// }
-	// printf("after token:%s\n", token->expanded_str);
 	if (!token && !out_redirection)
 		out->kind = STDOUT;
 	return (out);

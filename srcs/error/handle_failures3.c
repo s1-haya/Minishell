@@ -35,5 +35,10 @@ void	*syntax_error_str(char *str)
 void	wait_failed(char *str)
 {
 	perror(str);
+}
+
+void	open_failed_exit(char *str)
+{
+	perror(str);
 	exit(EXIT_FAILURE);
 }

@@ -12,13 +12,10 @@
 
 #include "../../includes/minishell.h"
 
-void	wait_child_process(t_token **head)
+void	wait_child_process(int num_cmd)
 {
-	int		num_wait;
-
-	num_wait = get_num_wait(head);
 	// printf("num_wait:%d\n", num_wait);
-	while (num_wait--)
+	while (num_cmd--)
 	{
 		if (wait(&g_status) < 0)
 			wait_failed("wait");

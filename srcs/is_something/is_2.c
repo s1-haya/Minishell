@@ -37,3 +37,14 @@ bool	have_dollermark(char *str)
 	}
 	return (false);
 }
+
+bool	only_space(char *str)
+{
+	while (*str)
+	{
+		if (!is_space(*str))
+			return (false);
+		str++;
+	}
+	return (true);
+}

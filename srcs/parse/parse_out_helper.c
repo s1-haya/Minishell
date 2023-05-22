@@ -32,16 +32,17 @@ t_token	*create_outfile(t_token *token, t_output *out)
 void	parse_out_util1(t_output *out, bool *out_redirection)
 {
 	if (!*out_redirection)
-			out->kind = PIPE;
+		out->kind = PIPE;
 }
 
-void	parse_out_util2(t_token *token, t_output *out, bool *out_redirection)
+t_token	*parse_out_util2(t_token *token, t_output *out, bool *out_redirection)
 {
 	*out_redirection = true;
 	token = create_outfile(token, out);
+	return (token);
 }
 
-void	read_till_pipe(t_token **head)
+int	read_till_pipe(t_token **head)
 {
 	t_token	*token;
 
@@ -53,6 +54,7 @@ void	read_till_pipe(t_token **head)
 			break ;
 		token = token->next;
 	}
+	return (1);
 }
 
 t_token	*parse_out_helper(t_token **head, t_token *token,
@@ -72,7 +74,7 @@ t_token	*parse_out_helper(t_token **head, t_token *token,
 			break ;
 		}
 		if (token->kind == REDIRECT_OUTPUT || token->kind == APPEND)
-			parse_out_util2(token, out, out_redirection);
+			token = parse_out_util2(token, out, out_redirection);
 		if (!token)
 		{
 			read_till_pipe(head);

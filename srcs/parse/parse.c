@@ -71,24 +71,26 @@ t_token_kind	parse_output_direction(t_token **head)
 int	parse(t_token **head, char const *envp[])
 {
 	t_command_data	d;
-	int				output_direction;
+	int				num_cmd;
 
+	num_cmd = 0;
 	// printf("parser\n");
 	if (get_next_token(head) == NULL)
 	{
 		// printf("parser end\n");
-		return (0);
+		return (num_cmd);
 	}
 	d.envp = (char **)envp;
-	parse_in_redirection(head);
+	if (parse_in_redirection(head))
+		return (parse(head, envp));
 	d.command = make_command_array(head);
 	d.filepath = get_filepath(d.command[0]);
 	// printf("%s\n", d.command[0]);
 	// printf("%s\n", d.filepath);
-	if (!d.command[0] && !d.filepath)
-		return (free_data(&d));
+	// if (!d.command[0] && !d.filepath)
+	// 	return (free_data(&d));
 	execute_command(head, &d, parse_out_redirection(head));
-	// execute_command(head, &d, parse_output_direction(head));
-	free_data(&d);
-	return (parse(head, envp));
+	num_cmd += free_data(&d);
+	num_cmd += parse(head, envp);
+	return (num_cmd);
 }
