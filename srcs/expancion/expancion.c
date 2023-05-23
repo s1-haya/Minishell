@@ -12,6 +12,26 @@
 
 #include "../../includes/minishell.h"
 
+char	*env_var(char *str, char *new_str, size_t *index)
+{
+	size_t	i;
+	size_t	start;
+	char	*ret;
+
+	i = *index;
+	start = i++;
+	if (str[i] == '?')
+		i++;
+	else
+	{
+		while (!is_endof_env_var(str[i]))
+			i++;
+	}
+	ret = env_var_helper1(str, new_str, start, i);
+	*index = i;
+	return (ret);
+}
+
 char	*expand_env_var_helper(char *str, char *new_str, size_t *index)
 {
 	size_t	i;
@@ -21,12 +41,7 @@ char	*expand_env_var_helper(char *str, char *new_str, size_t *index)
 	if (str[i] == '\"')
 			i++;
 	else if (str[i] == '$')
-	{
-		start = i++;
-		while (!is_endof_env_var(str[i]))
-			i++;
-		new_str = env_var_helper1(str, new_str, start, i);
-	}
+		new_str = env_var(str, new_str, &i);
 	else
 	{
 		start = i;
@@ -51,22 +66,11 @@ char	*expand_env_var(char *str)
 	return (new_str);
 }
 
-bool	have_env_var(char *str)
-{
-	while (*str)
-	{
-		if (*str == '$')
-			return (true);
-		str++;
-	}
-	return (false);
-}
-
 void	make_expanded_str(t_token *node)
 {
 	if (is_quotation_mark(node->str[0]) || node->str[0] == '$')
 	{
-		if (node->str[0] != '\'' && have_env_var(node->str))
+		if (node->str[0] != '\'' && have_dollermark(node->str))
 			node->expanded_str = expand_env_var(node->str);
 		else
 			node->expanded_str = ft_substr

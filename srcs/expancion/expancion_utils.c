@@ -61,7 +61,12 @@ char	*env_var_helper1(char *str, char *new_str, size_t start, size_t end)
 	tmp = ft_substr(str, start, (end - start));
 	if (!tmp)
 		malloc_failed("malloc");
-	if (tmp[0] == '$')
+	if (ft_strlen(tmp) == 1 && tmp[0] == '?')
+	{
+		free(tmp);
+		env = ft_itoa(g_status);
+	}
+	else if (tmp[0] == '$')
 		env = tmp;
 	else
 	{

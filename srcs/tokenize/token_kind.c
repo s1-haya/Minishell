@@ -55,7 +55,7 @@ void	set_token_kind(t_token **head, t_token *token)
 	else if (last_token && last_token->kind == HERESTRING)
 		token->kind = INSTRING;
 	else if (last_token
-		&& (last_token->kind == STDOUT || last_token->kind == APPEND))
+		&& (last_token->kind == REDIRECT_OUTPUT || last_token->kind == APPEND))
 		token->kind = OUTFILE;
 	else
 		other_kinds(token);

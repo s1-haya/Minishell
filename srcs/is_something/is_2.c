@@ -16,3 +16,35 @@ bool	is_eoc(char c)
 {
 	return (c == '|' || c == '>');
 }
+
+bool	start_with(const char *str, const char *keyword)
+{
+	return (!ft_memcmp(str, keyword, ft_strlen(keyword)));
+}
+
+bool	is_meta_character(char c)
+{
+	return (c == ' ' || c == '\t' || c == '|' || c == '>' || c == '<');
+}
+
+bool	have_dollermark(char *str)
+{
+	while (*str)
+	{
+		if (*str == '$')
+			return (true);
+		str++;
+	}
+	return (false);
+}
+
+bool	only_space(char *str)
+{
+	while (*str)
+	{
+		if (!is_space(*str))
+			return (false);
+		str++;
+	}
+	return (true);
+}

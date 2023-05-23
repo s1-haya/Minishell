@@ -12,14 +12,26 @@
 
 #include "../../includes/minishell.h"
 
+int	g_status = 0;
+
 void	minishell(char *line, char const *envp[])
 {
 	t_token	*head;
+	int		num_cmd;
+	int		dupped_stdin;
 
 	head = NULL;
+	if (tokenize(&head, line))
+	{
+		free_tokens(&head);
+		return ;
+	}
+	expancion(&head);
+	/*
+	// トークン確認用
+
 	tokenize(&head, line);
 	expancion(&head);
-
 	t_token	*token;
 	token = head;
 	while (token)
@@ -28,6 +40,15 @@ void	minishell(char *line, char const *envp[])
 		printf("e str:%s---\n", token->expanded_str);
 		token = token->next;
 	}
+	*/
+	dupped_stdin = dup(STDIN_FILENO);
+	if (dupped_stdin < 0)
+		dup_failed("dup");
+	num_cmd = parse(&head, envp, dupped_stdin);
+	if (dup2(dupped_stdin, STDIN_FILENO) < 0)
+		dup2_failed("dup2");
+	wait_child_process(num_cmd);
+	free_tokens(&head);
 }
 
 int	main(int argc, char *argv[], char const *envp[])
@@ -38,7 +59,7 @@ int	main(int argc, char *argv[], char const *envp[])
 	{
 		line = readline("minishell$ ");
 		add_history(line);
-		if (line)
+		if (line && !only_space(line))
 			minishell(line, envp);
 		free(line);
 	}

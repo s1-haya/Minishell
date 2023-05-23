@@ -1,43 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_failures1.c                                 :+:      :+:    :+:   */
+/*   free_tokens.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/17 14:56:29 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/17 14:56:31 by tterao           ###   ########.fr       */
+/*   Created: 2023/05/18 15:52:29 by tterao            #+#    #+#             */
+/*   Updated: 2023/05/18 15:52:30 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	malloc_failed(char *str)
+void	free_tokens(t_token **head)
 {
-	perror(str);
-	exit(EXIT_FAILURE);
-}
+	t_token	*token;
+	t_token	*tmp;
 
-void	open_failed(char *str)
-{
-	perror(str);
-	g_status = 1;
-}
-
-void	close_failed(char *str)
-{
-	perror(str);
-	g_status = 1;
-}
-
-void	read_failed(char *str)
-{
-	perror(str);
-	g_status = 1;
-}
-
-void	write_failed(char *str)
-{
-	perror(str);
-	g_status = 1;
+	token = *head;
+	while (token)
+	{
+		tmp = token;
+		token = token->next;
+		free(tmp->str);
+		free(tmp->expanded_str);
+		free(tmp);
+	}
 }
