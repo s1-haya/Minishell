@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:56 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/05/18 20:03:07 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:02:58 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	echo_mode(char **command)
 	exit(0);
 }
 
-void	builtins(char **command)
+void	builtins(char *command)
 {
-	if (ft_strcmp(command[0], "echo"))
+	if (ft_strcmp(command, "echo"))
 		echo_mode(command);
 }

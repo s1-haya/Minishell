@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/18 20:04:03 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/23 15:58:32 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_env_var
 }	t_env_var;
 
 //builtins
-void	builtins(char **command)
+void	builtins(char **command);
 
 //tokenize
 void	tokenize(t_token **head, char *line);
