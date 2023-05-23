@@ -6,6 +6,9 @@ CFLAGS = -lreadline -fsanitize=address
 SRCS_MAIN =	main.c
 MAIN_DIR = srcs/main
 
+SRCS_BUILTINS = builtins.c	
+BUILTINS_DIR = srcs/builtins
+
 SRCS_TOKEN = tokenize.c	\
 			 token.c	\
 			 token_kind.c	\
@@ -41,6 +44,7 @@ SRCS_ERROR = handle_failures1.c	\
 ERROR_DIR = srcs/error
 
 SRCS += $(SRCS_MAIN:%.c=$(MAIN_DIR)/%.c)
+SRCS += $(SRCS_BUILTINS:%.c=$(BUILTINS_DIR)/%.c)
 SRCS += $(SRCS_TOKEN:%.c=$(TOKEN_DIR)/%.c)
 SRCS += $(SRCS_EXPANCION:%.c=$(EXPANCION_DIR)/%.c)
 SRCS += $(SRCS_PARSE:%.c=$(PARSE_DIR)/%.c)

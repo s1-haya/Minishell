@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:08:39 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/17 14:08:41 by tterao           ###   ########.fr       */
+/*   Updated: 2023/05/23 16:02:49 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	minishell(char *line, char const *envp[])
 	token = head;
 	while (token)
 	{
+		builtins(token->str);
 		printf("  str:%s---\n", token->str);
 		printf("e str:%s---\n", token->expanded_str);
 		token = token->next;
