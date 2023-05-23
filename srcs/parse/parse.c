@@ -68,7 +68,7 @@ t_token_kind	parse_output_direction(t_token **head)
 	return (token->kind);
 }
 
-int	parse(t_token **head, char const *envp[])
+int	parse(t_token **head, char const *envp[], int dupped_stdin)
 {
 	t_command_data	d;
 	int				num_cmd;
@@ -81,8 +81,8 @@ int	parse(t_token **head, char const *envp[])
 		return (num_cmd);
 	}
 	d.envp = (char **)envp;
-	if (parse_in_redirection(head))
-		return (parse(head, envp));
+	if (parse_in_redirection(head, dupped_stdin))
+		return (parse(head, envp, dupped_stdin));
 	d.command = make_command_array(head);
 	d.filepath = get_filepath(d.command[0]);
 	// printf("%s\n", d.command[0]);
@@ -91,6 +91,6 @@ int	parse(t_token **head, char const *envp[])
 	// 	return (free_data(&d));
 	execute_command(head, &d, parse_out_redirection(head));
 	num_cmd += free_data(&d);
-	num_cmd += parse(head, envp);
+	num_cmd += parse(head, envp, dupped_stdin);
 	return (num_cmd);
 }

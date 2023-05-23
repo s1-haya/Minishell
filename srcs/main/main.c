@@ -18,7 +18,7 @@ void	minishell(char *line, char const *envp[])
 {
 	t_token	*head;
 	int		num_cmd;
-	int		tmp_fd;
+	int		dupped_stdin;
 
 	head = NULL;
 	if (tokenize(&head, line))
@@ -41,11 +41,11 @@ void	minishell(char *line, char const *envp[])
 		token = token->next;
 	}
 	*/
-	tmp_fd = dup(STDIN_FILENO);
-	if (tmp_fd < 0)
+	dupped_stdin = dup(STDIN_FILENO);
+	if (dupped_stdin < 0)
 		dup_failed("dup");
-	num_cmd = parse(&head, envp);
-	if (dup2(tmp_fd, STDIN_FILENO) < 0)
+	num_cmd = parse(&head, envp, dupped_stdin);
+	if (dup2(dupped_stdin, STDIN_FILENO) < 0)
 		dup2_failed("dup2");
 	wait_child_process(num_cmd);
 	free_tokens(&head);

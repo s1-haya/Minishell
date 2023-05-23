@@ -95,10 +95,10 @@ char		*env_var_helper2(char *str, char *new_str,
 				size_t start, size_t end);
 
 //parse
-int			parse(t_token **head, char const *envp[]);
+int			parse(t_token **head, char const *envp[], int dupped_stdin);
 t_token		*get_next_token(t_token **head);
-int			parse_in_redirection(t_token **head);
-t_token		*here_documents(t_token *token);
+int			parse_in_redirection(t_token **head, int dupped_stdin);
+t_token		*here_documents(t_token *token, int dupped_stdin);
 char		*get_filepath(char *command);
 int			get_num_wait(t_token **head);
 char		**make_command_array(t_token **head);
@@ -112,7 +112,6 @@ int			read_till_pipe(t_token **head);
 void		execute_command(t_token **head, t_command_data *d, t_output *out);
 void		child_process(t_command_data *d, t_token_kind output_direction,
 				char *outfile, int *pipefd);
-// void		wait_child_process(t_token **head);
 void		wait_child_process(int num_cmd);
 
 

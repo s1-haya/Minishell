@@ -55,7 +55,15 @@ char	*read_stdin(int fd)
 	return (str);
 }
 
-char	*get_here_documents(char *delimiter)
+void	show_heredoc_prompt(int fd)
+{
+	const char	*str = "> ";
+
+	if (write(fd, str, ft_strlen(str)) < 0)
+		write_failed("write");
+}
+
+char	*get_here_documents(char *delimiter, int dupped_stdin)
 {
 	char	*here_doc;
 	char	*str;
@@ -66,7 +74,8 @@ char	*get_here_documents(char *delimiter)
 		malloc_failed("malloc");
 	while (true)
 	{
-		str = read_stdin(STDIN_FILENO);
+		show_heredoc_prompt(STDERR_FILENO);
+		str = read_stdin(dupped_stdin);
 		if (!ft_strncmp(str, delimiter, ft_strlen(delimiter))
 			&& ft_strlen(str) - 1 == ft_strlen(delimiter))
 		{
@@ -83,7 +92,7 @@ char	*get_here_documents(char *delimiter)
 	return (here_doc);
 }
 
-t_token	*here_documents(t_token *token)
+t_token	*here_documents(t_token *token, int dupped_stdin)
 {
 	char	*here_doc;
 	t_token	*delimiter;
@@ -93,7 +102,7 @@ t_token	*here_documents(t_token *token)
 	delimiter = token->next;
 	if (!delimiter)
 		return (syntax_error_str("newline"));
-	here_doc = get_here_documents(delimiter->str);
+	here_doc = get_here_documents(delimiter->str, dupped_stdin);
 	if (pipe(pipefd) < 0)
 		pipe_failed("pipe");
 	if (write(pipefd[W], here_doc, ft_strlen(here_doc)) < 0)
