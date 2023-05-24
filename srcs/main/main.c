@@ -18,6 +18,7 @@ void	minishell(char *line, char const *envp[])
 {
 	t_token	*head;
 	int		dupped_stdin;
+	pid_t	*array;
 
 	head = NULL;
 	if (tokenize(&head, line))
@@ -35,23 +36,23 @@ void	minishell(char *line, char const *envp[])
 	token = head;
 	while (token)
 	{
-		builtins(token->str);
 		printf("  str:%s---\n", token->str);
 		printf("e str:%s---\n", token->expanded_str);
 		token = token->next;
 	}
 	*/
+	// /*
 	dupped_stdin = dup(STDIN_FILENO);
 	if (dupped_stdin < 0)
 		dup_failed("dup");
-	pid_t *array = parse(&head, envp, dupped_stdin, NULL);
+	array = parse(&head, envp, dupped_stdin, NULL);
 	if (dup2(dupped_stdin, STDIN_FILENO) < 0)
 		dup2_failed("dup2");
 	if (close(dupped_stdin) < 0)
 		close_failed("close");
 	wait_child_process(array);
-	// wait_child_process(num_cmd);
 	free_tokens(&head);
+	// */
 }
 
 int	main(int argc, char *argv[], char const *envp[])
@@ -61,9 +62,11 @@ int	main(int argc, char *argv[], char const *envp[])
 	while (true)
 	{
 		line = readline("minishell$ ");
-		add_history(line);
 		if (line && !only_space(line))
+		{
 			minishell(line, envp);
+			add_history(line);
+		}
 		free(line);
 	}
 	return (0);

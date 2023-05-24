@@ -72,6 +72,8 @@ void	wait_child_process(pid_t *array)
 	size_t	i;
 
 	i = 0;
+	if (!array)
+		return ;
 	while (array[i] != -1)
 	{
 		// printf("waitpid:%d\n",array[i]);

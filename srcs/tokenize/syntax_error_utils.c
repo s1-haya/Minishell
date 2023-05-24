@@ -1,50 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_2.c                                             :+:      :+:    :+:   */
+/*   syntax_error_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/17 18:23:26 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/17 18:23:27 by tterao           ###   ########.fr       */
+/*   Created: 2023/05/24 18:09:57 by tterao            #+#    #+#             */
+/*   Updated: 2023/05/24 18:09:58 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	is_operator(char c)
+bool	is_invalid_in_value(t_token *token)
 {
-	return (c == '|' || c == '>' || c == '<');
-}
+	const char	*operators[] = {"|", "&", NULL};
+	size_t		i;
 
-bool	start_with(const char *str, const char *keyword)
-{
-	return (!ft_memcmp(str, keyword, ft_strlen(keyword)));
-}
-
-bool	is_meta_character(char c)
-{
-	return (c == ' ' || c == '\t' || c == '|' || c == '>' || c == '<');
-}
-
-bool	have_dollermark(char *str)
-{
-	while (*str)
+	if (token->kind != INFILE && token->kind != DELIMITER
+		&& token->kind != INSTRING)
+		return (false);
+	i = 0;
+	while (operators[i])
 	{
-		if (*str == '$')
+		if (start_with(token->str, operators[i]))
+		{
+			syntax_error_str(token->str);
 			return (true);
-		str++;
+		}
+		i++;
 	}
 	return (false);
-}
-
-bool	only_space(char *str)
-{
-	while (*str)
-	{
-		if (!is_space(*str))
-			return (false);
-		str++;
-	}
-	return (true);
 }

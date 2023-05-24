@@ -54,7 +54,7 @@ bool	is_invalid_token(t_token *token)
 		}
 		i++;
 	}
-	return (false);
+	return (is_invalid_in_value(token));
 }
 
 bool	is_valid_redirection(t_token **head)

@@ -89,6 +89,7 @@ t_token		*lasttoken(t_token **head);
 int			free_token(t_token *token);
 void		free_tokens(t_token **head);
 bool		is_syntax_error(t_token **head);
+bool		is_invalid_in_value(t_token *token);
 
 //expancion
 void		expancion(t_token **head);
@@ -124,10 +125,11 @@ bool		is_redirection(char c);
 bool		is_quotation_mark(char c);
 bool		is_endof_env_var(char c);
 bool		is_endof_str(char c);
-bool		is_eoc(char c);
+bool		is_operator(char c);
 bool		is_meta_character(char c);
 bool		start_with(const char *str, const char *keyword);
 bool		have_dollermark(char *str);
+bool		is_invalid_token(t_token *token);
 
 //error
 void		malloc_failed(char *str);
