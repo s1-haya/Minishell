@@ -68,29 +68,25 @@ t_token_kind	parse_output_direction(t_token **head)
 	return (token->kind);
 }
 
-int	parse(t_token **head, char const *envp[], int dupped_stdin)
+pid_t	*parse(t_token **head, char const *envp[], int dupped_stdin, pid_t *array)
 {
 	t_command_data	d;
-	int				num_cmd;
+	pid_t			pid;
 
-	num_cmd = 0;
-	// printf("parser\n");
 	if (get_next_token(head) == NULL)
-	{
-		// printf("parser end\n");
-		return (num_cmd);
-	}
+		return (array);
 	d.envp = (char **)envp;
 	if (parse_in_redirection(head, dupped_stdin))
-		return (parse(head, envp, dupped_stdin));
+		return (parse(head, envp, dupped_stdin, array));
 	d.command = make_command_array(head);
 	d.filepath = get_filepath(d.command[0]);
 	// printf("%s\n", d.command[0]);
 	// printf("%s\n", d.filepath);
 	// if (!d.command[0] && !d.filepath)
 	// 	return (free_data(&d));
-	execute_command(head, &d, parse_out_redirection(head));
-	num_cmd += free_data(&d);
-	num_cmd += parse(head, envp, dupped_stdin);
-	return (num_cmd);
+	pid = execute_command(head, &d, parse_out_redirection(head));
+	free_data(&d);
+	// num_cmd += parse(head, envp, dupped_stdin, make_process_array(pid, array));
+	// return (num_cmd);
+	return (parse(head, envp, dupped_stdin, make_process_array(pid, array)));
 }

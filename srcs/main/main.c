@@ -17,7 +17,6 @@ int	g_status = 0;
 void	minishell(char *line, char const *envp[])
 {
 	t_token	*head;
-	int		num_cmd;
 	int		dupped_stdin;
 
 	head = NULL;
@@ -45,10 +44,13 @@ void	minishell(char *line, char const *envp[])
 	dupped_stdin = dup(STDIN_FILENO);
 	if (dupped_stdin < 0)
 		dup_failed("dup");
-	num_cmd = parse(&head, envp, dupped_stdin);
+	pid_t *array = parse(&head, envp, dupped_stdin, NULL);
 	if (dup2(dupped_stdin, STDIN_FILENO) < 0)
 		dup2_failed("dup2");
-	wait_child_process(num_cmd);
+	if (close(dupped_stdin) < 0)
+		close_failed("close");
+	wait_child_process(array);
+	// wait_child_process(num_cmd);
 	free_tokens(&head);
 }
 

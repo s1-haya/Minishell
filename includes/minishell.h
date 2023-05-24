@@ -78,7 +78,7 @@ typedef struct s_output
 extern	int	g_status;
 
 //builtins
-void	builtins(char **command);
+void		builtins(char **command);
 
 //tokenize
 bool		tokenize(t_token **head, char *line);
@@ -98,7 +98,8 @@ char		*env_var_helper2(char *str, char *new_str,
 				size_t start, size_t end);
 
 //parse
-int			parse(t_token **head, char const *envp[], int dupped_stdin);
+pid_t		*parse(t_token **head, char const *envp[],
+				int dupped_stdin, pid_t *array);
 t_token		*get_next_token(t_token **head);
 int			parse_in_redirection(t_token **head, int dupped_stdin);
 t_token		*here_documents(t_token *token, int dupped_stdin);
@@ -109,14 +110,13 @@ t_output	*parse_out_redirection(t_token **head);
 t_token		*parse_out_helper(t_token **head, t_token *token,
 				t_output *out, bool *out_redirection);
 int			read_till_pipe(t_token **head);
-
+pid_t		*make_process_array(pid_t adding_pid, pid_t *array);
 
 //execve_command
-void		execute_command(t_token **head, t_command_data *d, t_output *out);
+pid_t		execute_command(t_token **head, t_command_data *d, t_output *out);
 void		child_process(t_command_data *d, t_token_kind output_direction,
 				char *outfile, int *pipefd);
-void		wait_child_process(int num_cmd);
-
+void		wait_child_process(pid_t *array);
 
 //is_sth
 bool		is_space(char c);

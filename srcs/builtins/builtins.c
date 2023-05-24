@@ -20,8 +20,8 @@ void	echo_mode(char **command)
 	printf("echo");
 	flag = 1;
 	i = 1;
-	if (ft_strcmp(command[i], "-n"))
-		flag = 0;
+	// if (ft_strcmp(command[i], "-n"))
+	// 	flag = 0;
 	while (command[i])
 	{
 		printf(" %s", command[i]);
@@ -32,8 +32,8 @@ void	echo_mode(char **command)
 	exit(0);
 }
 
-void	builtins(char *command)
+void	builtins(char **command)
 {
-	if (ft_strcmp(command, "echo"))
+	// if (ft_strcmp(command, "echo"))
 		echo_mode(command);
 }
