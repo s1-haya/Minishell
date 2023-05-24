@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:15:25 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/18 15:15:26 by tterao           ###   ########.fr       */
+/*   Updated: 2023/05/23 16:19:30 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,6 @@ void	execute_fork(t_command_data *d, t_output *out)
 
 void	execute_command(t_token **head, t_command_data *d, t_output *out)
 {
-	if (out->kind == PIPE)
-		execute_fork(d, out);
-	else if (out->kind == REDIRECT_OUTPUT)
-		execute_fork(d, out);
-	else if (out->kind == APPEND)
-		execute_fork(d, out);
-	else if (out->kind == STDOUT)
-		execute_fork(d, out);
+	execute_fork(d, out);
 	free(out);
 }
