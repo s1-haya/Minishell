@@ -89,6 +89,7 @@ void	stdout_child_process(t_command_data *d, int *pipefd)
 	if (close(pipefd[R]) + close(pipefd[W]) < 0)
 		close_failed("close");
 	// printf("stdout_child_process:%s\n", d->filepath);
+	builtins(d->command);
 	execve(d->filepath, d->command, d->envp);
 	// execve_failed("execve");
 	if (d->command[0] && !d->filepath)

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/23 15:58:32 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:16:32 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,10 @@ extern	int	g_status;
 
 //builtins
 void	builtins(char **command);
+void	echo_mode(char **command);
+void	cd_mode(char **command);
+void	pwd_mode(char **command);
+
 
 //tokenize
 bool		tokenize(t_token **head, char *line);
