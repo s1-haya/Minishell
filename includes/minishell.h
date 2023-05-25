@@ -91,12 +91,14 @@ void		free_tokens(t_token **head);
 bool		is_syntax_error(t_token **head);
 bool		is_invalid_in_value(t_token *token);
 
-//expancion
-void		expancion(t_token **head);
-char		*env_var_helper1(char *str, char *new_str,
+//expansion
+void		expansion(t_token **head);
+char		*env_var_helper1(char *str, char *expanded_str,
 				size_t start, size_t end);
-char		*env_var_helper2(char *str, char *new_str,
+char		*env_var_helper2(char *str, char *expanded_str,
 				size_t start, size_t end);
+char		*env_var(char *str, char *expanded_str, size_t *index);
+
 
 //parse
 pid_t		*parse(t_token **head, char const *envp[],
@@ -128,8 +130,9 @@ bool		is_endof_str(char c);
 bool		is_operator(char c);
 bool		is_meta_character(char c);
 bool		start_with(const char *str, const char *keyword);
-bool		have_dollermark(char *str);
+bool		have_dollarmark(char *str);
 bool		is_invalid_token(t_token *token);
+bool		have_quotationmark(char *str);
 
 //error
 void		malloc_failed(char *str);

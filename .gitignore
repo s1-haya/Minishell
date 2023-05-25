@@ -7,6 +7,9 @@ outfile
 infile
 *.o
 *.a
+.DS_Store
+.DS_Store?
+*.dSYM
 a
 b
 c

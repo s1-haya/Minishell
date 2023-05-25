@@ -38,5 +38,5 @@ bool	is_endof_env_var(char c)
 
 bool	is_endof_str(char c)
 {
-	return (c == '\"' || c == '$' || c == '\0');
+	return (c == '\"' || c == '\'' || c == '$' || c == '\0');
 }

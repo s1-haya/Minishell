@@ -82,11 +82,7 @@ pid_t	*parse(t_token **head, char const *envp[], int dupped_stdin, pid_t *array)
 	d.filepath = get_filepath(d.command[0]);
 	// printf("%s\n", d.command[0]);
 	// printf("%s\n", d.filepath);
-	// if (!d.command[0] && !d.filepath)
-	// 	return (free_data(&d));
 	pid = execute_command(head, &d, parse_out_redirection(head));
 	free_data(&d);
-	// num_cmd += parse(head, envp, dupped_stdin, make_process_array(pid, array));
-	// return (num_cmd);
 	return (parse(head, envp, dupped_stdin, make_process_array(pid, array)));
 }

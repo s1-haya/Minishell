@@ -17,9 +17,9 @@ SRCS_TOKEN = tokenize.c	\
 			 syntax_error_utils.c
 TOKEN_DIR = srcs/tokenize
 
-SRCS_EXPANCION = expancion.c	\
-				 expancion_utils.c
-EXPANCION_DIR = srcs/expancion
+SRCS_EXPANSION = expansion.c	\
+				 expansion_utils.c
+EXPANSION_DIR = srcs/expansion
 
 SRCS_PARSE = parse.c	\
 			 get_filepath.c	\
@@ -36,7 +36,8 @@ SRCS_EXECVE_COMMAND = execve_command.c	\
 EXECVE_COMMAND_DIR = srcs/execve_command
 
 SRCS_IS_STH = is_1.c	\
-			  is_2.c
+			  is_2.c	\
+			  is_3.c
 IS_STH_DIR = srcs/is_something
 
 SRCS_ERROR = handle_failures1.c	\
@@ -47,7 +48,7 @@ ERROR_DIR = srcs/error
 SRCS += $(SRCS_MAIN:%.c=$(MAIN_DIR)/%.c)
 SRCS += $(SRCS_BUILTINS:%.c=$(BUILTINS_DIR)/%.c)
 SRCS += $(SRCS_TOKEN:%.c=$(TOKEN_DIR)/%.c)
-SRCS += $(SRCS_EXPANCION:%.c=$(EXPANCION_DIR)/%.c)
+SRCS += $(SRCS_EXPANSION:%.c=$(EXPANSION_DIR)/%.c)
 SRCS += $(SRCS_PARSE:%.c=$(PARSE_DIR)/%.c)
 SRCS += $(SRCS_EXECVE_COMMAND:%.c=$(EXECVE_COMMAND_DIR)/%.c)
 SRCS += $(SRCS_IS_STH:%.c=$(IS_STH_DIR)/%.c)

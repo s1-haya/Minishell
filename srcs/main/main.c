@@ -26,18 +26,20 @@ void	minishell(char *line, char const *envp[])
 		free_tokens(&head);
 		return ;
 	}
-	expancion(&head);
+	expansion(&head);
 	/*
 	// トークン確認用
 
 	tokenize(&head, line);
-	expancion(&head);
+	expansion(&head);
+
 	t_token	*token;
 	token = head;
 	while (token)
 	{
 		printf("  str:%s---\n", token->str);
 		printf("e str:%s---\n", token->expanded_str);
+		printf("kind  :%s---\n", token->kind);
 		token = token->next;
 	}
 	*/

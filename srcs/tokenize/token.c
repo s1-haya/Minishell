@@ -53,9 +53,6 @@ int	newtoken(t_token **head, char *line, size_t start, size_t end)
 	token->str = ft_substr(line, start, (end - start));
 	if (!token->str)
 		malloc_failed("malloc");
-	if ((!ft_strncmp(token->str, "\'\'", 2) || !ft_strncmp(token->str, "\"\"", 2))
-		&& ft_strlen(token->str) == 2)
-		return (free_token(token));
 	set_token_kind(head, token);
 	addback(head, token);
 	return (0);

@@ -18,7 +18,7 @@ bool	is_invalid_in_value(t_token *token)
 	size_t		i;
 
 	if (token->kind != INFILE && token->kind != DELIMITER
-		&& token->kind != INSTRING)
+		&& token->kind != INSTRING && token->kind != OUTFILE)
 		return (false);
 	i = 0;
 	while (operators[i])

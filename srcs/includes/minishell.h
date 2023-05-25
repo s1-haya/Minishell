@@ -67,8 +67,8 @@ void	set_token_kind(t_token **head, t_token *token);
 t_token	*lasttoken(t_token **head);
 int		free_token(t_token *token);
 
-//expancion
-void	expancion(t_token **head);
+//expansion
+void	expansion(t_token **head);
 char	*env_var_helper1(char *str, char *new_str, size_t start, size_t end);
 char	*env_var_helper2(char *str, char *new_str, size_t start, size_t end);
 
