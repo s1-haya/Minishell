@@ -28,6 +28,11 @@ char	*expand_env_var_helper(char *str, char *expanded_str, size_t *index)
 			while (str[i] != '\"' && str[i] != '$' && str[i] != '\0')
 				i++;
 			expanded_str = env_var_helper2(str, expanded_str, start, i);
+			if (str[i] == '\"')
+			{
+				i++;
+				break ;
+			}
 			if (str[i] != '\0')
 				i++;
 		}

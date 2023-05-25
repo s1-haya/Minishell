@@ -39,7 +39,7 @@ void	minishell(char *line, char const *envp[])
 	{
 		printf("  str:%s---\n", token->str);
 		printf("e str:%s---\n", token->expanded_str);
-		printf("kind  :%s---\n", token->kind);
+		printf("kind :%d---\n", token->kind);
 		token = token->next;
 	}
 	*/
