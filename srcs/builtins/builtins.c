@@ -22,10 +22,10 @@ void	builtins(char **command)
 	{
 		pwd_mode(command);
 	}
-	// else if (!(ft_strcmp(command[0], "cd")))
-	// {
-	// 	cd_mode(command);
-	// }
+	else if (!(ft_strcmp(command[0], "cd")))
+	{
+		cd_mode(command);
+	}
 }
 
 // int main(void)

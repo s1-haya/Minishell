@@ -14,7 +14,13 @@
 
 void	cd_mode(char **command)
 {
-	printf("cd");
-	exit(0);
+	char	s[100];
+
+	// printf("%s\n", getcwd(s, 100));
+ 
+	chdir(command[1]);
+
+    // printf("%s\n", getcwd(s, 100));
+ 
 }
 

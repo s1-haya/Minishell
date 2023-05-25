@@ -89,6 +89,7 @@ int	parse(t_token **head, char const *envp[], int dupped_stdin)
 	// printf("%s\n", d.filepath);
 	// if (!d.command[0] && !d.filepath)
 	// 	return (free_data(&d));
+	// builtins(d.command);
 	execute_command(head, &d, parse_out_redirection(head));
 	num_cmd += free_data(&d);
 	num_cmd += parse(head, envp, dupped_stdin);
