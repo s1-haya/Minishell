@@ -57,15 +57,22 @@ bool	is_invalid_token(t_token *token)
 	return (is_invalid_in_value(token));
 }
 
-bool	is_valid_redirection(t_token **head)
+bool	is_valid_pipe_redirection(t_token **head)
 {
 	t_token	*token;
 
 	token = *head;
-	if (token && start_with(token->str, ">") && !token->next)
+	while (token)
 	{
-		syntax_error_str("newline");
-		return (false);
+		if ((token->kind == PIPE || token->kind == STDIN
+				|| token->kind == HEREDOC || token->kind == HERESTRING
+				|| token->kind == REDIRECT_OUTPUT || token->kind == APPEND)
+			&& !token->next)
+		{
+			syntax_error_str("newline");
+			return (false);
+		}
+		token = token->next;
 	}
 	return (true);
 }
@@ -74,16 +81,18 @@ bool	is_syntax_error(t_token **head)
 {
 	t_token	*token;
 
-	if (!*head && !is_first_token_valid(token))
-		return (true);
 	token = *head;
+	if (token && !is_first_token_valid(token))
+		return (true);
 	while (token)
 	{
 		if (is_invalid_token(token))
 			return (true);
 		token = token->next;
 	}
-	if (!is_valid_redirection(head))
+	if (!is_valid_pipe_redirection(head))
+		return (true);
+	if (!is_quotation_closed(head))
 		return (true);
 	return (false);
 }

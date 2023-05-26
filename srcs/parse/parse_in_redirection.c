@@ -20,8 +20,6 @@ t_token	*here_strings(t_token *token)
 
 	token->is_read = true;
 	word = token->next;
-	if (!word)
-		return (syntax_error_str("newline"));
 	if (pipe(pipefd) < 0)
 		pipe_failed("pipe");
 	tmp = word->expanded_str;
@@ -47,8 +45,6 @@ t_token	*redirect_stdin(t_token *token)
 	token->is_read = true;
 	infile = token->next;
 	// printf("infile:%s\n", infile->expanded_str);
-	if (!infile)
-		return (syntax_error_str("newline"));
 	infile->is_read = true;
 	fd = open(infile->expanded_str, O_RDONLY);
 	if (fd < 0)

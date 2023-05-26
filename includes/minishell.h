@@ -90,6 +90,7 @@ int			free_token(t_token *token);
 void		free_tokens(t_token **head);
 bool		is_syntax_error(t_token **head);
 bool		is_invalid_in_value(t_token *token);
+bool		is_quotation_closed(t_token **head);
 
 //expansion
 void		expansion(t_token **head);
