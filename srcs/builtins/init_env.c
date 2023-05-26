@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:44:06 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/05/26 16:32:23 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:29:11 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ t_env	*init_env(char **env)
 	i = 1;
 	while (env[i])
 	{
-		printf("env   %s\n", env[i]);
+		// printf("env   %s\n", env[i]);
 		list->next = new_env(env[i]);
-		printf("list name  %s\n", list->name);
-		printf("list value %s\n", list->value);
+		// printf("list name  %s\n", list->name);
+		// printf("list value %s\n", list->value);
 		list = list->next;
 		i++;
 	}
-	printf("head name   %s\n", head->name);
-	printf("head value   %s\n", head->value);
+	// printf("head name   %s\n", head->name);
+	// printf("head value   %s\n", head->value);
 	// exit(0);
 	return (head);
 }

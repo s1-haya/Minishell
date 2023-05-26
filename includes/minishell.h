@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/26 16:45:58 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:19:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ bool		is_eoc(char c);
 bool		is_meta_character(char c);
 bool		start_with(const char *str, const char *keyword);
 bool		have_dollermark(char *str);
+bool		is_char_equal(char *str);
 
 //error
 void		malloc_failed(char *str);
