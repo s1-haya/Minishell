@@ -6,13 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:56 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/05/25 14:25:30 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/26 16:46:59 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	builtins(char **command)
+void	builtins(char **command,  t_env **env_val)
 {
 	if (!(ft_strcmp(command[0], "echo")))
 	{
@@ -25,6 +25,14 @@ void	builtins(char **command)
 	else if (!(ft_strcmp(command[0], "cd")))
 	{
 		cd_mode(command);
+	}
+	else if (!(ft_strcmp(command[0], "export")))
+	{
+		export_mode(command, env_val);
+	}
+	else if (!(ft_strcmp(command[0], "env")))
+	{
+		env_mode(command, env_val);
 	}
 }
 

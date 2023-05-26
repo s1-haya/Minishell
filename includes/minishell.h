@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/24 14:16:32 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/26 16:45:58 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ enum	e_exit_status
 	SYNTAX_ERROR = 258,
 };
 
+typedef struct s_env{
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}				t_env;
+
 typedef struct s_token
 {
 	char			*str;
@@ -65,7 +71,7 @@ typedef struct s_command_data
 {
 	char	*filepath;
 	char	**command;
-	char	**envp;
+	t_env	*envp;
 }	t_command_data;
 
 typedef struct s_output
@@ -78,11 +84,14 @@ typedef struct s_output
 extern	int	g_status;
 
 //builtins
-void	builtins(char **command);
+void	builtins(char **command, t_env **env_val);
 void	echo_mode(char **command);
 void	cd_mode(char **command);
 void	pwd_mode(char **command);
-
+void	export_mode(char **command, t_env **env_val);
+void	env_mode(char **command, t_env **env_val);
+size_t	arrlen(char **arr);
+t_env	*init_env(char **env);
 
 //tokenize
 bool		tokenize(t_token **head, char *line);

@@ -9,7 +9,11 @@ MAIN_DIR = srcs/main
 SRCS_BUILTINS = builtins.c	\
 				 cd.c \
 				 echo.c \
-				 pwd.c 
+				 export.c \
+				 env.c \
+				 pwd.c \
+				 arrlen.c \
+				 init_env.c
 BUILTINS_DIR = srcs/builtins
 
 SRCS_TOKEN = tokenize.c	\
