@@ -13,7 +13,8 @@ SRCS_BUILTINS = builtins.c	\
 				 env.c \
 				 pwd.c \
 				 arrlen.c \
-				 init_env.c
+				 init_env.c \
+				 structure_to_array.c
 BUILTINS_DIR = srcs/builtins
 
 SRCS_TOKEN = tokenize.c	\

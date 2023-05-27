@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/27 17:50:44 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/27 20:38:39 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	env_mode(char **command,  t_env **env_val);
 size_t	arrlen(char **arr);
 t_env	*init_env(char **env);
 t_env	*new_env(char *env_val);
+char	**change_array(t_env *env);
 
 //tokenize
 bool		tokenize(t_token **head, char *line);
