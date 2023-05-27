@@ -55,7 +55,7 @@ bool	is_quotation_closed(t_token **head)
 
 bool	is_invalid_in_value(t_token *token)
 {
-	const char	*operators[] = {"|", "&", NULL};
+	const char	*operators[] = {"|", ">", "<", "&", NULL};
 	size_t		i;
 
 	if (token->kind != INFILE && token->kind != DELIMITER
