@@ -100,13 +100,13 @@ char		*env_var_helper2(char *str, char *expanded_str,
 				size_t start, size_t end);
 char		*env_var(char *str, char *expanded_str, size_t *index);
 
-
 //parse
 pid_t		*parse(t_token **head, char const *envp[],
 				int dupped_stdin, pid_t *array);
 t_token		*get_next_token(t_token **head);
 int			parse_in_redirection(t_token **head, int dupped_stdin);
 t_token		*here_documents(t_token *token, int dupped_stdin);
+char		*make_delimiter(char *str);
 char		*get_filepath(char *command);
 int			get_num_wait(t_token **head);
 char		**make_command_array(t_token **head);

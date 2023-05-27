@@ -1,7 +1,7 @@
 NAME = minishell
 CC = cc
 # CFLAGS = -Wall -Wextra -Werror -lreadline
-CFLAGS = -lreadline -fsanitize=address
+CFLAGS = -lreadline -fsanitize=address -g
 
 SRCS_MAIN =	main.c
 MAIN_DIR = srcs/main
@@ -27,7 +27,8 @@ SRCS_PARSE = parse.c	\
 			 make_command_array.c	\
 			 parse_in_redirection.c	\
 			 parse_output_direction.c	\
-			 parse_out_helper.c
+			 parse_out_helper.c	\
+			 delimiter.c
 PARSE_DIR = srcs/parse
 
 SRCS_EXECVE_COMMAND = execve_command.c	\
