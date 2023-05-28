@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 20:04:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/05/27 20:54:10 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/28 18:33:17 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static size_t	count_env(t_env *env)
 	size_t	count;
 
 	count = 0;
-	while (env)
+	while (env != NULL)
 	{
 		env = env->next;
 		count++;
@@ -94,5 +94,6 @@ char	**change_array(t_env *env)
 		env = env->next;
 		i++;
 	}
+	env_arr[i] = NULL;
 	return (env_arr);
 }

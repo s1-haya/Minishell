@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:56 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/05/26 16:46:59 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/28 18:46:09 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	builtins(char **command,  t_env **env_val)
 {
-	if (!(ft_strcmp(command[0], "echo")))
-	{
-		echo_mode(command);
-	}
-	else if (!(ft_strcmp(command[0], "pwd")))
+	// if (!(ft_strcmp(command[0], "echo")))
+	// {
+	// 	echo_mode(command);
+	// }
+	if (!(ft_strcmp(command[0], "pwd")))
 	{
 		pwd_mode(command);
 	}

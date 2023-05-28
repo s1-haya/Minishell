@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:57:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/05/27 20:42:08 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/28 18:38:52 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static bool	check_env_valid(char *new_env)
 	return (true);
 }
 
-static bool	*envlast(t_env *env, t_env **p, t_env *new_env, bool sign_char_equal)
+static bool	envlast(t_env *env, t_env **p, t_env *new_env, bool sign_char_equal)
 {
 	*p = env;
 	while (*p)
@@ -87,7 +87,6 @@ static void	export_util_mode(char **command, t_env **env_val)
 void	export_mode(char **command, t_env **env_val)
 {
 	t_env	*ite;
-	char	**arr;
 	size_t	i;
 
 	ite = *env_val;
@@ -103,11 +102,4 @@ void	export_mode(char **command, t_env **env_val)
 		}
 	}
 	export_util_mode(command, env_val);
-	arr = change_array(env_val);
-	i = 0;
-	while (arr[i])
-	{
-		printf("export name   %s\n", arr[i]);
-		i++;
-	}
 }
