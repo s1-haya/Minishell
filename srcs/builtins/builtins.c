@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:56 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/05/28 18:46:09 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/28 22:04:12 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ void	builtins(char **command,  t_env **env_val)
 	else if (!(ft_strcmp(command[0], "env")))
 	{
 		env_mode(command, env_val);
+	}
+	else if (!(ft_strcmp(command[0], "unset")))
+	{
+		unset_mode(command, env_val);
 	}
 }
 

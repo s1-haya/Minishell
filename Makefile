@@ -12,10 +12,11 @@ SRCS_BUILTINS = builtins.c	\
 				 echo.c \
 				 export.c \
 				 env.c \
+				 unset.c \
 				 pwd.c \
 				 arrlen.c \
 				 init_env.c \
-				 structure_to_array.c
+				 structure_to_array.c 
 
 BUILTINS_DIR = srcs/builtins
 
