@@ -107,6 +107,7 @@ t_token		*get_next_token(t_token **head);
 int			parse_in_redirection(t_token **head, int dupped_stdin);
 t_token		*here_documents(t_token *token, int dupped_stdin);
 char		*make_delimiter(char *str);
+char		*expand_env_var_heredoc(char *str, char *delimiter);
 char		*get_filepath(char *command);
 int			get_num_wait(t_token **head);
 char		**make_command_array(t_token **head);

@@ -69,7 +69,7 @@ char	*get_here_documents(char *delimiter, int dupped_stdin)
 	char	*str;
 	char	*tmp;
 
-	printf("del:%s\n", delimiter);
+	// printf("del:%s\n", delimiter);
 	here_doc = ft_strdup("");
 	if (!here_doc)
 		malloc_failed("malloc");
@@ -96,12 +96,15 @@ char	*get_here_documents(char *delimiter, int dupped_stdin)
 t_token	*here_documents(t_token *token, int dupped_stdin)
 {
 	char	*here_doc;
+	char	*expanded_delimiter;
 	t_token	*delimiter;
 	int		pipefd[2];
 
 	token->is_read = true;
 	delimiter = token->next;
-	here_doc = get_here_documents(make_delimiter(delimiter->str), dupped_stdin);
+	expanded_delimiter = make_delimiter(delimiter->str);
+	here_doc = get_here_documents(expanded_delimiter, dupped_stdin);
+	here_doc = expand_env_var_heredoc(here_doc, expanded_delimiter);
 	if (pipe(pipefd) < 0)
 		pipe_failed("pipe");
 	if (write(pipefd[W], here_doc, ft_strlen(here_doc)) < 0)

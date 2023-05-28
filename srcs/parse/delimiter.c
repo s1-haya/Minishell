@@ -17,7 +17,6 @@ char	*join_delimiter(char *str, char *delimiter, size_t start, size_t end)
 	char	*adding_str;
 	char	*new_delimiter;
 
-	printf("%zu %zu\n", start, end);
 	if (end == start)
 		adding_str = ft_strdup("");
 	else
