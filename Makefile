@@ -6,7 +6,15 @@ CFLAGS = -lreadline -fsanitize=address
 SRCS_MAIN =	main.c
 MAIN_DIR = srcs/main
 
-SRCS_BUILTINS = builtins.c	
+SRCS_BUILTINS = builtins.c	\
+				 cd.c \
+				 echo.c \
+				 export.c \
+				 env.c \
+				 pwd.c \
+				 arrlen.c \
+				 init_env.c \
+				 structure_to_array.c
 BUILTINS_DIR = srcs/builtins
 
 SRCS_TOKEN = tokenize.c	\
