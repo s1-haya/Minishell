@@ -95,7 +95,6 @@ char	*str_heredoc(char *str, char *heredoc, size_t *index)
 	while (str[i] != '$' && str[i] != '\0')
 		i++;
 	adding_str = ft_substr(str, start, i - start);
-	// printf("adding_str:%s--\n", adding_str);
 	if (!adding_str)
 		malloc_failed("malloc");
 	if (!heredoc)
@@ -119,8 +118,11 @@ char	*expand_env_var_heredoc(char *str, char *delimiter)
 	size_t	start;
 
 	heredoc = NULL;
-	if (is_quotation_mark(delimiter[0]) || !have_dollarmark(str))
+	if (have_quotationmark(delimiter) || !have_dollarmark(str))
+	{
+		free(delimiter);
 		return (str);
+	}
 	i = 0;
 	while (str[i])
 	{
