@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:08:39 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/28 18:35:06 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/28 19:04:13 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	minishell(char *line, t_command_data *d)
 		close_failed("close");
 	wait_child_process(array);
 	free_tokens(&head);
-	// */
 }
 
 int	main(int argc, char *argv[], char const *envp[])

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 20:12:25 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/28 18:45:54 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/28 19:05:19 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ pid_t	*parse(t_token **head, t_command_data *d, int dupped_stdin, pid_t *array)
 // 	d.envp = (char **)envp;
 	if (parse_in_redirection(head, dupped_stdin))
 		return (parse(head, d, dupped_stdin, array));
-	d.command = make_command_array(head);
-	d.filepath = get_filepath(d.command[0]);
+	d->command = make_command_array(head);
+	d->filepath = get_filepath(d->command[0]);
 	// printf("%s\n", d.command[0]);
 	// printf("%s\n", d.filepath);
   builtins(d->command, &(d->envp));
-	pid = execute_command(head, &d, parse_out_redirection(head));
+	pid = execute_command(head, d, parse_out_redirection(head));
 	free_data(d);
 	return (parse(head, d, dupped_stdin, make_process_array(pid, array)));
 // =======

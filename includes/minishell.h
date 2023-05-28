@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/27 20:38:39 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/28 19:06:55 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ bool		start_with(const char *str, const char *keyword);
 bool		have_dollarmark(char *str);
 bool		is_invalid_token(t_token *token);
 bool		have_quotationmark(char *str);
+bool		is_char_equal(char *str);
 
 //error
 void		malloc_failed(char *str);

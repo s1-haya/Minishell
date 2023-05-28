@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 18:23:26 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/26 18:35:38 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/28 19:06:31 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,4 @@ bool	only_space(char *str)
 		str++;
 	}
 	return (true);
-}
-
-bool	is_char_equal(char *str)
-{
-	while (*str)
-	{
-		if (*str == '=')
-			return (true);
-		str++;
-	}
-	return (false);
 }
