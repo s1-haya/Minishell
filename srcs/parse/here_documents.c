@@ -104,7 +104,7 @@ t_token	*here_documents(t_token *token, int dupped_stdin)
 	delimiter = token->next;
 	expanded_delimiter = make_delimiter(delimiter->str);
 	here_doc = get_here_documents(expanded_delimiter, dupped_stdin);
-	here_doc = expand_env_var_heredoc(here_doc, expanded_delimiter);
+	here_doc = expand_env_var_heredoc(here_doc, expanded_delimiter, delimiter->str);
 	if (pipe(pipefd) < 0)
 		pipe_failed("pipe");
 	if (write(pipefd[W], here_doc, ft_strlen(here_doc)) < 0)

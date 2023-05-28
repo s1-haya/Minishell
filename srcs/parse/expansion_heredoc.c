@@ -111,14 +111,14 @@ char	*str_heredoc(char *str, char *heredoc, size_t *index)
 	return (heredoc);
 }
 
-char	*expand_env_var_heredoc(char *str, char *delimiter)
+char	*expand_env_var_heredoc(char *str, char *delimiter, char *delimiter_str)
 {
 	char	*heredoc;
 	size_t	i;
 	size_t	start;
 
 	heredoc = NULL;
-	if (have_quotationmark(delimiter) || !have_dollarmark(str))
+	if (have_quotationmark(delimiter_str) || !have_dollarmark(str))
 	{
 		free(delimiter);
 		return (str);
