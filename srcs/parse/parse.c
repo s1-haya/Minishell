@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 20:12:25 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/17 20:12:26 by tterao           ###   ########.fr       */
+/*   Updated: 2023/05/28 18:45:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,53 @@ t_token_kind	parse_output_direction(t_token **head)
 	return (token->kind);
 }
 
-pid_t	*parse(t_token **head, char const *envp[], int dupped_stdin, pid_t *array)
+pid_t	*parse(t_token **head, t_command_data *d, int dupped_stdin, pid_t *array)
 {
-	t_command_data	d;
 	pid_t			pid;
+// =======
+// int	parse(t_token **head, t_command_data *d, int dupped_stdin)
+// {
+// 	int				num_cmd;
+// >>>>>>> master
 
 	if (get_next_token(head) == NULL)
 		return (array);
-	d.envp = (char **)envp;
+// 	d.envp = (char **)envp;
 	if (parse_in_redirection(head, dupped_stdin))
-		return (parse(head, envp, dupped_stdin, array));
+		return (parse(head, d, dupped_stdin, array));
 	d.command = make_command_array(head);
 	d.filepath = get_filepath(d.command[0]);
 	// printf("%s\n", d.command[0]);
 	// printf("%s\n", d.filepath);
+  builtins(d->command, &(d->envp));
 	pid = execute_command(head, &d, parse_out_redirection(head));
-	free_data(&d);
-	return (parse(head, envp, dupped_stdin, make_process_array(pid, array)));
+	free_data(d);
+	return (parse(head, d, dupped_stdin, make_process_array(pid, array)));
+// =======
+// 	{
+// 		// printf("parser end\n");
+// 		return (num_cmd);
+// 	}
+// 	// if (d.envp == NULL)
+// 	// 	d.envp = init_env((char **)envp);
+// 	if (parse_in_redirection(head, dupped_stdin))
+// 		return (parse(head, d, dupped_stdin));
+// 	d->command = make_command_array(head);
+// 	d->filepath = get_filepath(d->command[0]);
+// 	// printf("%s\n", d.command[0]);
+// 	// printf("%s\n", d.filepath);
+// 	// if (!d.command[0] && !d.filepath)
+// 	// 	return (free_data(&d));
+// 	// while (d.envp)
+// 	// {
+// 	// 	printf("env   %s\n", d.envp);
+// 	// 	d.envp++;
+// 	// }
+// 	// printf("%s\n", d.envp->value);
+// 	builtins(d->command, &(d->envp));
+// 	execute_command(head, d, parse_out_redirection(head));
+// 	num_cmd += free_data(d);
+// 	num_cmd += parse(head, d, dupped_stdin);
+// 	return (num_cmd);
+// >>>>>>> master
 }

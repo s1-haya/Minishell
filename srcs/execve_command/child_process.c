@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:21:41 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/18 15:21:42 by tterao           ###   ########.fr       */
+/*   Updated: 2023/05/28 18:36:58 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	pipe_child_process(t_command_data *d, int *pipefd)
 		dup2_failed("dup2");
 	if (close(pipefd[W]) < 0)
 		close_failed("close");
-	execve(d->filepath, d->command, d->envp);
+	execve(d->filepath, d->command, change_array(d->envp));
 	// execve_failed("execve");
 	if (!d->command[0])
 		exit(EXIT_SUCCESS);
@@ -50,7 +50,7 @@ void	redirect_output_child_process(t_command_data *d, int *pipefd,
 		dup2_failed("dup2");
 	if (close(fd) < 0)
 		close_failed("close");
-	execve(d->filepath, d->command, d->envp);
+	execve(d->filepath, d->command, change_array(d->envp));
 	if (!d->command[0])
 		exit(EXIT_SUCCESS);
 // execve_failed("execve");
@@ -77,7 +77,7 @@ void	append_child_process(t_command_data *d, int *pipefd, char *outfile)
 		dup2_failed("dup2");
 	if (close(fd) < 0)
 		close_failed("close");
-	execve(d->filepath, d->command, d->envp);
+	execve(d->filepath, d->command, change_array(d->envp));
 	if (!d->command[0])
 		exit(EXIT_SUCCESS);
 	// execve_failed("execve");
@@ -89,7 +89,8 @@ void	stdout_child_process(t_command_data *d, int *pipefd)
 	if (close(pipefd[R]) + close(pipefd[W]) < 0)
 		close_failed("close");
 	// printf("stdout_child_process:%s\n", d->filepath);
-	execve(d->filepath, d->command, d->envp);
+	// builtins(d->command);
+	execve(d->filepath, d->command, change_array(d->envp));
 	// execve_failed("execve");
 	if (d->command[0] && !d->filepath)
 		command_not_found(d->command[0]);

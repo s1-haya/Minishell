@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/23 15:58:32 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/27 20:38:39 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ enum	e_exit_status
 	SYNTAX_ERROR = 258,
 };
 
+typedef struct s_env{
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}				t_env;
+
 typedef struct s_token
 {
 	char			*str;
@@ -65,7 +71,7 @@ typedef struct s_command_data
 {
 	char	*filepath;
 	char	**command;
-	char	**envp;
+	t_env	*envp;
 }	t_command_data;
 
 typedef struct s_output
@@ -78,7 +84,16 @@ typedef struct s_output
 extern	int	g_status;
 
 //builtins
-void		builtins(char **command);
+void	builtins(char **command,  t_env **env_val);
+void	echo_mode(char **command);
+void	cd_mode(char **command);
+void	pwd_mode(char **command);
+void	export_mode(char **command,  t_env **env_val);
+void	env_mode(char **command,  t_env **env_val);
+size_t	arrlen(char **arr);
+t_env	*init_env(char **env);
+t_env	*new_env(char *env_val);
+char	**change_array(t_env *env);
 
 //tokenize
 bool		tokenize(t_token **head, char *line);
@@ -101,8 +116,12 @@ char		*env_var_helper2(char *str, char *expanded_str,
 char		*env_var(char *str, char *expanded_str, size_t *index);
 
 //parse
-pid_t		*parse(t_token **head, char const *envp[],
+// <<<<<<< tterao
+pid_t		*parse(t_token **head, t_command_data *d,
 				int dupped_stdin, pid_t *array);
+// =======
+// int			parse(t_token **head, t_command_data *d, int dupped_stdin);
+// >>>>>>> master
 t_token		*get_next_token(t_token **head);
 int			parse_in_redirection(t_token **head, int dupped_stdin);
 t_token		*here_documents(t_token *token, int dupped_stdin);
