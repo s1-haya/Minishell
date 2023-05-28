@@ -25,22 +25,26 @@ size_t	get_end_index(char *line, size_t i)
 {
 	char	c;
 
-	if (is_quotation_mark(line[i]))
-	{
-		c = line[i++];
-		while (line[i] != c && line[i] != '\0')
-			i++;
-		if (line[i] != '\0')
-			i++;
-	}
-	else if (is_redirection(line[i]) || line[i] == '|')
+	if (is_operator(line[i]))
 	{
 		c = line[i];
 		while (line[i] == c && line[i] != '\0')
 			i++;
+		return (i);
 	}
-	else
-		i = get_end_index_helper(line, i);
+	while (!is_meta_character(line[i]) && line[i] != '\0')
+	{
+		if (is_quotation_mark(line[i]))
+		{
+			c = line[i++];
+			while (line[i] != c && line[i] != '\0')
+				i++;
+			if (line[i] == c)
+				i++;
+			continue ;
+		}
+		i++;
+	}
 	return (i);
 }
 

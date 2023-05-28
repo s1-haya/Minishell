@@ -12,46 +12,57 @@
 
 #include "../../includes/minishell.h"
 
-char	*env_var_helper2(char *str, char *new_str, size_t start, size_t end)
+char	*malloc_null(char *expanded_str)
+{
+	if (!expanded_str)
+		expanded_str = ft_strdup("\0");
+	if (!expanded_str)
+		malloc_failed("malloc");
+	return (expanded_str);
+}
+
+char	*env_var_helper2(char *str, char *expanded_str, size_t start, size_t end)
 {
 	char	*adding_str;
 	char	*tmp;
 
-	if (!new_str)
-		new_str = ft_substr(str, start, (end - start));
+	if (start == end)
+		return (malloc_null(expanded_str));
+	if (!expanded_str)
+		expanded_str = ft_substr(str, start, (end - start));
 	else
 	{
 		adding_str = ft_substr(str, start, (end - start));
 		if (!adding_str)
 			malloc_failed("malloc");
-		tmp = new_str;
-		new_str = ft_strjoin(new_str, adding_str);
+		tmp = expanded_str;
+		expanded_str = ft_strjoin(expanded_str, adding_str);
 		free(adding_str);
 		free(tmp);
 	}
-	if (!new_str)
+	if (!expanded_str)
 		malloc_failed("malloc");
-	return (new_str);
+	return (expanded_str);
 }
 
-char	*env_ver_join(char *env, char *new_str)
+char	*env_ver_join(char *env, char *expanded_str)
 {
 	char	*tmp;
 
-	if (!new_str)
-		new_str = ft_strdup(env);
+	if (!expanded_str)
+		expanded_str = ft_strdup(env);
 	else
 	{
-		tmp = new_str;
-		new_str = ft_strjoin(new_str, env);
+		tmp = expanded_str;
+		expanded_str = ft_strjoin(expanded_str, env);
 		free(tmp);
 	}
-	if (!new_str)
+	if (!expanded_str)
 		malloc_failed("malloc");
-	return (new_str);
+	return (expanded_str);
 }
 
-char	*env_var_helper1(char *str, char *new_str, size_t start, size_t end)
+char	*env_var_helper1(char *str, char *expanded_str, size_t start, size_t end)
 {
 	char	*env;
 	char	*tmp;
@@ -73,7 +84,27 @@ char	*env_var_helper1(char *str, char *new_str, size_t start, size_t end)
 		env = getenv(tmp);
 		free(tmp);
 		if (!env)
-			return (new_str);
+			return (expanded_str);
 	}
-	return (env_ver_join(env, new_str));
+	return (env_ver_join(env, expanded_str));
+}
+
+char	*env_var(char *str, char *expanded_str, size_t *index)
+{
+	size_t	i;
+	size_t	start;
+	char	*ret;
+
+	i = *index;
+	start = i++;
+	if (str[i] == '?')
+		i++;
+	else
+	{
+		while (!is_endof_env_var(str[i]))
+			i++;
+	}
+	ret = env_var_helper1(str, expanded_str, start, i);
+	*index = i;
+	return (ret);
 }

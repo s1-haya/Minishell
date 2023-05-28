@@ -47,7 +47,7 @@ char	*get_filepath(char *command)
 	char	**dirs;
 	size_t	i;
 
-	if (!command)
+	if (!command || command[0] == '\0')
 		return (NULL);
 	if (access(command, X_OK) == 0)
 	{

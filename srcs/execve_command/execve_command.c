@@ -23,7 +23,7 @@ char	*get_output_file(t_token **head)
 	return (token->expanded_str);
 }
 
-void	execute_fork(t_command_data *d, t_output *out)
+pid_t	execute_fork(t_command_data *d, t_output *out)
 {
 	int		pipefd[2];
 	pid_t	pid;
@@ -45,17 +45,15 @@ void	execute_fork(t_command_data *d, t_output *out)
 		if (close(pipefd[R]) + close(pipefd[W]) < 0)
 			close_failed("close");
 	}
+	return (pid);
 }
 
-void	execute_command(t_token **head, t_command_data *d, t_output *out)
+pid_t	execute_command(t_token **head, t_command_data *d, t_output *out)
 {
-	if (out->kind == PIPE)
-		execute_fork(d, out);
-	else if (out->kind == REDIRECT_OUTPUT)
-		execute_fork(d, out);
-	else if (out->kind == APPEND)
-		execute_fork(d, out);
-	else if (out->kind == STDOUT)
-		execute_fork(d, out);
+	pid_t	pid;
+
+	pid = execute_fork(d, out);
 	free(out);
+	// printf("pid:%d\n", pid);
+	return (pid);
 }

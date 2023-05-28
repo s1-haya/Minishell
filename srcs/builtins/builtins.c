@@ -43,19 +43,19 @@ void	builtins(char **command,  t_env **env_val)
 // 	return (0);
 // }
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <string.h>
 
-size_t	arr_len(char **arr)
-{
-	size_t	i;
+// size_t	arr_len(char **arr)
+// {
+// 	size_t	i;
 
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	while (arr[i])
+// 		i++;
+// 	return (i);
+// }
 
 // int main(void)
 // {

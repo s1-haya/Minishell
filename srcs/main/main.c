@@ -17,8 +17,8 @@ int	g_status = 0;
 void	minishell(char *line, t_command_data *d)
 {
 	t_token	*head;
-	int		num_cmd;
 	int		dupped_stdin;
+	pid_t	*array;
 
 	head = NULL;
 	if (tokenize(&head, line))
@@ -26,30 +26,38 @@ void	minishell(char *line, t_command_data *d)
 		free_tokens(&head);
 		return ;
 	}
-	expancion(&head);
+	expansion(&head);
 	/*
 	// トークン確認用
 
 	tokenize(&head, line);
-	expancion(&head);
+	expansion(&head);
+
 	t_token	*token;
 	token = head;
 	while (token)
 	{
-		builtins(token->str);
 		printf("  str:%s---\n", token->str);
 		printf("e str:%s---\n", token->expanded_str);
+		printf("kind :%d---\n", token->kind);
 		token = token->next;
 	}
 	*/
+	// /*
 	dupped_stdin = dup(STDIN_FILENO);
 	if (dupped_stdin < 0)
 		dup_failed("dup");
-	num_cmd = parse(&head, d, dupped_stdin);
+	array = parse(&head, d, dupped_stdin, NULL);
+// =======
+// 	num_cmd = parse(&head, d, dupped_stdin);
+// >>>>>>> master
 	if (dup2(dupped_stdin, STDIN_FILENO) < 0)
 		dup2_failed("dup2");
-	wait_child_process(num_cmd);
+	if (close(dupped_stdin) < 0)
+		close_failed("close");
+	wait_child_process(array);
 	free_tokens(&head);
+	// */
 }
 
 int	main(int argc, char *argv[], char const *envp[])
@@ -61,9 +69,13 @@ int	main(int argc, char *argv[], char const *envp[])
 	while (true)
 	{
 		line = readline("minishell$ ");
-		add_history(line);
 		if (line && !only_space(line))
+		{
 			minishell(line, &(d));
+			add_history(line);
+		}
+// =======
+// 			minishell(line, &(d));
 		free(line);
 	}
 	return (0);

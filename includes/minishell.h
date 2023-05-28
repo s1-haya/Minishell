@@ -104,19 +104,30 @@ t_token		*lasttoken(t_token **head);
 int			free_token(t_token *token);
 void		free_tokens(t_token **head);
 bool		is_syntax_error(t_token **head);
+bool		is_invalid_in_value(t_token *token);
+bool		is_quotation_closed(t_token **head);
 
-//expancion
-void		expancion(t_token **head);
-char		*env_var_helper1(char *str, char *new_str,
+//expansion
+void		expansion(t_token **head);
+char		*env_var_helper1(char *str, char *expanded_str,
 				size_t start, size_t end);
-char		*env_var_helper2(char *str, char *new_str,
+char		*env_var_helper2(char *str, char *expanded_str,
 				size_t start, size_t end);
+char		*env_var(char *str, char *expanded_str, size_t *index);
 
 //parse
-int			parse(t_token **head, t_command_data *d, int dupped_stdin);
+// <<<<<<< tterao
+pid_t		*parse(t_token **head, t_command_data *d,
+				int dupped_stdin, pid_t *array);
+// =======
+// int			parse(t_token **head, t_command_data *d, int dupped_stdin);
+// >>>>>>> master
 t_token		*get_next_token(t_token **head);
 int			parse_in_redirection(t_token **head, int dupped_stdin);
 t_token		*here_documents(t_token *token, int dupped_stdin);
+char		*make_delimiter(char *str);
+char		*expand_env_var_heredoc(char *str, char *delimiter,
+				char *delimiter_str);
 char		*get_filepath(char *command);
 int			get_num_wait(t_token **head);
 char		**make_command_array(t_token **head);
@@ -124,14 +135,13 @@ t_output	*parse_out_redirection(t_token **head);
 t_token		*parse_out_helper(t_token **head, t_token *token,
 				t_output *out, bool *out_redirection);
 int			read_till_pipe(t_token **head);
-
+pid_t		*make_process_array(pid_t adding_pid, pid_t *array);
 
 //execve_command
-void		execute_command(t_token **head, t_command_data *d, t_output *out);
+pid_t		execute_command(t_token **head, t_command_data *d, t_output *out);
 void		child_process(t_command_data *d, t_token_kind output_direction,
 				char *outfile, int *pipefd);
-void		wait_child_process(int num_cmd);
-
+void		wait_child_process(pid_t *array);
 
 //is_sth
 bool		is_space(char c);
@@ -139,11 +149,12 @@ bool		is_redirection(char c);
 bool		is_quotation_mark(char c);
 bool		is_endof_env_var(char c);
 bool		is_endof_str(char c);
-bool		is_eoc(char c);
+bool		is_operator(char c);
 bool		is_meta_character(char c);
 bool		start_with(const char *str, const char *keyword);
-bool		have_dollermark(char *str);
-bool		is_char_equal(char *str);
+bool		have_dollarmark(char *str);
+bool		is_invalid_token(t_token *token);
+bool		have_quotationmark(char *str);
 
 //error
 void		malloc_failed(char *str);

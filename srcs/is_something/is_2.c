@@ -12,9 +12,9 @@
 
 #include "../../includes/minishell.h"
 
-bool	is_eoc(char c)
+bool	is_operator(char c)
 {
-	return (c == '|' || c == '>');
+	return (c == '|' || c == '>' || c == '<');
 }
 
 bool	start_with(const char *str, const char *keyword)
@@ -27,7 +27,7 @@ bool	is_meta_character(char c)
 	return (c == ' ' || c == '\t' || c == '|' || c == '>' || c == '<');
 }
 
-bool	have_dollermark(char *str)
+bool	have_dollarmark(char *str)
 {
 	while (*str)
 	{

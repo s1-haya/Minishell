@@ -1,10 +1,11 @@
 NAME = minishell
 CC = cc
 # CFLAGS = -Wall -Wextra -Werror -lreadline
-CFLAGS = -lreadline -fsanitize=address
+CFLAGS = -lreadline -fsanitize=address -g
 
 SRCS_MAIN =	main.c
 MAIN_DIR = srcs/main
+
 
 SRCS_BUILTINS = builtins.c	\
 				 cd.c \
@@ -15,18 +16,20 @@ SRCS_BUILTINS = builtins.c	\
 				 arrlen.c \
 				 init_env.c \
 				 structure_to_array.c
+
 BUILTINS_DIR = srcs/builtins
 
 SRCS_TOKEN = tokenize.c	\
 			 token.c	\
 			 token_kind.c	\
 			 free_tokens.c	\
-			 syntax_error.c
+			 syntax_error.c	\
+			 syntax_error_utils.c
 TOKEN_DIR = srcs/tokenize
 
-SRCS_EXPANCION = expancion.c	\
-				 expancion_utils.c
-EXPANCION_DIR = srcs/expancion
+SRCS_EXPANSION = expansion.c	\
+				 expansion_utils.c
+EXPANSION_DIR = srcs/expansion
 
 SRCS_PARSE = parse.c	\
 			 get_filepath.c	\
@@ -34,7 +37,9 @@ SRCS_PARSE = parse.c	\
 			 make_command_array.c	\
 			 parse_in_redirection.c	\
 			 parse_output_direction.c	\
-			 parse_out_helper.c
+			 parse_out_helper.c	\
+			 delimiter.c	\
+			 expansion_heredoc.c
 PARSE_DIR = srcs/parse
 
 SRCS_EXECVE_COMMAND = execve_command.c	\
@@ -43,7 +48,8 @@ SRCS_EXECVE_COMMAND = execve_command.c	\
 EXECVE_COMMAND_DIR = srcs/execve_command
 
 SRCS_IS_STH = is_1.c	\
-			  is_2.c
+			  is_2.c	\
+			  is_3.c
 IS_STH_DIR = srcs/is_something
 
 SRCS_ERROR = handle_failures1.c	\
@@ -54,7 +60,7 @@ ERROR_DIR = srcs/error
 SRCS += $(SRCS_MAIN:%.c=$(MAIN_DIR)/%.c)
 SRCS += $(SRCS_BUILTINS:%.c=$(BUILTINS_DIR)/%.c)
 SRCS += $(SRCS_TOKEN:%.c=$(TOKEN_DIR)/%.c)
-SRCS += $(SRCS_EXPANCION:%.c=$(EXPANCION_DIR)/%.c)
+SRCS += $(SRCS_EXPANSION:%.c=$(EXPANSION_DIR)/%.c)
 SRCS += $(SRCS_PARSE:%.c=$(PARSE_DIR)/%.c)
 SRCS += $(SRCS_EXECVE_COMMAND:%.c=$(EXECVE_COMMAND_DIR)/%.c)
 SRCS += $(SRCS_IS_STH:%.c=$(IS_STH_DIR)/%.c)
