@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:08:39 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/28 19:04:13 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/28 21:05:40 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ void	minishell(char *line, t_command_data *d)
 	if (dupped_stdin < 0)
 		dup_failed("dup");
 	array = parse(&head, d, dupped_stdin, NULL);
-// =======
-// 	num_cmd = parse(&head, d, dupped_stdin);
-// >>>>>>> master
 	if (dup2(dupped_stdin, STDIN_FILENO) < 0)
 		dup2_failed("dup2");
 	if (close(dupped_stdin) < 0)
@@ -73,8 +70,6 @@ int	main(int argc, char *argv[], char const *envp[])
 			minishell(line, &(d));
 			add_history(line);
 		}
-// =======
-// 			minishell(line, &(d));
 		free(line);
 	}
 	return (0);

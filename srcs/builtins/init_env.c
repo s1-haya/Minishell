@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:44:06 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/05/26 18:29:11 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/28 22:14:55 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ t_env	*new_env(char *env_val)
 	if (split_env_val == NULL)
 		return (NULL);
 	list->name = split_env_val[0];
-	list->value = split_env_val[1];
+	if (split_env_val[1] == NULL && is_char_equal(env_val))
+		list->value = ft_strdup("");
+	else
+		list->value = split_env_val[1];
 	list->next = NULL;
 	return (list);
 }
