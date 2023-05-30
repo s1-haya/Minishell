@@ -26,12 +26,12 @@ void	minishell(char *line, t_command_data *d)
 		free_tokens(&head);
 		return ;
 	}
-	expansion(&head);
+	expansion(&head, d->envs);
 	/*
 	// トークン確認用
 
 	tokenize(&head, line);
-	expansion(&head);
+	expansion(&head, d->envs);
 
 	t_token	*token;
 	token = head;
@@ -54,6 +54,7 @@ void	minishell(char *line, t_command_data *d)
 		close_failed("close");
 	wait_child_process(array);
 	free_tokens(&head);
+	// */
 }
 
 int	main(int argc, char *argv[], char const *envp[])
@@ -61,7 +62,7 @@ int	main(int argc, char *argv[], char const *envp[])
 	char			*line;
 	t_command_data	d;
 
-	d.envp = init_env((char **)envp);
+	d.envs = init_env((char **)envp);
 	while (true)
 	{
 		line = readline("minishell$ ");

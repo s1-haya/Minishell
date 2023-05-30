@@ -71,7 +71,7 @@ typedef struct s_command_data
 {
 	char	*filepath;
 	char	**command;
-	t_env	*envp;
+	t_env	*envs;
 }	t_command_data;
 
 typedef struct s_output
@@ -109,20 +109,15 @@ bool		is_invalid_in_value(t_token *token);
 bool		is_quotation_closed(t_token **head);
 
 //expansion
-void		expansion(t_token **head);
-char		*env_var_helper1(char *str, char *expanded_str,
-				size_t start, size_t end);
-char		*env_var_helper2(char *str, char *expanded_str,
-				size_t start, size_t end);
-char		*env_var(char *str, char *expanded_str, size_t *index);
+void		expansion(t_token **head, t_env *envs);
+char		*expand_env_var(char *str, t_env *envs);
+char		*get_env_exp_ev(char *env, t_env *envs);
+char		*ft_getenv(char *target, t_env *envs);
+char		*delete_quotation(char *str);
 
 //parse
-// <<<<<<< tterao
 pid_t		*parse(t_token **head, t_command_data *d,
 				int dupped_stdin, pid_t *array);
-// =======
-// int			parse(t_token **head, t_command_data *d, int dupped_stdin);
-// >>>>>>> master
 t_token		*get_next_token(t_token **head);
 int			parse_in_redirection(t_token **head, int dupped_stdin);
 t_token		*here_documents(t_token *token, int dupped_stdin);

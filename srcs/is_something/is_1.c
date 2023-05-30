@@ -29,7 +29,7 @@ bool	is_quotation_mark(char c)
 
 bool	is_endof_env_var(char c)
 {
-	return (c == ' ' || c == '\"' || c == '\'' || c == '\n'
+	return (is_space(c) || c == '\"' || c == '\'' || c == '\n'
 		|| c == ';' || c == ':' || c == ',' || c == '.'
 		|| c == '/' || c == '\\' || c == '$' || c == '+'
 		|| c == '-' || c == '=' || c == '!' || c == '@'

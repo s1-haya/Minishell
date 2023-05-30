@@ -47,7 +47,7 @@ char	*init_del_vars(size_t *i, size_t *start, bool *quotation)
 void	reset_del_vars(size_t *start, size_t *i, bool *quotation)
 {
 	*start = *i;
-	*quotation = !quotation;
+	*quotation = !*quotation;
 }
 
 char	*make_delimiter(char *str)

@@ -29,7 +29,9 @@ SRCS_TOKEN = tokenize.c	\
 TOKEN_DIR = srcs/tokenize
 
 SRCS_EXPANSION = expansion.c	\
-				 expansion_utils.c
+				 expand_env_var.c	\
+				 get_env.c	\
+				 delete_quotation.c
 EXPANSION_DIR = srcs/expansion
 
 SRCS_PARSE = parse.c	\
