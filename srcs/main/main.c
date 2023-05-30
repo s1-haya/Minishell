@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:08:39 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/28 19:04:13 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/28 21:05:40 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ int	main(int argc, char *argv[], char const *envp[])
 			minishell(line, &(d));
 			add_history(line);
 		}
-// =======
-// 			minishell(line, &(d));
 		free(line);
 	}
 	return (0);

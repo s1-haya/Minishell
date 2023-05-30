@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 20:04:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/05/28 18:33:17 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/28 19:29:32 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static	char	*m_str(char const *s)
 	len = ft_strlen(s);
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
-		return (NULL);
+		malloc_failed("malloc");
 	i = 0;
 	while (i < len)
 	{
@@ -60,12 +60,16 @@ static char	*set_env_str(char *name, char *equal, char *value)
 {
 	char	*env_str;
 
+	
 	env_str = ft_strjoin(name, equal);
 	if (!env_str)
-		return (NULL);
-	env_str = ft_strjoin(env_str, value);
-	if (!env_str)
-		return (NULL);
+		malloc_failed("malloc");
+	if (value != NULL)
+	{
+		env_str = ft_strjoin(env_str, value);
+		if (!env_str)
+			malloc_failed("malloc");
+	}
 	return (env_str);
 }
 
@@ -77,7 +81,7 @@ char	**change_array(t_env *env)
 
 	env_arr = (char **)malloc(sizeof(char *) * (count_env(env) + 1));
 	if (env_arr == NULL)
-		return (NULL);
+		malloc_failed("malloc");
 	i = 0;
 	while (env)
 	{
@@ -89,7 +93,7 @@ char	**change_array(t_env *env)
 		if (env_arr[i] == NULL)
 		{
 			freeall(env_arr, i);
-			exit(EXIT_FAILURE);
+			malloc_failed("malloc");
 		}
 		env = env->next;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:57:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/05/28 18:38:52 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/28 21:30:20 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static bool	envlast(t_env *env, t_env **p, t_env *new_env, bool sign_char_equal)
 			}
 			return (false);
 		}
-		if (!(*p)->next)
+		if (!(*p)->next->next)
 			break ;
 		(*p) = (*p)->next;
 	}
@@ -52,13 +52,19 @@ static bool	envlast(t_env *env, t_env **p, t_env *new_env, bool sign_char_equal)
 static void	envadd_back(t_env **env, t_env *new_env, bool sign_char_equal)
 {
 	t_env	*p;
+	t_env	*tmp_lst;
 
 	if (!env || !new_env)
 		return ;
 	if (!envlast(*env, &p, new_env, sign_char_equal))
 		return ;
 	if (p)
+	{
+		tmp_lst = p->next;
 		p->next = new_env;
+		new_env->next = tmp_lst;
+		tmp_lst->next = NULL;
+	}
 	else
 	{
 		*env = new_env;
@@ -77,7 +83,10 @@ static void	export_util_mode(char **command, t_env **env_val)
 		sign_char_equal = is_char_equal(command[i]);
 		ite = new_env(command[i]);
 		if (!check_env_valid(ite->name))
+		{
 			printf("bash: export: `%s': not a valid identifier\n", command[i]);
+			break ;
+		}
 		else
 			envadd_back(env_val, ite, sign_char_equal);
 		i++;

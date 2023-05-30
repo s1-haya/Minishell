@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/28 19:06:55 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/28 22:04:49 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,17 @@ typedef struct s_output
 extern	int	g_status;
 
 //builtins
-void		builtins(char **command,  t_env **env_val);
-void		echo_mode(char **command);
-void		cd_mode(char **command);
-void		pwd_mode(char **command);
-void		export_mode(char **command,  t_env **env_val);
-void		env_mode(char **command,  t_env **env_val);
-size_t		arrlen(char **arr);
-t_env		*init_env(char **env);
-t_env		*new_env(char *env_val);
-char		**change_array(t_env *env);
+void	builtins(char **command,  t_env **env_val);
+void	echo_mode(char **command);
+void	cd_mode(char **command);
+void	pwd_mode(char **command);
+void	export_mode(char **command,  t_env **env_val);
+void	env_mode(char **command,  t_env **env_val);
+size_t	arrlen(char **arr);
+t_env	*init_env(char **env);
+t_env	*new_env(char *env_val);
+char	**change_array(t_env *env);
+void	unset_mode(char **command, t_env **env_val);
 
 //tokenize
 bool		tokenize(t_token **head, char *line);
@@ -115,12 +116,8 @@ char		*ft_getenv(char *target, t_env *envs);
 char		*delete_quotation(char *str);
 
 //parse
-// <<<<<<< tterao
 pid_t		*parse(t_token **head, t_command_data *d,
 				int dupped_stdin, pid_t *array);
-// =======
-// int			parse(t_token **head, t_command_data *d, int dupped_stdin);
-// >>>>>>> master
 t_token		*get_next_token(t_token **head);
 int			parse_in_redirection(t_token **head, int dupped_stdin);
 t_token		*here_documents(t_token *token, int dupped_stdin);
