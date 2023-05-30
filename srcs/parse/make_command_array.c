@@ -12,6 +12,16 @@
 
 #include "../../includes/minishell.h"
 
+bool	is_skipping(t_token *token)
+{
+	if (token->str[0] == '$' && token->expanded_str[0] == '\0')
+	{
+		token->is_read = true;
+		return (true);
+	}
+	return (false);
+}
+
 size_t	count_tokens(t_token **head)
 {
 	size_t	count;
@@ -21,7 +31,7 @@ size_t	count_tokens(t_token **head)
 	token = get_next_token(head);
 	while (token)
 	{
-		if (token->kind == WORD)
+		if (token->kind == WORD && !is_skipping(token))
 			count++;
 		if (token->kind == PIPE)
 			break ;
@@ -46,7 +56,7 @@ char	**make_command_array(t_token **head)
 	i = 0;
 	while (i < len)
 	{
-		if (token->kind == WORD)
+		if (token->kind == WORD && !token->is_read)
 		{
 			array[i] = ft_strdup(token->expanded_str);
 			if (!array[i++])

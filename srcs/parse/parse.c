@@ -70,51 +70,20 @@ t_token_kind	parse_output_direction(t_token **head)
 
 pid_t	*parse(t_token **head, t_command_data *d, int dupped_stdin, pid_t *array)
 {
-	pid_t			pid;
-// =======
-// int	parse(t_token **head, t_command_data *d, int dupped_stdin)
-// {
-// 	int				num_cmd;
-// >>>>>>> master
+	pid_t		pid;
+	t_output	*output;
 
 	if (get_next_token(head) == NULL)
 		return (array);
-// 	d.envs = (char **)envs;
 	if (parse_in_redirection(head, dupped_stdin))
 		return (parse(head, d, dupped_stdin, array));
 	d->command = make_command_array(head);
 	d->filepath = get_filepath(d->command[0]);
 	// printf("%s\n", d.command[0]);
 	// printf("%s\n", d.filepath);
+	output = parse_out_redirection(head);
 	// builtins(d->command, &(d->envs));
-	pid = execute_command(head, d, parse_out_redirection(head));
+	pid = execute_command(head, d, output);
 	free_data(d);
 	return (parse(head, d, dupped_stdin, make_process_array(pid, array)));
-// =======
-// 	{
-// 		// printf("parser end\n");
-// 		return (num_cmd);
-// 	}
-// 	// if (d.envs == NULL)
-// 	// 	d.envs = init_env((char **)envs);
-// 	if (parse_in_redirection(head, dupped_stdin))
-// 		return (parse(head, d, dupped_stdin));
-// 	d->command = make_command_array(head);
-// 	d->filepath = get_filepath(d->command[0]);
-// 	// printf("%s\n", d.command[0]);
-// 	// printf("%s\n", d.filepath);
-// 	// if (!d.command[0] && !d.filepath)
-// 	// 	return (free_data(&d));
-// 	// while (d.envs)
-// 	// {
-// 	// 	printf("env   %s\n", d.envs);
-// 	// 	d.envs++;
-// 	// }
-// 	// printf("%s\n", d.envs->value);
-// 	builtins(d->command, &(d->envs));
-// 	execute_command(head, d, parse_out_redirection(head));
-// 	num_cmd += free_data(d);
-// 	num_cmd += parse(head, d, dupped_stdin);
-// 	return (num_cmd);
-// >>>>>>> master
 }
