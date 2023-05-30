@@ -71,7 +71,7 @@ typedef struct s_command_data
 {
 	char	*filepath;
 	char	**command;
-	t_env	*envp;
+	t_env	*envs;
 }	t_command_data;
 
 typedef struct s_output
@@ -84,16 +84,16 @@ typedef struct s_output
 extern	int	g_status;
 
 //builtins
-void	builtins(char **command,  t_env **env_val);
-void	echo_mode(char **command);
-void	cd_mode(char **command);
-void	pwd_mode(char **command);
-void	export_mode(char **command,  t_env **env_val);
-void	env_mode(char **command,  t_env **env_val);
-size_t	arrlen(char **arr);
-t_env	*init_env(char **env);
-t_env	*new_env(char *env_val);
-char	**change_array(t_env *env);
+void		builtins(char **command,  t_env **env_val);
+void		echo_mode(char **command);
+void		cd_mode(char **command);
+void		pwd_mode(char **command);
+void		export_mode(char **command,  t_env **env_val);
+void		env_mode(char **command,  t_env **env_val);
+size_t		arrlen(char **arr);
+t_env		*init_env(char **env);
+t_env		*new_env(char *env_val);
+char		**change_array(t_env *env);
 
 //tokenize
 bool		tokenize(t_token **head, char *line);
@@ -108,12 +108,11 @@ bool		is_invalid_in_value(t_token *token);
 bool		is_quotation_closed(t_token **head);
 
 //expansion
-void		expansion(t_token **head);
-char		*env_var_helper1(char *str, char *expanded_str,
-				size_t start, size_t end);
-char		*env_var_helper2(char *str, char *expanded_str,
-				size_t start, size_t end);
-char		*env_var(char *str, char *expanded_str, size_t *index);
+void		expansion(t_token **head, t_env *envs);
+char		*expand_env_var(char *str, t_env *envs);
+char		*get_env_exp_ev(char *env, t_env *envs);
+char		*ft_getenv(char *target, t_env *envs);
+char		*delete_quotation(char *str);
 
 //parse
 // <<<<<<< tterao

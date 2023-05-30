@@ -52,8 +52,10 @@ pid_t	execute_command(t_token **head, t_command_data *d, t_output *out)
 {
 	pid_t	pid;
 
+	//sigigonroe
 	pid = execute_fork(d, out);
 	free(out);
 	// printf("pid:%d\n", pid);
+	//sigigonroe解除
 	return (pid);
 }
