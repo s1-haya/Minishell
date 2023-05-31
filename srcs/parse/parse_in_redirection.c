@@ -59,7 +59,7 @@ t_token	*redirect_stdin(t_token *token)
 	return (infile);
 }
 
-int	parse_in_redirection(t_token **head, int dupped_stdin)
+int	parse_in_redirection(t_token **head, t_env *envs, int dupped_stdin)
 {
 	t_token	*token;
 
@@ -73,7 +73,7 @@ int	parse_in_redirection(t_token **head, int dupped_stdin)
 		if (!token)
 			return (read_till_pipe(head));
 		else if (token->kind == HEREDOC)
-			token = here_documents(token, dupped_stdin);
+			token = here_documents(token, envs, dupped_stdin);
 		else if (token->kind == HERESTRING)
 			token = here_strings(token);
 		else if (token->kind == PIPE)

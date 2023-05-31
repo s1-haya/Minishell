@@ -1,7 +1,7 @@
 NAME = minishell
 CC = cc
 # CFLAGS = -Wall -Wextra -Werror -lreadline
-CFLAGS = -lreadline -fsanitize=address -g
+CFLAGS = -lreadline -fsanitize=address
 
 SRCS_MAIN =	main.c
 MAIN_DIR = srcs/main
@@ -16,7 +16,7 @@ SRCS_BUILTINS = builtins.c	\
 				 pwd.c \
 				 arrlen.c \
 				 init_env.c \
-				 structure_to_array.c 
+				 structure_to_array.c
 
 BUILTINS_DIR = srcs/builtins
 

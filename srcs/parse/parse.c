@@ -75,7 +75,7 @@ pid_t	*parse(t_token **head, t_command_data *d, int dupped_stdin, pid_t *array)
 
 	if (get_next_token(head) == NULL)
 		return (array);
-	if (parse_in_redirection(head, dupped_stdin))
+	if (parse_in_redirection(head, d->envs, dupped_stdin))
 		return (parse(head, d, dupped_stdin, array));
 	d->command = make_command_array(head);
 	d->filepath = get_filepath(d->command[0]);

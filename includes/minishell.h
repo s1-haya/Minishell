@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
@@ -119,11 +120,11 @@ char		*delete_quotation(char *str);
 pid_t		*parse(t_token **head, t_command_data *d,
 				int dupped_stdin, pid_t *array);
 t_token		*get_next_token(t_token **head);
-int			parse_in_redirection(t_token **head, int dupped_stdin);
-t_token		*here_documents(t_token *token, int dupped_stdin);
+int			parse_in_redirection(t_token **head, t_env *envs, int dupped_stdin);
+t_token		*here_documents(t_token *token, t_env *envs, int dupped_stdin);
 char		*make_delimiter(char *str);
 char		*expand_env_var_heredoc(char *str, char *delimiter,
-				char *delimiter_str);
+				char *delimiter_str, t_env *envs);
 char		*get_filepath(char *command);
 int			get_num_wait(t_token **head);
 char		**make_command_array(t_token **head);
