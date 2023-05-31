@@ -125,7 +125,7 @@ t_token		*here_documents(t_token *token, t_env *envs, int dupped_stdin);
 char		*make_delimiter(char *str);
 char		*expand_env_var_heredoc(char *str, char *delimiter,
 				char *delimiter_str, t_env *envs);
-char		*get_filepath(char *command);
+char		*get_filepath(char *command, t_env *envs);
 int			get_num_wait(t_token **head);
 char		**make_command_array(t_token **head);
 t_output	*parse_out_redirection(t_token **head);
