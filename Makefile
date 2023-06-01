@@ -14,6 +14,7 @@ SRCS_BUILTINS = builtins.c	\
 				 env.c \
 				 unset.c \
 				 pwd.c \
+				 exit.c \
 				 arrlen.c \
 				 init_env.c \
 				 structure_to_array.c 

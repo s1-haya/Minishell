@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 20:12:25 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/28 20:59:38 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/30 20:00:25 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,13 @@ pid_t	*parse(t_token **head, t_command_data *d, int dupped_stdin, pid_t *array)
 	// printf("%s\n", d.command[0]);
 	// printf("%s\n", d.filepath);
 	output = parse_out_redirection(head);
-	// builtins(d->command, &(d->envs));
-	pid = execute_command(head, d, output);
+	if (output->have_pipe == false && array == NULL && \
+	is_builtin((d->command)[0]))
+		builtins(d->command, &(d->envs));
+	else
+		pid = execute_command(head, d, output);
+	// printf("builtin %s\n", (d->command)[0]);
+	// printf("builtin %s\n", (d->command)[0]);
 	free_data(d);
 	return (parse(head, d, dupped_stdin, make_process_array(pid, array)));
 }
