@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:37:51 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/28 19:06:36 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/30 20:00:15 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,26 @@ bool	is_char_equal(char *str)
 		str++;
 	}
 	return (false);
+}
+
+bool	is_builtin(char *command)
+{
+	bool	is_builtin;
+
+	is_builtin = false;
+	if (!(ft_strcmp(command, "echo")))
+		is_builtin = true;
+	else if (!(ft_strcmp(command, "pwd")))
+		is_builtin = true;
+	else if (!(ft_strcmp(command, "cd")))
+		is_builtin = true;
+	else if (!(ft_strcmp(command, "export")))
+		is_builtin = true;
+	else if (!(ft_strcmp(command, "env")))
+		is_builtin = true;
+	else if (!(ft_strcmp(command, "unset")))
+		is_builtin = true;
+	else if (!(ft_strcmp(command, "exit")))
+		is_builtin = true;
+	return (is_builtin);
 }

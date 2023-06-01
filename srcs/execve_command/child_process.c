@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:21:41 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/28 18:36:58 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/05/30 20:25:52 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	pipe_child_process(t_command_data *d, int *pipefd)
 		dup2_failed("dup2");
 	if (close(pipefd[W]) < 0)
 		close_failed("close");
-	execve(d->filepath, d->command, change_array(d->envs));
+	if (is_builtin((d->command)[0]))
+		builtins(d->command, &(d->envs));
+	else
+		execve(d->filepath, d->command, change_array(d->envs));
 	// execve_failed("execve");
 	if (!d->command[0])
 		exit(EXIT_SUCCESS);

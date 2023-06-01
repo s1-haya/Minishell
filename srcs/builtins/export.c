@@ -103,10 +103,13 @@ void	export_mode(char **command, t_env **env_val)
 	{
 		while(ite != NULL)
 		{
-			if (ite->value != NULL)
-				printf("declare -x %s=\"%s\"\n", ite->name, ite->value);
-			else
-				printf("declare -x %s\n", ite->name);
+			if (ft_strcmp(ite->name, "_"))
+			{
+				if (ite->value != NULL)
+					printf("declare -x %s=\"%s\"\n", ite->name, ite->value);
+				else
+					printf("declare -x %s\n", ite->name);
+			}
 			ite = ite->next;
 		}
 	}

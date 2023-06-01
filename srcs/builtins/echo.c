@@ -6,11 +6,37 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:12:40 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/05/24 14:12:54 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/01 15:47:12 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	check_option(char *command)
+{
+	size_t	i;
+
+	if (!ft_strcmp(command, "-n"))
+		return (0);
+	i = 0;
+	if (!(command[i] == '-'))
+		return (1);
+	while (command[++i])
+	{
+		if (!(command[i] == 'n'))
+			return (1);
+	}
+	return (0);
+}
+
+void	echo_null_check(char *command)
+{
+	if (command == NULL)
+	{
+		printf("\n");
+		return ;
+	}
+}
 
 void	echo_mode(char **command)
 {
@@ -18,23 +44,24 @@ void	echo_mode(char **command)
 	int		flag;
 	int		space_flag;
 
-	flag = 1;
 	i = 1;
 	space_flag = 0;
-	if (!ft_strcmp(command[1], "-n"))
-	{
-		flag = 0;
-		i++;
-	}
+	flag = 0;
+	echo_null_check(command[i]);
 	while (command[i])
 	{
 		if (space_flag)
 			printf(" ");
 		space_flag = 1;
-		printf("%s", command[i]);
+		if (check_option(command[i]) || flag)
+		{
+			printf("%s", command[i]);
+			flag = 1;
+		}
+		else
+			space_flag = 0;
 		i++;
 	}
 	if (flag)
 		printf("\n");
-	exit(EXIT_SUCCESS);
 }
