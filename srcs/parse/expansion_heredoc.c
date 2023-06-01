@@ -18,7 +18,7 @@ char	*expand_heredoc(char *str, t_env *envs)
 
 	if (!ft_strncmp(str, "$?", ft_strlen(str)) && ft_strlen(str) == 2)
 	{
-		env = ft_itoa(g_status);
+		env = ft_itoa(g_vars.exit_status);
 		if (!env)
 			malloc_failed("malloc");
 		free(str);

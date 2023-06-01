@@ -82,7 +82,13 @@ typedef struct s_output
 	bool			have_pipe;
 }	t_output;
 
-extern	int	g_status;
+typedef struct s_g_vars
+{
+	int	exit_status;
+	int	sig_no;
+}	t_g_vars;
+
+extern t_g_vars	g_vars;
 
 //builtins
 void	builtins(char **command,  t_env **env_val);
@@ -140,6 +146,11 @@ void		child_process(t_command_data *d, t_token_kind output_direction,
 				char *outfile, int *pipefd);
 void		wait_child_process(pid_t *array);
 
+
+//signal
+void		ft_signal(void);
+void		handle_eof(char *str);
+
 //is_sth
 bool		is_space(char c);
 bool		is_redirection(char c);
@@ -153,6 +164,7 @@ bool		have_dollarmark(char *str);
 bool		is_invalid_token(t_token *token);
 bool		have_quotationmark(char *str);
 bool		is_char_equal(char *str);
+bool		only_space(char *str);
 
 //error
 void		malloc_failed(char *str);
@@ -170,6 +182,6 @@ void		wait_failed(char *str);
 void		command_not_found(char *command);
 void		*syntax_error_c(char c);
 void		*syntax_error_str(char *str);
-bool		only_space(char *str);
+void		sigaction_failed(char *str);
 
 #endif

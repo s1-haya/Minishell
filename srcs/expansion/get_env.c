@@ -21,7 +21,7 @@ char	*get_env_exp_ev(char *env, t_env *envs)
 	free_flag = true;
 	if (!ft_strncmp(env, "$?", ft_strlen(env)) && ft_strlen(env) == 2)
 	{
-		env = ft_itoa(g_status);
+		env = ft_itoa(g_vars.exit_status);
 		if (!env)
 			malloc_failed("malloc");
 	}

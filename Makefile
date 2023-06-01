@@ -1,5 +1,7 @@
 NAME = minishell
 CC = cc
+
+INCLUDES = includes/minishell.h
 # CFLAGS = -Wall -Wextra -Werror -lreadline
 CFLAGS = -lreadline -fsanitize=address
 
@@ -50,6 +52,9 @@ SRCS_EXECVE_COMMAND = execve_command.c	\
 					  wait_child_process.c
 EXECVE_COMMAND_DIR = srcs/execve_command
 
+SRCS_SIGNAL = signal.c
+SIGNAL_DIR = srcs/signal
+
 SRCS_IS_STH = is_1.c	\
 			  is_2.c	\
 			  is_3.c
@@ -57,7 +62,8 @@ IS_STH_DIR = srcs/is_something
 
 SRCS_ERROR = handle_failures1.c	\
 			 handle_failures2.c	\
-			 handle_failures3.c
+			 handle_failures3.c	\
+			 handle_failures4.c
 ERROR_DIR = srcs/error
 
 SRCS += $(SRCS_MAIN:%.c=$(MAIN_DIR)/%.c)
@@ -66,6 +72,7 @@ SRCS += $(SRCS_TOKEN:%.c=$(TOKEN_DIR)/%.c)
 SRCS += $(SRCS_EXPANSION:%.c=$(EXPANSION_DIR)/%.c)
 SRCS += $(SRCS_PARSE:%.c=$(PARSE_DIR)/%.c)
 SRCS += $(SRCS_EXECVE_COMMAND:%.c=$(EXECVE_COMMAND_DIR)/%.c)
+SRCS += $(SRCS_SIGNAL:%.c=$(SIGNAL_DIR)/%.c)
 SRCS += $(SRCS_IS_STH:%.c=$(IS_STH_DIR)/%.c)
 SRCS += $(SRCS_ERROR:%.c=$(ERROR_DIR)/%.c)
 

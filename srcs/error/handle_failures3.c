@@ -21,14 +21,14 @@ void	command_not_found(char *command)
 void	*syntax_error_c(char c)
 {
 	printf("syntax error near unexpected token `%c'\n", c);
-	g_status = SYNTAX_ERROR;
+	g_vars.exit_status = SYNTAX_ERROR;
 	return (NULL);
 }
 
 void	*syntax_error_str(char *str)
 {
 	printf("syntax error near unexpected token `%s'\n", str);
-	g_status = SYNTAX_ERROR;
+	g_vars.exit_status = SYNTAX_ERROR;
 	return (NULL);
 }
 
