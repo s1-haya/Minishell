@@ -12,13 +12,13 @@
 
 #include "../../includes/minishell.h"
 
-char	*expand_heredoc(char *str)
+char	*expand_heredoc(char *str, t_env *envs)
 {
 	char	*env;
 
 	if (!ft_strncmp(str, "$?", ft_strlen(str)) && ft_strlen(str) == 2)
 	{
-		env = ft_itoa(g_status);
+		env = ft_itoa(g_vars.exit_status);
 		if (!env)
 			malloc_failed("malloc");
 		free(str);
@@ -27,17 +27,17 @@ char	*expand_heredoc(char *str)
 		env = str;
 	else
 	{
-		env = getenv(str);
+		env = ft_getenv(str, envs);
 		free(str);
 	}
 	return (env);
 }
 
-char	*env_var_heredoc_helper(char *tmp, char *heredoc)
+char	*env_var_heredoc_helper(char *tmp, char *heredoc, t_env *envs)
 {
 	char	*env;
 
-	env = expand_heredoc(tmp);
+	env = expand_heredoc(tmp, envs);
 	if (!env)
 		return (heredoc);
 	if (!heredoc)
@@ -55,7 +55,7 @@ char	*env_var_heredoc_helper(char *tmp, char *heredoc)
 	return (heredoc);
 }
 
-char	*env_var_heredoc(char *str, char *heredoc, size_t *index)
+char	*env_var_heredoc(char *str, char *heredoc, size_t *index, t_env *envs)
 {
 	size_t	i;
 	size_t	start;
@@ -80,7 +80,7 @@ char	*env_var_heredoc(char *str, char *heredoc, size_t *index)
 			malloc_failed("malloc");
 	}
 	*index = i;
-	return (env_var_heredoc_helper(tmp, heredoc));
+	return (env_var_heredoc_helper(tmp, heredoc, envs));
 }
 
 char	*str_heredoc(char *str, char *heredoc, size_t *index)
@@ -111,7 +111,8 @@ char	*str_heredoc(char *str, char *heredoc, size_t *index)
 	return (heredoc);
 }
 
-char	*expand_env_var_heredoc(char *str, char *delimiter, char *delimiter_str)
+char	*expand_env_var_heredoc(char *str, char *delimiter,
+									char *delimiter_str, t_env *envs)
 {
 	char	*heredoc;
 	size_t	i;
@@ -129,7 +130,7 @@ char	*expand_env_var_heredoc(char *str, char *delimiter, char *delimiter_str)
 		if (str[i] == '$')
 		{
 			i++;
-			heredoc = env_var_heredoc(str, heredoc, &i);
+			heredoc = env_var_heredoc(str, heredoc, &i, envs);
 		}
 		else
 			heredoc = str_heredoc(str, heredoc, &i);

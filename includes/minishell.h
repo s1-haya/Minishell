@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
@@ -81,7 +82,13 @@ typedef struct s_output
 	bool			have_pipe;
 }	t_output;
 
-extern	int	g_status;
+typedef struct s_g_vars
+{
+	int	exit_status;
+	int	sig_no;
+}	t_g_vars;
+
+extern t_g_vars	g_vars;
 
 //builtins
 void	builtins(char **command,  t_env **env_val);
@@ -120,12 +127,12 @@ char		*delete_quotation(char *str);
 pid_t		*parse(t_token **head, t_command_data *d,
 				int dupped_stdin, pid_t *array);
 t_token		*get_next_token(t_token **head);
-int			parse_in_redirection(t_token **head, int dupped_stdin);
-t_token		*here_documents(t_token *token, int dupped_stdin);
+int			parse_in_redirection(t_token **head, t_env *envs, int dupped_stdin);
+t_token		*here_documents(t_token *token, t_env *envs, int dupped_stdin);
 char		*make_delimiter(char *str);
 char		*expand_env_var_heredoc(char *str, char *delimiter,
-				char *delimiter_str);
-char		*get_filepath(char *command);
+				char *delimiter_str, t_env *envs);
+char		*get_filepath(char *command, t_env *envs);
 int			get_num_wait(t_token **head);
 char		**make_command_array(t_token **head);
 t_output	*parse_out_redirection(t_token **head);
@@ -140,6 +147,11 @@ void		child_process(t_command_data *d, t_token_kind output_direction,
 				char *outfile, int *pipefd);
 void		wait_child_process(pid_t *array);
 
+
+//signal
+void		ft_signal(void);
+void		handle_eof(char *str);
+
 //is_sth
 bool		is_space(char c);
 bool		is_redirection(char c);
@@ -153,6 +165,7 @@ bool		have_dollarmark(char *str);
 bool		is_invalid_token(t_token *token);
 bool		have_quotationmark(char *str);
 bool		is_char_equal(char *str);
+bool		only_space(char *str);
 bool		is_builtin(char *command);
 
 //error
@@ -171,6 +184,6 @@ void		wait_failed(char *str);
 void		command_not_found(char *command);
 void		*syntax_error_c(char c);
 void		*syntax_error_str(char *str);
-bool		only_space(char *str);
+void		sigaction_failed(char *str);
 
 #endif

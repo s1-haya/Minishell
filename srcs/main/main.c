@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-int	g_status = 0;
+t_g_vars	g_vars = {0, 0};
 
 void	minishell(char *line, t_command_data *d)
 {
@@ -63,9 +63,16 @@ int	main(int argc, char *argv[], char const *envp[])
 	t_command_data	d;
 
 	d.envs = init_env((char **)envp);
+	ft_signal();
 	while (true)
 	{
 		line = readline("minishell$ ");
+		handle_eof(line);
+		if (g_vars.sig_no == SIGINT)
+		{
+			line = NULL;
+			g_vars.sig_no = 0;
+		}
 		if (line && !only_space(line))
 		{
 			minishell(line, &(d));
