@@ -151,6 +151,7 @@ void		wait_child_process(pid_t *array);
 //signal
 void		ft_signal(void);
 void		handle_eof(char *str);
+void					ctrl_c(void);
 
 //is_sth
 bool		is_space(char c);
