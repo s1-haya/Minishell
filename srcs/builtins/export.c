@@ -6,13 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:57:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/05/28 21:30:20 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/04 13:16:09 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	check_env_valid(char *new_env)
+static bool	check_envsid(char *new_env)
 {
 	size_t	i;
 
@@ -71,7 +71,7 @@ static void	envadd_back(t_env **env, t_env *new_env, bool sign_char_equal)
 	}
 }
 
-static void	export_util_mode(char **command, t_env **env_val)
+static void	export_util_mode(char **command, t_env **envs)
 {
 	size_t	i;
 	t_env	*ite;
@@ -82,26 +82,26 @@ static void	export_util_mode(char **command, t_env **env_val)
 	{
 		sign_char_equal = is_char_equal(command[i]);
 		ite = new_env(command[i]);
-		if (!check_env_valid(ite->name))
+		if (!check_envsid(ite->name))
 		{
 			printf("bash: export: `%s': not a valid identifier\n", command[i]);
 			break ;
 		}
 		else
-			envadd_back(env_val, ite, sign_char_equal);
+			envadd_back(envs, ite, sign_char_equal);
 		i++;
 	}
 }
 
-void	export_mode(char **command, t_env **env_val)
+void	export_mode(char **command, t_env **envs)
 {
 	t_env	*ite;
 	size_t	i;
 
-	ite = *env_val;
+	ite = *envs;
 	if (command[1] == NULL)
 	{
-		while(ite != NULL)
+		while (ite != NULL)
 		{
 			if (ft_strcmp(ite->name, "_"))
 			{
@@ -113,5 +113,5 @@ void	export_mode(char **command, t_env **env_val)
 			ite = ite->next;
 		}
 	}
-	export_util_mode(command, env_val);
+	export_util_mode(command, envs);
 }

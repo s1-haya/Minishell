@@ -6,23 +6,34 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 14:25:43 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/05/25 21:37:00 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/04 13:13:35 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+char	*get_pwd(void)
+{
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	if (pwd == NULL)
+	{
+		g_vars.exit_status = 1;
+		perror("pwd");
+	}
+	return (pwd);
+}
+
 void	pwd_mode(char **command)
 {
-	char	pwd[BUFFERSIZE];
+	char	*pwd;
 
-	if (arrlen(command) != 1)
+	pwd = get_pwd();
+	if (pwd != NULL)
 	{
-		printf("pwd: too many arguments\n");
-		exit(EXIT_FAILURE);
+		g_vars.exit_status = 0;
+		printf("%s\n", pwd);
 	}
-	if (getcwd(pwd, BUFFERSIZE) == NULL)
-		exit(EXIT_FAILURE);
-	printf("%s\n", pwd);
-	exit(EXIT_SUCCESS);
+	free(pwd);
 }

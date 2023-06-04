@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/30 19:53:32 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/04 13:36:35 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ enum	e_exit_status
 {
 	COMMAND_NOT_EXECUTABLE = 126,
 	COMMAND_NOT_FOUND = 127,
+	NUMERIC_ARGUMENT_REQUIRED = 255,
 	SYNTAX_ERROR = 258,
 };
 
@@ -86,23 +87,25 @@ typedef struct s_g_vars
 {
 	int	exit_status;
 	int	sig_no;
+	int	cd_sign;
 }	t_g_vars;
 
 extern t_g_vars	g_vars;
 
 //builtins
-void	builtins(char **command,  t_env **env_val);
+pid_t	builtins(char **command,  t_env **envs);
 void	echo_mode(char **command);
-void	cd_mode(char **command);
+void	cd_mode(char **command, t_env **envs);
 void	pwd_mode(char **command);
-void	export_mode(char **command,  t_env **env_val);
-void	env_mode(char **command,  t_env **env_val);
-void	exit_mode(void);
-void	unset_mode(char **command, t_env **env_val);
+void	export_mode(char **command,  t_env **envs);
+void	env_mode(char **command,  t_env **envs);
+void	exit_mode(char **command);
+void	unset_mode(char **command, t_env **envs);
 size_t	arrlen(char **arr);
 t_env	*init_env(char **env);
-t_env	*new_env(char *env_val);
+t_env	*new_env(char *envs);
 char	**change_array(t_env *env);
+char	*get_pwd(void);
 
 //tokenize
 bool		tokenize(t_token **head, char *line);
@@ -185,5 +188,7 @@ void		command_not_found(char *command);
 void		*syntax_error_c(char c);
 void		*syntax_error_str(char *str);
 void		sigaction_failed(char *str);
+void		exit_not_n_faild(char *str);
+void		cd_faild(char *str);
 
 #endif

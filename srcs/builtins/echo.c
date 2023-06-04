@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:12:40 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/01 15:47:12 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:26:45 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,15 @@ void	echo_mode(char **command)
 
 	i = 1;
 	space_flag = 0;
-	flag = 0;
+	flag = check_option(command[i]);
 	echo_null_check(command[i]);
 	while (command[i])
 	{
 		if (space_flag)
 			printf(" ");
 		space_flag = 1;
-		if (check_option(command[i]) || flag)
-		{
+		if (check_option(command[i]))
 			printf("%s", command[i]);
-			flag = 1;
-		}
 		else
 			space_flag = 0;
 		i++;

@@ -6,28 +6,28 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:44:06 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/05/28 22:14:55 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/04 13:15:51 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_env	*new_env(char *env_val)
+t_env	*new_env(char *envs)
 {
 	t_env	*list;
-	char	**split_env_val;
+	char	**split_envs;
 
 	list = malloc(sizeof(t_env));
 	if (list == NULL)
 		return (NULL);
-	split_env_val = ft_split(env_val, '=');
-	if (split_env_val == NULL)
+	split_envs = ft_split(envs, '=');
+	if (split_envs == NULL)
 		return (NULL);
-	list->name = split_env_val[0];
-	if (split_env_val[1] == NULL && is_char_equal(env_val))
+	list->name = split_envs[0];
+	if (split_envs[1] == NULL && is_char_equal(envs))
 		list->value = ft_strdup("");
 	else
-		list->value = split_env_val[1];
+		list->value = split_envs[1];
 	list->next = NULL;
 	return (list);
 }
@@ -45,16 +45,10 @@ t_env	*init_env(char **env)
 	i = 1;
 	while (env[i])
 	{
-		// printf("env   %s\n", env[i]);
 		list->next = new_env(env[i]);
-		// printf("list name  %s\n", list->name);
-		// printf("list value %s\n", list->value);
 		list = list->next;
 		i++;
 	}
-	// printf("head name   %s\n", head->name);
-	// printf("head value   %s\n", head->value);
-	// exit(0);
 	return (head);
 }
 

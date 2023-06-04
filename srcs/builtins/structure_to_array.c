@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 20:04:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/05/28 19:29:32 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/04 13:13:56 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static char	*set_env_str(char *name, char *equal, char *value)
 {
 	char	*env_str;
 
-	
 	env_str = ft_strjoin(name, equal);
 	if (!env_str)
 		malloc_failed("malloc");
