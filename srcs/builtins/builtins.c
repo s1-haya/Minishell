@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:56 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/03 15:26:23 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:41:19 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ pid_t	builtins(char **command, t_env **envs)
 	else if (!(ft_strcmp(command[0], "exit")))
 		exit_mode(command);
 	return (-1);
+}
+
+void	child_builtins(char **command, t_env **envs)
+{
+	builtins(command, envs);
+	exit(g_vars.exit_status);
 }
 
 // int main(void)

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/06/04 17:06:59 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:38:47 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ extern t_g_vars	g_vars;
 
 //builtins
 pid_t	builtins(char **command, t_env **envs);
+void	child_builtins(char **command, t_env **envs);
 void	echo_mode(char **command);
 void	cd_mode(char **command, t_env **envs);
 void	change_pwd(t_env **envs);

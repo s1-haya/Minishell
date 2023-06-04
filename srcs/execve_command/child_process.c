@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:21:41 by tterao            #+#    #+#             */
-/*   Updated: 2023/06/04 17:19:06 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:40:16 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	pipe_child_process(t_command_data *d, int *pipefd)
 	if (close(pipefd[W]) < 0)
 		close_failed("close");
 	if (is_builtin((d->command)[0]))
-		builtins(d->command, &(d->envs));
+		child_builtins(d->command, &(d->envs));
 	else
 		execve(d->filepath, d->command, change_array(d->envs));
 	if (d->command[0] && !d->filepath)
@@ -52,7 +52,7 @@ void	redirect_output_child_process(t_command_data *d, int *pipefd,
 	if (close(fd) < 0)
 		close_failed("close");
 	if (is_builtin((d->command)[0]))
-		builtins(d->command, &(d->envs));
+		child_builtins(d->command, &(d->envs));
 	else
 		execve(d->filepath, d->command, change_array(d->envs));
 	if (d->command[0] && !d->filepath)
@@ -81,7 +81,7 @@ void	append_child_process(t_command_data *d, int *pipefd, char *outfile)
 	if (close(fd) < 0)
 		close_failed("close");
 	if (is_builtin((d->command)[0]))
-		builtins(d->command, &(d->envs));
+		child_builtins(d->command, &(d->envs));
 	else
 		execve(d->filepath, d->command, change_array(d->envs));
 	if (d->command[0] && !d->filepath)
@@ -97,7 +97,7 @@ void	stdout_child_process(t_command_data *d, int *pipefd)
 	if (close(pipefd[R]) + close(pipefd[W]) < 0)
 		close_failed("close");
 	if (is_builtin((d->command)[0]))
-		builtins(d->command, &(d->envs));
+		child_builtins(d->command, &(d->envs));
 	else
 		execve(d->filepath, d->command, change_array(d->envs));
 	// execve_failed("execve");
