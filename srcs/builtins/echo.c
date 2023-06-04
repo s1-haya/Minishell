@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:12:40 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/03 17:26:45 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/04 14:26:56 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ int	check_option(char *command)
 	return (0);
 }
 
-void	echo_null_check(char *command)
+bool	echo_null_check(char *command)
 {
 	if (command == NULL)
 	{
 		printf("\n");
-		return ;
+		return (true);
 	}
+	return (false);
 }
 
 void	echo_mode(char **command)
@@ -46,8 +47,9 @@ void	echo_mode(char **command)
 
 	i = 1;
 	space_flag = 0;
+	if (echo_null_check(command[i]))
+		return ;
 	flag = check_option(command[i]);
-	echo_null_check(command[i]);
 	while (command[i])
 	{
 		if (space_flag)
