@@ -16,7 +16,7 @@ void	ctrl_c(void)
 {
 	g_vars.sig_no = 0;
 	// printf("ctrl c\n");
-	// rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 }
