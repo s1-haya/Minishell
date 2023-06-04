@@ -6,53 +6,12 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:14:22 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/04 13:39:40 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:07:34 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include <errno.h>
-
-void	change_pwd(t_env **envs)
-{
-	char	*new_pwd;
-	char	*pwd;
-	char	*old_pwd;
-	t_env	*tmp;
-
-	new_pwd = get_pwd();
-	tmp = *envs;
-	if (new_pwd != NULL)
-	{
-		g_vars.exit_status = 0;
-		while (1)
-		{
-			if (ft_strcmp("PWD", (*envs)->name) == 0)
-			{
-				printf("PWD %s\n", (*envs)->value);
-				pwd = (*envs)->value;
-				(*envs)->value = new_pwd;
-				printf("PWD %s\n", (*envs)->value);
-				(*envs) = tmp;
-				while (1)
-				{
-					if (ft_strcmp("OLDPWD", (*envs)->name) == 0)
-					{
-						printf("OLDPWD %s\n", (*envs)->value);
-						old_pwd = (*envs)->value;
-						(*envs)->value = pwd;
-						free(old_pwd);
-						printf("OLDPWD %s\n", (*envs)->value);
-						break ;
-					}
-					(*envs) = (*envs)->next;
-				}
-				break ;
-			}
-			(*envs) = (*envs)->next;
-		}
-	}
-}
 
 void	cd_home(t_env **envs)
 {
