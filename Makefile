@@ -3,6 +3,7 @@ CC = cc
 
 INCLUDES = includes/minishell.h
 # CFLAGS = -Wall -Wextra -Werror -lreadline
+# CFLAGS = -fsanitize=address -I/Users/tterao/.brew/opt/readline/include
 CFLAGS = -lreadline -fsanitize=address
 
 SRCS_MAIN =	main.c
