@@ -6,28 +6,29 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:56 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/05/30 19:53:20 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/03 15:26:23 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	builtins(char **command, t_env **env_val)
+pid_t	builtins(char **command, t_env **envs)
 {
 	if (!(ft_strcmp(command[0], "echo")))
 		echo_mode(command);
 	else if (!(ft_strcmp(command[0], "pwd")))
 		pwd_mode(command);
 	else if (!(ft_strcmp(command[0], "cd")))
-		cd_mode(command);
+		cd_mode(command, envs);
 	else if (!(ft_strcmp(command[0], "export")))
-		export_mode(command, env_val);
+		export_mode(command, envs);
 	else if (!(ft_strcmp(command[0], "env")))
-		env_mode(command, env_val);
+		env_mode(command, envs);
 	else if (!(ft_strcmp(command[0], "unset")))
-		unset_mode(command, env_val);
+		unset_mode(command, envs);
 	else if (!(ft_strcmp(command[0], "exit")))
-		exit_mode();
+		exit_mode(command);
+	return (-1);
 }
 
 // int main(void)
