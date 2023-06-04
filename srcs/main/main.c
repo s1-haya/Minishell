@@ -68,11 +68,6 @@ int	main(int argc, char *argv[], char const *envp[])
 	{
 		line = readline("minishell$ ");
 		handle_eof(line);
-		if (g_vars.sig_no == SIGINT)
-		{
-			line = NULL;
-			g_vars.sig_no = 0;
-		}
 		if (line && !only_space(line))
 		{
 			minishell(line, &(d));

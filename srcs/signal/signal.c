@@ -12,9 +12,19 @@
 
 #include "../../includes/minishell.h"
 
+void	ctrl_c(void)
+{
+	g_vars.sig_no = 0;
+	// printf("ctrl c\n");
+	// rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
 void	signal_handler(int signo)
 {
 	g_vars.sig_no = signo;
+	ctrl_c();
 }
 
 void	ft_signal(void)
@@ -24,9 +34,9 @@ void	ft_signal(void)
 	act.sa_handler = signal_handler;
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_RESTART;
+	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+		sigaction_failed("signal");
 	if (sigaction(SIGINT, &act, NULL) < 0)
-		sigaction_failed("sigaction");
-	if (sigaction(SIGQUIT, &act, NULL) < 0)
 		sigaction_failed("sigaction");
 }
 
