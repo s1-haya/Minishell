@@ -3,12 +3,14 @@ CC = cc
 
 INCLUDES = includes/minishell.h
 # CFLAGS = -Wall -Wextra -Werror -lreadline
-# CFLAGS = -fsanitize=address -I/Users/tterao/.brew/opt/readline/include
-CFLAGS = -lreadline -fsanitize=address
+CFLAGS = -fsanitize=address
+# CFLAGS = -lreadline -fsanitize=address
+
+READLINE_DIR = $(shell brew --prefix readline)
+CFLAGS += -I$(READLINE_DIR)/include -L$(READLINE_DIR)/lib -lreadline
 
 SRCS_MAIN =	main.c
 MAIN_DIR = srcs/main
-
 
 SRCS_BUILTINS = builtins.c	\
 				 cd.c \
@@ -86,6 +88,9 @@ RM = rm -f
 
 $(NAME):	$(OBJS)	$(LIBFT_AFILE)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_AFILE) -o $(NAME)
+
+# $(NAME) 	:	$(OBJ_DIR) $(OBJS) $(FT_PRINTF)
+# 	$(CC) -o $(NAME) $(OBJS) $(CFLAGS) $(LDFLAGS) $(LIBS)
 
 all:	$(NAME)
 
