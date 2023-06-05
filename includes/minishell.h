@@ -140,6 +140,8 @@ pid_t		*parse(t_token **head, t_command_data *d, \
 t_token		*get_next_token(t_token **head);
 int			parse_in_redirection(t_token **head, t_env *envs, int dupped_stdin);
 t_token		*here_documents(t_token *token, t_env *envs, int dupped_stdin);
+char		*init_heredoc_vars(char *buff);
+char		*handle_signal(char *str, int fd, char *buff);
 char		*make_delimiter(char *str);
 char		*expand_env_var_heredoc(char *str, char *delimiter, \
 				char *delimiter_str, t_env *envs);
@@ -160,6 +162,7 @@ void		wait_child_process(pid_t *array);
 
 //signal
 void		ft_signal(enum e_signal no);
+void		signal_heredoc(void);
 void		handle_eof(char *str);
 void		ctrl_c(void);
 

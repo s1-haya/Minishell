@@ -76,25 +76,10 @@ void	wait_child_process(pid_t *array)
 		return ;
 	while (array[i] != -1)
 	{
-		// printf("waitpid:%d\n",array[i]);
 		if (waitpid(array[i], &status, WCONTINUED) < 0)
 			wait_failed("waitpid");
 		g_vars.exit_status = WEXITSTATUS(status);
 		i++;
 	}
-	// printf("lastwaitpid:%d\n",array[i]);
 	free(array);
 }
-
-// void	wait_child_process(int num_cmd)
-// {
-// 	int	status;
-
-// 	// printf("num_wait:%d\n", num_wait);
-// 	while (num_cmd--)
-// 	{
-// 		if (wait(&status) < 0)
-// 			wait_failed("wait");
-// 		g_vars.exit_status = WEXITSTATUS(status);
-// 	}
-// }

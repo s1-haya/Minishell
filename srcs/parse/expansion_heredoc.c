@@ -119,7 +119,7 @@ char	*expand_env_var_heredoc(char *str, char *delimiter,
 	size_t	start;
 
 	heredoc = NULL;
-	if (have_quotationmark(delimiter_str) || !have_dollarmark(str))
+	if (!str || (have_quotationmark(delimiter_str) || !have_dollarmark(str)))
 	{
 		free(delimiter);
 		return (str);

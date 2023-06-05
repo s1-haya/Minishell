@@ -22,7 +22,6 @@ SRCS_BUILTINS = builtins.c	\
 				 arrlen.c \
 				 init_env.c \
 				 structure_to_array.c
-
 BUILTINS_DIR = srcs/builtins
 
 SRCS_TOKEN = tokenize.c	\
@@ -42,6 +41,7 @@ EXPANSION_DIR = srcs/expansion
 SRCS_PARSE = parse.c	\
 			 get_filepath.c	\
 			 here_documents.c	\
+			 here_documents_utils.c	\
 			 make_command_array.c	\
 			 parse_in_redirection.c	\
 			 parse_output_direction.c	\
@@ -55,7 +55,8 @@ SRCS_EXECVE_COMMAND = execve_command.c	\
 					  wait_child_process.c
 EXECVE_COMMAND_DIR = srcs/execve_command
 
-SRCS_SIGNAL = signal.c
+SRCS_SIGNAL = signal.c	\
+			  signal_utils.c
 SIGNAL_DIR = srcs/signal
 
 SRCS_IS_STH = is_1.c	\

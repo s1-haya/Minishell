@@ -74,6 +74,8 @@ int	parse_in_redirection(t_token **head, t_env *envs, int dupped_stdin)
 			return (read_till_pipe(head));
 		else if (token->kind == HEREDOC)
 			token = here_documents(token, envs, dupped_stdin);
+		if (!token)
+			return (2);
 		else if (token->kind == HERESTRING)
 			token = here_strings(token);
 		else if (token->kind == PIPE)
