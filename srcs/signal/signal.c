@@ -15,7 +15,8 @@
 void	ctrl_c(void)
 {
 	g_vars.sig_no = 0;
-	// printf("ctrl c\n");
+	if (write(STDOUT_FILENO, "\n", 1) < 0)
+		write_failed("write");
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
@@ -27,11 +28,22 @@ void	signal_handler(int signo)
 	ctrl_c();
 }
 
-void	ft_signal(void)
+void	child_signal_handler(int signo)
+{
+	g_vars.sig_no = signo;
+	if (write(STDOUT_FILENO, "\n", 1) < 0)
+		write_failed("write");
+	g_vars.sig_no = 0;
+}
+
+void	ft_signal(enum e_signal no)
 {
 	struct sigaction	act;
 
-	act.sa_handler = signal_handler;
+	if (no == PARENT)
+		act.sa_handler = signal_handler;
+	else if (no == CHILD)
+		act.sa_handler = child_signal_handler;
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_RESTART;
 	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)

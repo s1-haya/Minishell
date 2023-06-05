@@ -46,6 +46,12 @@ enum	e_pipefd
 	W = 1,
 };
 
+enum	e_signal
+{
+	PARENT,
+	CHILD,
+};
+
 enum	e_exit_status
 {
 	COMMAND_NOT_EXECUTABLE = 126,
@@ -93,104 +99,104 @@ typedef struct s_g_vars
 extern t_g_vars	g_vars;
 
 //builtins
-pid_t	builtins(char **command, t_env **envs);
-void	child_builtins(char **command, t_env **envs);
-void	echo_mode(char **command);
-void	cd_mode(char **command, t_env **envs);
-void	change_pwd(t_env **envs);
-void	pwd_mode(char **command);
-void	export_mode(char **command, t_env **envs);
-void	env_mode(char **command, t_env **envs);
-void	exit_mode(char **command);
-void	unset_mode(char **command, t_env **envs);
-size_t	arrlen(char **arr);
-t_env	*init_env(char **env);
-t_env	*new_env(char *envs);
-char	**change_array(t_env *env);
-char	*get_pwd(void);
+pid_t		builtins(char **command, t_env **envs);
+void		child_builtins(char **command, t_env **envs);
+void		echo_mode(char **command);
+void		cd_mode(char **command, t_env **envs);
+void		change_pwd(t_env **envs);
+void		pwd_mode(char **command);
+void		export_mode(char **command, t_env **envs);
+void		env_mode(char **command, t_env **envs);
+void		exit_mode(char **command);
+void		unset_mode(char **command, t_env **envs);
+size_t		arrlen(char **arr);
+t_env		*init_env(char **env);
+t_env		*new_env(char *envs);
+char		**change_array(t_env *env);
+char		*get_pwd(void);
 
 //tokenize
-bool	tokenize(t_token **head, char *line);
-void	set_token_kind(t_token **head, t_token *token);
-int		newtoken(t_token **head, char *line, size_t start, size_t end);
-void	addback(t_token **head, t_token *newtoken);
-t_token	*lasttoken(t_token **head);
-int		free_token(t_token *token);
-void	free_tokens(t_token **head);
-bool	is_syntax_error(t_token **head);
-bool	is_invalid_in_value(t_token *token);
-bool	is_quotation_closed(t_token **head);
+bool		tokenize(t_token **head, char *line);
+void		set_token_kind(t_token **head, t_token *token);
+int			newtoken(t_token **head, char *line, size_t start, size_t end);
+void		addback(t_token **head, t_token *newtoken);
+t_token		*lasttoken(t_token **head);
+int			free_token(t_token *token);
+void		free_tokens(t_token **head);
+bool		is_syntax_error(t_token **head);
+bool		is_invalid_in_value(t_token *token);
+bool		is_quotation_closed(t_token **head);
 
 //expansion
-void	expansion(t_token **head, t_env *envs);
-char	*expand_env_var(char *str, t_env *envs);
-char	*get_env_exp_ev(char *env, t_env *envs);
-char	*ft_getenv(char *target, t_env *envs);
-char	*delete_quotation(char *str);
+void		expansion(t_token **head, t_env *envs);
+char		*expand_env_var(char *str, t_env *envs);
+char		*get_env_exp_ev(char *env, t_env *envs);
+char		*ft_getenv(char *target, t_env *envs);
+char		*delete_quotation(char *str);
 
 //parse
-pid_t	*parse(t_token **head, t_command_data *d, \
-				int dupped_stdin, pid_t *array);
-t_token	*get_next_token(t_token **head);
-int		parse_in_redirection(t_token **head, t_env *envs, int dupped_stdin);
-t_token	*here_documents(t_token *token, t_env *envs, int dupped_stdin);
-char	*make_delimiter(char *str);
-char	*expand_env_var_heredoc(char *str, char *delimiter, \
-			char *delimiter_str, t_env *envs);
-char	*get_filepath(char *command, t_env *envs);
-int		get_num_wait(t_token **head);
-char	**make_command_array(t_token **head);
+pid_t		*parse(t_token **head, t_command_data *d, \
+						int dupped_stdin, pid_t *array);
+t_token		*get_next_token(t_token **head);
+int			parse_in_redirection(t_token **head, t_env *envs, int dupped_stdin);
+t_token		*here_documents(t_token *token, t_env *envs, int dupped_stdin);
+char		*make_delimiter(char *str);
+char		*expand_env_var_heredoc(char *str, char *delimiter, \
+				char *delimiter_str, t_env *envs);
+char		*get_filepath(char *command, t_env *envs);
+int			get_num_wait(t_token **head);
+char		**make_command_array(t_token **head);
 t_output	*parse_out_redirection(t_token **head);
-t_token	*parse_out_helper(t_token **head, t_token *token, \
+t_token		*parse_out_helper(t_token **head, t_token *token, \
 				t_output *out, bool *out_redirection);
-int		read_till_pipe(t_token **head);
-pid_t	*make_process_array(pid_t adding_pid, pid_t *array);
+int			read_till_pipe(t_token **head);
+pid_t		*make_process_array(pid_t adding_pid, pid_t *array);
 
 //execve_command
-pid_t	execute_command(t_token **head, t_command_data *d, t_output *out);
-void	child_process(t_command_data *d, t_token_kind output_direction, \
-				char *outfile, int *pipefd);
-void	wait_child_process(pid_t *array);
+pid_t		execute_command(t_token **head, t_command_data *d, t_output *out);
+void		child_process(t_command_data *d, t_token_kind output_direction, \
+							char *outfile, int *pipefd);
+void		wait_child_process(pid_t *array);
 
 //signal
-void		ft_signal(void);
+void		ft_signal(enum e_signal no);
 void		handle_eof(char *str);
-void					ctrl_c(void);
+void		ctrl_c(void);
 
 //is_sth
-bool	is_space(char c);
-bool	is_redirection(char c);
-bool	is_quotation_mark(char c);
-bool	is_endof_env_var(char c);
-bool	is_endof_str(char c);
-bool	is_operator(char c);
-bool	is_meta_character(char c);
-bool	start_with(const char *str, const char *keyword);
-bool	have_dollarmark(char *str);
-bool	is_invalid_token(t_token *token);
-bool	have_quotationmark(char *str);
-bool	is_char_equal(char *str);
-bool	only_space(char *str);
-bool	is_builtin(char *command);
+bool		is_space(char c);
+bool		is_redirection(char c);
+bool		is_quotation_mark(char c);
+bool		is_endof_env_var(char c);
+bool		is_endof_str(char c);
+bool		is_operator(char c);
+bool		is_meta_character(char c);
+bool		start_with(const char *str, const char *keyword);
+bool		have_dollarmark(char *str);
+bool		is_invalid_token(t_token *token);
+bool		have_quotationmark(char *str);
+bool		is_char_equal(char *str);
+bool		only_space(char *str);
+bool		is_builtin(char *command);
 
 //error
-void	malloc_failed(char *str);
-void	open_failed(char *str);
-void	open_failed_exit(char *str);
-void	dup_failed(char *str);
-void	dup2_failed(char *str);
-void	close_failed(char *str);
-void	read_failed(char *str);
-void	write_failed(char *str);
-void	pipe_failed(char *str);
-void	fork_failed(char *str);
-void	execve_failed(char *str);
-void	wait_failed(char *str);
-void	command_not_found(char *command);
-void	*syntax_error_c(char c);
-void	*syntax_error_str(char *str);
-void	sigaction_failed(char *str);
-void	exit_not_n_faild(char *str);
-void	cd_faild(char *str);
+void		malloc_failed(char *str);
+void		open_failed(char *str);
+void		open_failed_exit(char *str);
+void		dup_failed(char *str);
+void		dup2_failed(char *str);
+void		close_failed(char *str);
+void		read_failed(char *str);
+void		write_failed(char *str);
+void		pipe_failed(char *str);
+void		fork_failed(char *str);
+void		execve_failed(char *str);
+void		wait_failed(char *str);
+void		command_not_found(char *command);
+void		*syntax_error_c(char c);
+void		*syntax_error_str(char *str);
+void		sigaction_failed(char *str);
+void		exit_not_n_faild(char *str);
+void		cd_faild(char *str);
 
 #endif

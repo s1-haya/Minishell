@@ -63,9 +63,9 @@ int	main(int argc, char *argv[], char const *envp[])
 	t_command_data	d;
 
 	d.envs = init_env((char **)envp);
-	ft_signal();
 	while (true)
 	{
+		ft_signal(PARENT);
 		line = readline("minishell$ ");
 		handle_eof(line);
 		if (line && !only_space(line))
