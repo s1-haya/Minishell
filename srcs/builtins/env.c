@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 20:18:13 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/04 13:24:11 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/05 12:38:39 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,10 @@ void	env_mode(char **command, t_env **envs)
 			}
 			ite = ite->next;
 		}
+	}
+	else
+	{
+		printf("env: %s: No such file or directory\n", command[1]);
+		g_vars.exit_status = COMMAND_NOT_FOUND;
 	}
 }

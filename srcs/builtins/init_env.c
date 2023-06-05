@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:44:06 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/04 13:15:51 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:32:16 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_env	*new_env(char *envs)
 	char	**split_envs;
 
 	list = malloc(sizeof(t_env));
-	if (list == NULL)
+	if (envs[0] == '\0' || list == NULL)
 		return (NULL);
 	split_envs = ft_split(envs, '=');
 	if (split_envs == NULL)
