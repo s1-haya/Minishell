@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:57:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/04 13:16:09 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:32:42 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,10 @@ static void	export_util_mode(char **command, t_env **envs)
 	{
 		sign_char_equal = is_char_equal(command[i]);
 		ite = new_env(command[i]);
-		if (!check_envsid(ite->name))
+		if (!ite || !check_envsid(ite->name))
 		{
 			printf("bash: export: `%s': not a valid identifier\n", command[i]);
+			g_vars.exit_status = 1;
 			break ;
 		}
 		else

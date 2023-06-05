@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:12:40 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/04 14:26:56 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/05 12:57:14 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,41 @@ bool	echo_null_check(char *command)
 	return (false);
 }
 
-void	echo_mode(char **command)
+static void	echo_util_mode(char **command, int space_flag, int output_flag)
 {
 	size_t	i;
-	int		flag;
-	int		space_flag;
 
-	i = 1;
-	space_flag = 0;
-	if (echo_null_check(command[i]))
-		return ;
-	flag = check_option(command[i]);
-	while (command[i])
+	i = 0;
+	while (command[++i])
 	{
 		if (space_flag)
 			printf(" ");
 		space_flag = 1;
-		if (check_option(command[i]))
+		if (output_flag)
 			printf("%s", command[i]);
+		else if (check_option(command[i]))
+		{
+			printf("%s", command[i]);
+			output_flag = 1;
+		}
 		else
 			space_flag = 0;
-		i++;
 	}
+}
+
+void	echo_mode(char **command)
+{
+	int		flag;
+	int		space_flag;
+	int		output_flag;
+
+	space_flag = 0;
+	output_flag = 0;
+	if (echo_null_check(command[1]))
+		return ;
+	flag = check_option(command[1]);
+	echo_util_mode(command, space_flag, output_flag);
 	if (flag)
 		printf("\n");
+	g_vars.exit_status = 0;
 }

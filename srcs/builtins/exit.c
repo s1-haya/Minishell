@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 19:35:45 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/04 13:18:35 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:10:48 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void	exit_mode(char **command)
 	}
 	if (arrlen(command) >= 3)
 	{
-		printf("exit: too many arguments\n");
-		g_vars.exit_status = 1;
+		exit_too_many_arguments_faild(command[i]);
 		return ;
 	}
 	printf("exit\n");

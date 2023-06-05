@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:28:52 by tterao            #+#    #+#             */
-/*   Updated: 2023/06/04 13:38:18 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:11:44 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ void	exit_not_n_faild(char *str)
 	printf("exit\n");
 	printf("exit: %s: numeric argument required\n", str);
 	exit(NUMERIC_ARGUMENT_REQUIRED);
+}
+
+void	exit_too_many_arguments_faild(char *str)
+{
+	printf("exit: too many arguments\n");
+	g_vars.exit_status = NUMERIC_ARGUMENT_REQUIRED;
 }
 
 void	cd_faild(char *str)
