@@ -2,13 +2,11 @@ NAME = minishell
 CC = cc
 
 INCLUDES = includes/minishell.h
-# CFLAGS = -Wall -Wextra -Werror -lreadline
+# CFLAGS = -Wall -Wextra -Werror
 CFLAGS = -fsanitize=address
-# CFLAGS = -lreadline -fsanitize=address
-
 READLINE_DIR = $(shell brew --prefix readline)
-CFLAGS += -I$(READLINE_DIR)/include -L$(READLINE_DIR)/lib -lreadline
-
+CFLAGS += -I$(READLINE_DIR)/include
+LDFLAGS = -L$(READLINE_DIR)/lib -lreadline
 SRCS_MAIN =	main.c
 MAIN_DIR = srcs/main
 
@@ -87,10 +85,7 @@ LIBFT_AFILE = $(LIBFT_DIR)/libft.a
 RM = rm -f
 
 $(NAME):	$(OBJS)	$(LIBFT_AFILE)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_AFILE) -o $(NAME)
-
-# $(NAME) 	:	$(OBJ_DIR) $(OBJS) $(FT_PRINTF)
-# 	$(CC) -o $(NAME) $(OBJS) $(CFLAGS) $(LDFLAGS) $(LIBS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_AFILE) $(LDFLAGS) -o $(NAME)
 
 all:	$(NAME)
 
