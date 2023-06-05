@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:01:06 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/04 17:01:40 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/05 12:25:33 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	change_oldpwd(char *pwd, t_env **envs)
 {
 	char	*old_pwd;
 
-	while (1)
+	while (*envs)
 	{
 		if (ft_strcmp("OLDPWD", (*envs)->name) == 0)
 		{
@@ -27,6 +27,7 @@ static void	change_oldpwd(char *pwd, t_env **envs)
 		}
 		(*envs) = (*envs)->next;
 	}
+	printf("warning: cd: OLDPWD not set\n");
 }
 
 void	change_pwd(t_env **envs)
@@ -40,7 +41,7 @@ void	change_pwd(t_env **envs)
 	if (new_pwd != NULL)
 	{
 		g_vars.exit_status = 0;
-		while (1)
+		while (*envs)
 		{
 			if (ft_strcmp("PWD", (*envs)->name) == 0)
 			{
@@ -48,9 +49,10 @@ void	change_pwd(t_env **envs)
 				(*envs)->value = new_pwd;
 				(*envs) = tmp;
 				change_oldpwd(pwd, envs);
-				break ;
+				return ;
 			}
 			(*envs) = (*envs)->next;
 		}
+		printf("warning: cd: PWD not set\n");
 	}
 }
