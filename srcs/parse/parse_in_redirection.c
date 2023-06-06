@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_in_redirection.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 14:02:42 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/18 14:02:44 by tterao           ###   ########.fr       */
+/*   Updated: 2023/06/06 10:47:18 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ t_token	*here_strings(t_token *token)
 	if (close(pipefd[R]) + close(pipefd[W]) < 0)
 		close_failed("close");
 	word->is_read = true;
+	// printf("word       %p\n", word);
+	// printf("word env   %p\n", token);
+	// printf("word expan %p\n", word->expanded_str);
 	return (word);
 }
 

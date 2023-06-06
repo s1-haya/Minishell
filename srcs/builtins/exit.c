@@ -6,17 +6,32 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 19:35:45 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/05 13:10:48 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/06 16:01:55 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-//bash $: exit ++
-// exit 
-// bash: exit: ++: numeric argument required
-// 正常の場合終了ステータスは前回のまま
-// 引数は数字　終了ステータスの値が入る
-void	exit_mode(char **command)
+
+void	envs_free(t_env **envs)
+{
+	t_env	*tmp;
+
+	while ((*envs))
+	{
+		free((*envs)->name);
+		(*envs)->name = NULL;
+		free((*envs)->value);
+		(*envs)->value = NULL;
+		tmp = (*envs);
+		(*envs) = (*envs)->next;
+		free(tmp->next);
+		(*envs)->next = NULL;
+		free(tmp);
+		tmp = NULL;
+	}
+}
+
+void	exit_mode(char **command, t_env **envs)
 {
 	size_t	i;
 
@@ -24,8 +39,11 @@ void	exit_mode(char **command)
 	if (command[1] == NULL)
 	{
 		printf("exit\n");
+		// envs_free(envs);
 		exit(EXIT_SUCCESS);
 	}
+	if (command[1][i] == '\0')
+		exit_not_n_faild(command[1]);
 	while (command[1][i])
 	{
 		if (!(ft_isdigit(command[1][i])))
@@ -38,5 +56,6 @@ void	exit_mode(char **command)
 		return ;
 	}
 	printf("exit\n");
+	// envs_free(envs);
 	exit(ft_atoi(command[1]));
 }
