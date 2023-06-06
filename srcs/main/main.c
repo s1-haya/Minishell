@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:08:39 by tterao            #+#    #+#             */
-/*   Updated: 2023/06/05 14:55:32 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:39:57 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,3 +77,8 @@ int	main(int argc, char *argv[], char const *envp[])
 	}
 	return (0);
 }
+
+// __attribute__((destructor))
+// static void destructor() {
+//     system("leaks -q minishell");
+// }
