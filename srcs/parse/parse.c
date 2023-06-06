@@ -74,7 +74,7 @@ pid_t	*parse(t_token **head, t_command_data *d, int dupped_stdin, pid_t *array)
 	t_output	*output;
 	int			ret;
 
-	if (get_next_token(head) == NULL)
+	if (get_next_token(head) == NULL || g_vars.sig_no == SIGINT)
 		return (array);
 	ret = parse_in_redirection(head, d->envs, dupped_stdin);
 	if (ret == 1)

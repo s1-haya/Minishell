@@ -78,7 +78,14 @@ void	wait_child_process(pid_t *array)
 	{
 		if (waitpid(array[i], &status, WCONTINUED) < 0)
 			wait_failed("waitpid");
+		// printf("wait1:%d\n", g_vars.exit_status);
 		g_vars.exit_status = WEXITSTATUS(status);
+		if (g_vars.sig_no == SIGINT)
+		{
+			g_vars.sig_no = 0;
+			g_vars.exit_status = CHILD_CTRL_C;
+		}
+		// printf("wait2:%d\n", g_vars.exit_status);
 		i++;
 	}
 	free(array);

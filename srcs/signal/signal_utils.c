@@ -15,6 +15,7 @@
 void	signal_handler_heredoc(int signo)
 {
 	g_vars.sig_no = signo;
+	g_vars.exit_status = 1;
 	// if (write(STDIN_FILENO, "\n", 1) < 0)
 	// 	write_failed("write");
 	// rl_replace_line("", 0);
@@ -33,4 +34,11 @@ void	signal_heredoc(void)
 		sigaction_failed("signal");
 	if (sigaction(SIGINT, &act, NULL) < 0)
 		sigaction_failed("sigaction");
+}
+
+void	parent_signal_handler(int signo)
+{
+	if (write(STDOUT_FILENO, "\n", 1) < 0)
+		write_failed("write");
+	g_vars.sig_no = signo;
 }
