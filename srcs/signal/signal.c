@@ -29,7 +29,7 @@ void	signal_handler(int signo)
 	ctrl_c();
 }
 
-void	child_signal_handler(int signo)
+void	child_sigint_signal_handler(int signo)
 {
 	g_vars.exit_status = 130;
 	g_vars.sig_no = signo;
@@ -47,13 +47,22 @@ void	ft_signal(enum e_signal no)
 	else if (no == PARENT)
 		act.sa_handler = parent_signal_handler;
 	else if (no == CHILD)
-		act.sa_handler = child_signal_handler;
+		act.sa_handler = child_sigint_signal_handler;
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_RESTART;
-	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-		sigaction_failed("signal");
 	if (sigaction(SIGINT, &act, NULL) < 0)
 		sigaction_failed("sigaction");
+	if (no == DEFAULT)
+	{
+		if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+			sigaction_failed("signal");
+	}
+	else
+	{
+		act.sa_handler = child_quit_signal_handler;
+		if (sigaction(SIGQUIT, &act, NULL) < 0)
+			sigaction_failed("sigaction");
+	}
 }
 
 void	handle_eof(char *str)

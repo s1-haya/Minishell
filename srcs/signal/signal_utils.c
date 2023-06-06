@@ -42,3 +42,13 @@ void	parent_signal_handler(int signo)
 		write_failed("write");
 	g_vars.sig_no = signo;
 }
+
+void	child_quit_signal_handler(int signo)
+{
+	const char	*quit_message = "Quit: 3\n";
+
+	g_vars.sig_no = signo;
+	g_vars.exit_status = CHILD_CTRL_Q;
+	if (write(STDOUT_FILENO, quit_message, ft_strlen(quit_message)) < 0)
+		write_failed("write");
+}

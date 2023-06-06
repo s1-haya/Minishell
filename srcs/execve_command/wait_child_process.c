@@ -68,8 +68,8 @@ pid_t	*make_process_array(pid_t adding_pid, pid_t *array)
 
 void	wait_child_process(pid_t *array)
 {
-	int		status;
-	size_t	i;
+	int				status;
+	size_t			i;
 
 	i = 0;
 	if (!array)
@@ -84,6 +84,11 @@ void	wait_child_process(pid_t *array)
 		{
 			g_vars.sig_no = 0;
 			g_vars.exit_status = CHILD_CTRL_C;
+		}
+		else if (g_vars.sig_no == SIGQUIT)
+		{
+			g_vars.sig_no = 0;
+			g_vars.exit_status = CHILD_CTRL_Q;
 		}
 		// printf("wait2:%d\n", g_vars.exit_status);
 		i++;

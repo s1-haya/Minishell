@@ -58,6 +58,7 @@ enum	e_exit_status
 	COMMAND_NOT_EXECUTABLE = 126,
 	COMMAND_NOT_FOUND = 127,
 	CHILD_CTRL_C = 130,
+	CHILD_CTRL_Q = 131,
 	NUMERIC_ARGUMENT_REQUIRED = 255,
 	SYNTAX_ERROR = 258,
 };
@@ -168,6 +169,7 @@ void		signal_heredoc(void);
 void		handle_eof(char *str);
 void		ctrl_c(void);
 void		parent_signal_handler(int signo);
+void		child_quit_signal_handler(int signo);
 
 //is_sth
 bool		is_space(char c);
