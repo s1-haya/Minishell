@@ -36,19 +36,24 @@ void	signal_heredoc(void)
 		sigaction_failed("sigaction");
 }
 
-void	parent_signal_handler(int signo)
-{
-	if (write(STDOUT_FILENO, "\n", 1) < 0)
-		write_failed("write");
-	g_vars.sig_no = signo;
-}
-
-void	child_quit_signal_handler(int signo)
+void	put_siginal_msg(int no)
 {
 	const char	*quit_message = "Quit: 3\n";
 
-	g_vars.sig_no = signo;
-	g_vars.exit_status = CHILD_CTRL_Q;
-	if (write(STDOUT_FILENO, quit_message, ft_strlen(quit_message)) < 0)
-		write_failed("write");
+	if (no == SIGQUIT)
+	{
+		if (write(STDOUT_FILENO, quit_message, ft_strlen(quit_message)) < 0)
+			write_failed("write");
+	}
+	else if (no == SIGINT)
+	{
+		if (write(STDOUT_FILENO, "\n", 1) < 0)
+			write_failed("write");
+	}
+}
+
+void	child_handler(int no)
+{
+	g_vars.sig_no = no;
+	g_vars.sig_no = 0;
 }

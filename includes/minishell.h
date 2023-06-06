@@ -168,8 +168,8 @@ void		ft_signal(enum e_signal no);
 void		signal_heredoc(void);
 void		handle_eof(char *str);
 void		ctrl_c(void);
-void		parent_signal_handler(int signo);
-void		child_quit_signal_handler(int signo);
+void		put_siginal_msg(int no);
+void		child_handler(int no);
 
 //is_sth
 bool		is_space(char c);

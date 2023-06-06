@@ -56,8 +56,8 @@ pid_t	execute_command(t_token **head, t_command_data *d, t_output *out)
 	pid_t	pid;
 
 	//sigigonroe
-	// if (signal(SIGINT, SIG_IGN) == SIG_ERR)
-	// 	sigaction_failed("signal");
+	if (signal(SIGINT, SIG_IGN) == SIG_ERR)
+		sigaction_failed("signal");
 	ft_signal(PARENT);
 	pid = execute_fork(d, out);
 	free(out);
