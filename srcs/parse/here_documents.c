@@ -33,13 +33,16 @@ char	*read_stdin(int fd)
 	char	buff[BUFFERSIZE + 1];
 	ssize_t	read_bytes;
 
-	str = ft_strdup("");
-	if (!str)
-		malloc_failed("malloc");
-	*buff = '\0';
+	str = init_heredoc_vars(buff);
 	while (!have_nl(buff))
 	{
+		// write(STDERR_FILENO, "reading", ft_strlen("reading"));
 		read_bytes = read(fd, buff, BUFFERSIZE);
+		str = handle_signal(str, fd, buff);
+		if (!str)
+			break ;
+		// printf("buff:%s--\n", buff);
+		// write(STDERR_FILENO, "2reading", ft_strlen("2reading"));
 		if (read_bytes == -1)
 		{
 			free(str);
@@ -52,6 +55,7 @@ char	*read_stdin(int fd)
 		if (!str)
 			malloc_failed("malloc");
 	}
+	// printf("str:%s---\n", str);
 	return (str);
 }
 
@@ -69,20 +73,20 @@ char	*get_here_documents(char *delimiter, int dupped_stdin)
 	char	*str;
 	char	*tmp;
 
-	// printf("del:%s\n", delimiter);
 	here_doc = ft_strdup("");
 	if (!here_doc)
 		malloc_failed("malloc");
 	while (true)
 	{
+		// write(STDERR_FILENO, "prompt\n", ft_strlen("prompt\n"));
 		show_heredoc_prompt(STDERR_FILENO);
 		str = read_stdin(dupped_stdin);
-		if (!ft_strncmp(str, delimiter, ft_strlen(delimiter))
-			&& ft_strlen(str) - 1 == ft_strlen(delimiter))
-		{
-			free(str);
+		// printf("str:%s\n", str);
+		if (!str)
+			here_doc = NULL;
+		if (!str || (!ft_strncmp(str, delimiter, ft_strlen(delimiter))
+				&& ft_strlen(str) - 1 == ft_strlen(delimiter)))
 			break ;
-		}
 		tmp = here_doc;
 		here_doc = ft_strjoin(here_doc, str);
 		free(tmp);
@@ -90,6 +94,7 @@ char	*get_here_documents(char *delimiter, int dupped_stdin)
 		if (!here_doc)
 			malloc_failed("malloc");
 	}
+	free(str);
 	return (here_doc);
 }
 
@@ -103,8 +108,12 @@ t_token	*here_documents(t_token *token, t_env *envs, int dupped_stdin)
 	token->is_read = true;
 	delimiter = token->next;
 	expanded_delimiter = make_delimiter(delimiter->str);
+	signal_heredoc();
 	here_doc = get_here_documents(expanded_delimiter, dupped_stdin);
-	here_doc = expand_env_var_heredoc(here_doc, expanded_delimiter, delimiter->str, envs);
+	here_doc = expand_env_var_heredoc(here_doc, expanded_delimiter,
+			delimiter->str, envs);
+	if (!here_doc)
+		return (NULL);
 	if (pipe(pipefd) < 0)
 		pipe_failed("pipe");
 	if (write(pipefd[W], here_doc, ft_strlen(here_doc)) < 0)

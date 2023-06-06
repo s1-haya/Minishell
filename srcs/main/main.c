@@ -54,6 +54,7 @@ void	minishell(char *line, t_command_data *d)
 		close_failed("close");
 	wait_child_process(array);
 	free_tokens(&head);
+	
 	// */
 }
 
@@ -65,7 +66,7 @@ int	main(int argc, char *argv[], char const *envp[])
 	d.envs = init_env((char **)envp);
 	while (true)
 	{
-		ft_signal(PARENT);
+		ft_signal(DEFAULT);
 		line = readline("minishell$ ");
 		handle_eof(line);
 		if (line && !only_space(line))

@@ -72,11 +72,19 @@ pid_t	*parse(t_token **head, t_command_data *d, int dupped_stdin, pid_t *array)
 {
 	pid_t		pid;
 	t_output	*output;
+	int			ret;
 
-	if (get_next_token(head) == NULL)
+	if (get_next_token(head) == NULL || g_vars.sig_no == SIGINT)
 		return (array);
-	if (parse_in_redirection(head, d->envs, dupped_stdin))
+	ret = parse_in_redirection(head, d->envs, dupped_stdin);
+	if (ret == 1)
 		return (parse(head, d, dupped_stdin, array));
+	else if (ret == 2)
+	{
+		free(array);
+		g_vars.sig_no = 0;
+		return (NULL);
+	}
 	d->command = make_command_array(head);
 	d->filepath = get_filepath(d->command[0], d->envs);
 	// printf("%s\n", d.command[0]);

@@ -34,7 +34,10 @@ pid_t	execute_fork(t_command_data *d, t_output *out)
 	if (pid < 0)
 		fork_failed("fork");
 	else if (pid == 0)
+	{
+		ft_signal(CHILD);
 		child_process(d, out->kind, out->outfile, pipefd);
+	}
 	else
 	{
 		if (out->have_pipe)
@@ -53,10 +56,11 @@ pid_t	execute_command(t_token **head, t_command_data *d, t_output *out)
 	pid_t	pid;
 
 	//sigigonroe
-	ft_signal(CHILD);
+	if (signal(SIGINT, SIG_IGN) == SIG_ERR)
+		sigaction_failed("signal");
+	ft_signal(PARENT);
 	pid = execute_fork(d, out);
 	free(out);
-	//sigigonroe解除
-	// ft_signal(PARENT);
+	// printf("pid%d\n", pid);
 	return (pid);
 }

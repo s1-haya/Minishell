@@ -25,10 +25,11 @@ void	ctrl_c(void)
 void	signal_handler(int signo)
 {
 	g_vars.sig_no = signo;
+	g_vars.exit_status = 1;
 	ctrl_c();
 }
 
-void	child_signal_handler(int signo)
+void	child_sigint_signal_handler(int signo)
 {
 	g_vars.sig_no = signo;
 	if (write(STDOUT_FILENO, "\n", 1) < 0)
@@ -40,16 +41,25 @@ void	ft_signal(enum e_signal no)
 {
 	struct sigaction	act;
 
-	if (no == PARENT)
+	if (no == DEFAULT)
 		act.sa_handler = signal_handler;
-	else if (no == CHILD)
-		act.sa_handler = child_signal_handler;
+	else
+		act.sa_handler = child_handler;
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_RESTART;
-	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-		sigaction_failed("signal");
 	if (sigaction(SIGINT, &act, NULL) < 0)
 		sigaction_failed("sigaction");
+	if (no != CHILD)
+	{
+		if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+			sigaction_failed("signal");
+	}
+	else
+	{
+		act.sa_handler = child_handler;
+		if (sigaction(SIGQUIT, &act, NULL) < 0)
+			sigaction_failed("sigaction");
+	}
 }
 
 void	handle_eof(char *str)

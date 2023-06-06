@@ -48,6 +48,7 @@ enum	e_pipefd
 
 enum	e_signal
 {
+	DEFAULT,
 	PARENT,
 	CHILD,
 };
@@ -56,6 +57,8 @@ enum	e_exit_status
 {
 	COMMAND_NOT_EXECUTABLE = 126,
 	COMMAND_NOT_FOUND = 127,
+	CHILD_CTRL_C = 130,
+	CHILD_CTRL_Q = 131,
 	NUMERIC_ARGUMENT_REQUIRED = 255,
 	SYNTAX_ERROR = 258,
 };
@@ -142,6 +145,8 @@ pid_t		*parse(t_token **head, t_command_data *d, \
 t_token		*get_next_token(t_token **head);
 int			parse_in_redirection(t_token **head, t_env *envs, int dupped_stdin);
 t_token		*here_documents(t_token *token, t_env *envs, int dupped_stdin);
+char		*init_heredoc_vars(char *buff);
+char		*handle_signal(char *str, int fd, char *buff);
 char		*make_delimiter(char *str);
 char		*expand_env_var_heredoc(char *str, char *delimiter, \
 				char *delimiter_str, t_env *envs);
@@ -162,8 +167,11 @@ void		wait_child_process(pid_t *array);
 
 //signal
 void		ft_signal(enum e_signal no);
+void		signal_heredoc(void);
 void		handle_eof(char *str);
 void		ctrl_c(void);
+void		put_siginal_msg(int no);
+void		child_handler(int no);
 
 //is_sth
 bool		is_space(char c);

@@ -66,35 +66,39 @@ pid_t	*make_process_array(pid_t adding_pid, pid_t *array)
 	return (malloc_process_array(adding_pid, array, new_array));
 }
 
+void	wait_child_process_helper(pid_t *array, bool *output_flag, size_t i)
+{
+	int	status;
+
+	if (waitpid(array[i], &status, WCONTINUED) < 0)
+		wait_failed("waitpid");
+	if (WIFSIGNALED(status))
+	{
+		g_vars.exit_status = 128 + WTERMSIG(status);
+		g_vars.sig_no = 0;
+		if (!*output_flag && WTERMSIG(status) == SIGINT)
+			put_siginal_msg(SIGINT);
+		else if (!*output_flag && WTERMSIG(status) == SIGQUIT)
+			put_siginal_msg(SIGQUIT);
+		*output_flag = true;
+	}
+	else
+		g_vars.exit_status = WEXITSTATUS(status);
+}
+
 void	wait_child_process(pid_t *array)
 {
-	int		status;
 	size_t	i;
+	bool	output_flag;
 
 	i = 0;
 	if (!array)
 		return ;
+	output_flag = false;
 	while (array[i] != -1)
 	{
-		// printf("waitpid:%d\n",array[i]);
-		if (waitpid(array[i], &status, WCONTINUED) < 0)
-			wait_failed("waitpid");
-		g_vars.exit_status = WEXITSTATUS(status);
+		wait_child_process_helper(array, &output_flag, i);
 		i++;
 	}
-	// printf("lastwaitpid:%d\n",array[i]);
 	free(array);
 }
-
-// void	wait_child_process(int num_cmd)
-// {
-// 	int	status;
-
-// 	// printf("num_wait:%d\n", num_wait);
-// 	while (num_cmd--)
-// 	{
-// 		if (wait(&status) < 0)
-// 			wait_failed("wait");
-// 		g_vars.exit_status = WEXITSTATUS(status);
-// 	}
-// }
