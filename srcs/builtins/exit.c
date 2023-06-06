@@ -6,16 +6,12 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 19:35:45 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/05 13:10:48 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/05 15:59:36 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-//bash $: exit ++
-// exit 
-// bash: exit: ++: numeric argument required
-// 正常の場合終了ステータスは前回のまま
-// 引数は数字　終了ステータスの値が入る
+
 void	exit_mode(char **command)
 {
 	size_t	i;
@@ -26,6 +22,8 @@ void	exit_mode(char **command)
 		printf("exit\n");
 		exit(EXIT_SUCCESS);
 	}
+	if (command[1][i] == '\0')
+		exit_not_n_faild(command[1]);
 	while (command[1][i])
 	{
 		if (!(ft_isdigit(command[1][i])))

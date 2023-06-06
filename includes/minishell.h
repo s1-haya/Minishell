@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/06/04 17:38:47 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:42:01 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,5 +198,6 @@ void		*syntax_error_str(char *str);
 void		sigaction_failed(char *str);
 void		exit_not_n_faild(char *str);
 void		cd_faild(char *str);
+void		exit_too_many_arguments_faild(char *str);
 
 #endif

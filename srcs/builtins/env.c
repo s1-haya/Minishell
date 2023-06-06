@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 20:18:13 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/05 12:38:39 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/05 16:02:19 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	env_mode(char **command, t_env **envs)
 			}
 			ite = ite->next;
 		}
+		g_vars.exit_status = 0;
 	}
 	else
 	{
