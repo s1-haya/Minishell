@@ -6,11 +6,28 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 19:09:25 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/04 13:15:21 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/07 16:52:45 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+bool	check_unset(char **command)
+{
+	size_t	i;
+
+	i = 0;
+	while (command[++i])
+	{
+		if (!check_envsid(command[i]))
+		{
+			printf("unset: `%s': not a valid identifier\n", command[i]);
+			g_vars.exit_status = 1;
+			return (false);
+		}
+	}
+	return (true);
+}
 
 void	unset_mode(char **command, t_env **envs)
 {

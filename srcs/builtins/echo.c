@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:12:40 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/05 12:57:14 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:38:25 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	check_option(char *command)
 		return (0);
 	i = 0;
 	if (!(command[i] == '-'))
+		return (1);
+	if (command[1] == '\0')
 		return (1);
 	while (command[++i])
 	{
