@@ -44,7 +44,6 @@ t_token	*redirect_stdin(t_token *token)
 
 	token->is_read = true;
 	infile = token->next;
-	// printf("infile:%s\n", infile->expanded_str);
 	infile->is_read = true;
 	fd = open(infile->expanded_str, O_RDONLY);
 	if (fd < 0)
@@ -66,8 +65,6 @@ int	parse_in_redirection(t_token **head, t_env *envs, int dupped_stdin)
 	token = get_next_token(head);
 	while (token)
 	{
-		// printf("token: %s\n", token->expanded_str);
-		// printf(" kind: %d\n", token->kind);
 		if (token->kind == STDIN)
 			token = redirect_stdin(token);
 		if (!token)
@@ -84,5 +81,4 @@ int	parse_in_redirection(t_token **head, t_env *envs, int dupped_stdin)
 			token = token->next;
 	}
 	return (0);
-	// printf("token end%p\n", token);
 }

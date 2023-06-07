@@ -14,7 +14,6 @@
 
 size_t	get_end_index_helper(char *line, size_t i)
 {
-
 	while (!is_space(line[i]) && !is_quotation_mark(line[i])
 		&& !is_meta_character(line[i]) && line[i] != '\0')
 		i++;

@@ -35,6 +35,7 @@ void	*syntax_error_str(char *str)
 void	wait_failed(char *str)
 {
 	perror(str);
+	g_vars.exit_status = EXIT_FAILURE;
 }
 
 void	open_failed_exit(char *str)

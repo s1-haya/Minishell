@@ -41,7 +41,6 @@ int	newtoken(t_token **head, char *line, size_t start, size_t end)
 {
 	t_token	*token;
 
-	// printf("start:%zu end:%zu\n", start, end);
 	if (start == end && line[end] == '\0')
 		return (1);
 	token = malloc(sizeof(t_token));

@@ -26,7 +26,6 @@ void	pipe_child_process(t_command_data *d, int *pipefd)
 		execve(d->filepath, d->command, change_array(d->envs));
 	if (d->command[0] && !d->filepath)
 		command_not_found(d->command[0]);
-	// execve_failed("execve");
 	if (!d->command[0])
 		exit(EXIT_SUCCESS);
 	exit(COMMAND_NOT_EXECUTABLE);
@@ -78,7 +77,6 @@ void	append_child_process(t_command_data *d, int *pipefd, char *outfile)
 		command_not_found(d->command[0]);
 	if (!d->command[0])
 		exit(EXIT_SUCCESS);
-	// execve_failed("execve");
 	exit(COMMAND_NOT_EXECUTABLE);
 }
 
@@ -90,7 +88,6 @@ void	stdout_child_process(t_command_data *d, int *pipefd)
 		child_builtins(d->command, &(d->envs));
 	else
 		execve(d->filepath, d->command, change_array(d->envs));
-	// execve_failed("execve");
 	if (d->command[0] && !d->filepath)
 		command_not_found(d->command[0]);
 	if (!d->command[0])
@@ -101,7 +98,6 @@ void	stdout_child_process(t_command_data *d, int *pipefd)
 void	child_process(t_command_data *d, t_token_kind output_direction,
 						char *outfile, int *pipefd)
 {
-	// printf("direction:%d\n", output_direction);
 	if (output_direction == PIPE)
 		pipe_child_process(d, pipefd);
 	else if (output_direction == REDIRECT_OUTPUT)

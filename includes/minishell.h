@@ -27,15 +27,15 @@
 typedef enum e_token_kind
 {
 	WORD,
-	PIPE, // |
-	STDIN, // <
+	PIPE,
+	STDIN,
 	INFILE,
-	REDIRECT_OUTPUT, // >
-	HEREDOC, // <<
+	REDIRECT_OUTPUT,
+	HEREDOC,
 	DELIMITER,
-	HERESTRING, // <<<
+	HERESTRING,
 	INSTRING,
-	APPEND, // >>
+	APPEND,
 	STDOUT,
 	OUTFILE,
 }	t_token_kind;
@@ -210,7 +210,7 @@ void		command_not_found(char *command);
 void		*syntax_error_c(char c);
 void		*syntax_error_str(char *str);
 void		sigaction_failed(char *str);
-void		exit_not_n_faild(char *str);
+void		exit_n_faild(char *str);
 void		cd_faild(char *str);
 void		exit_too_many_arguments_faild(char *str);
 

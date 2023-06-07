@@ -42,11 +42,11 @@ void	exit_mode(char **command, t_env **envs)
 		exit(EXIT_SUCCESS);
 	}
 	if (command[1][i] == '\0')
-		exit_not_n_faild(command[1]);
+		exit_n_faild(command[1]);
 	while (command[1][i])
 	{
 		if (!(ft_isdigit(command[1][i])))
-			exit_not_n_faild(command[1]);
+			exit_n_faild(command[1]);
 		i++;
 	}
 	if (arrlen(command) >= 3)
