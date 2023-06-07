@@ -2,7 +2,7 @@ NAME = minishell
 CC = cc
 
 INCLUDES = includes/minishell.h
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 # CFLAGS = -fsanitize=address
 READLINE_DIR = $(shell brew --prefix readline)
 CFLAGS += -I$(READLINE_DIR)/include
@@ -104,6 +104,9 @@ fclean:	clean
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(RM) $(OBJS)
+
+install:
+	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh brew update && brew upgrade && brew install readline
 
 bonus:	all
 

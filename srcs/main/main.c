@@ -41,6 +41,8 @@ int	main(int argc, char *argv[], char const *envp[])
 	char			*line;
 	t_command_data	d;
 
+	(void)argc;
+	argv[1] = (void *)argv[1];
 	d.envs = init_env((char **)envp);
 	while (true)
 	{
