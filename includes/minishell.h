@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/06/07 14:24:44 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:56:15 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char		**change_array(t_env *env);
 char		*get_pwd(void);
 void		envs_free(t_env **envs);
 pid_t		output_process(char **command, t_env **envs, t_output *out);
-char		**freeall(char **ptr, size_t i);
+// char		**freeall(char **ptr, size_t i);
 bool		redirect_output_process(char *outfile);
 bool		append_process(char *outfile);
 bool		redirect_process(t_output *out);

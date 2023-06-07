@@ -12,6 +12,7 @@ MAIN_DIR = srcs/main
 
 SRCS_BUILTINS = builtins.c	\
 				 cd.c \
+				 redirect_process.c \
 				 cd_util.c \
 				 echo.c \
 				 export.c \
