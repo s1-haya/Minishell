@@ -34,9 +34,6 @@ t_token	*here_strings(t_token *token)
 	if (close(pipefd[R]) + close(pipefd[W]) < 0)
 		close_failed("close");
 	word->is_read = true;
-	// printf("word       %p\n", word);
-	// printf("word env   %p\n", token);
-	// printf("word expan %p\n", word->expanded_str);
 	return (word);
 }
 
