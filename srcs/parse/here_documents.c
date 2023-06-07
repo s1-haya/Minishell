@@ -76,8 +76,7 @@ char	*get_here_documents(char *delimiter, int dupped_stdin)
 	{
 		show_heredoc_prompt(STDERR_FILENO);
 		str = read_stdin(STDIN_FILENO);
-		if (!str)
-			here_doc = NULL;
+		here_doc = sig_action_heredoc(str, here_doc);
 		if (!str || (!ft_strncmp(str, delimiter, ft_strlen(delimiter))
 				&& ft_strlen(str) - 1 == ft_strlen(delimiter)))
 			break ;

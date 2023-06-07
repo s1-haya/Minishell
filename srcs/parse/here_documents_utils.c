@@ -28,9 +28,17 @@ char	*handle_signal(char *str, int fd, char *buff)
 	if (g_vars.sig_no == SIGINT || *buff == '\0')
 	{
 		free(str);
-		// if (write(fd, "\n", 1) < 0)
-		// 	write_failed("write");
 		return (NULL);
 	}
 	return (str);
+}
+
+char	*sig_action_heredoc(char *str, char *here_doc)
+{
+	if (!str)
+	{
+		free(here_doc);
+		return (NULL);
+	}
+	return (here_doc);
 }

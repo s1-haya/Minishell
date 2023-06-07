@@ -148,7 +148,7 @@ t_token		*get_next_token(t_token **head);
 int			parse_in_redirection(t_token **head, t_env *envs, int dupped_stdin);
 t_token		*here_documents(t_token *token, t_env *envs, int dupped_stdin);
 char		*init_heredoc_vars(char *buff);
-void		close_heredoc(char *str);
+char		*sig_action_heredoc(char *str, char *here_doc);
 char		*handle_signal(char *str, int fd, char *buff);
 char		*make_delimiter(char *str);
 char		*expand_env_var_heredoc(char *str, char *delimiter, \
