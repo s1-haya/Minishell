@@ -54,7 +54,6 @@ void	minishell(char *line, t_command_data *d)
 		close_failed("close");
 	wait_child_process(array);
 	free_tokens(&head);
-	
 	// */
 }
 
@@ -78,8 +77,3 @@ int	main(int argc, char *argv[], char const *envp[])
 	}
 	return (0);
 }
-
-// __attribute__((destructor))
-// static void destructor() {
-//     system("leaks -q minishell");
-// }

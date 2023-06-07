@@ -3,7 +3,7 @@ CC = cc
 
 INCLUDES = includes/minishell.h
 # CFLAGS = -Wall -Wextra -Werror
-CFLAGS = -fsanitize=address
+# CFLAGS = -fsanitize=address
 READLINE_DIR = $(shell brew --prefix readline)
 CFLAGS += -I$(READLINE_DIR)/include
 LDFLAGS = -L$(READLINE_DIR)/lib -lreadline
