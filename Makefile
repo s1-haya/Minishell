@@ -40,6 +40,7 @@ SRCS_EXPANSION = expansion.c	\
 EXPANSION_DIR = srcs/expansion
 
 SRCS_PARSE = parse.c	\
+			 parse_utils.c	\
 			 get_filepath.c	\
 			 here_documents.c	\
 			 here_documents_utils.c	\

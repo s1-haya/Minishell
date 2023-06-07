@@ -144,6 +144,7 @@ char		*delete_quotation(char *str);
 //parse
 pid_t		*parse(t_token **head, t_command_data *d, \
 						int dupped_stdin, pid_t *array);
+void		*handle_parse_signal(pid_t *array);
 t_token		*get_next_token(t_token **head);
 int			parse_in_redirection(t_token **head, t_env *envs, int dupped_stdin);
 t_token		*here_documents(t_token *token, t_env *envs, int dupped_stdin);
