@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 19:35:45 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/07 14:48:36 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:37:37 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	envs_free(t_env **envs)
 	}
 }
 
-void	exit_mode(char **command, t_env **envs)
+void	exit_mode(char **command)
 {
 	size_t	i;
 
@@ -39,7 +39,7 @@ void	exit_mode(char **command, t_env **envs)
 	if (command[1] == NULL)
 	{
 		printf("exit\n");
-		exit(EXIT_SUCCESS);
+		exit(g_vars.exit_status);
 	}
 	if (command[1][i] == '\0')
 		exit_n_faild(command[1]);

@@ -6,13 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:57:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/05 14:32:42 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:36:18 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	check_envsid(char *new_env)
+bool	check_envsid(char *new_env)
 {
 	size_t	i;
 
@@ -84,7 +84,7 @@ static void	export_util_mode(char **command, t_env **envs)
 		ite = new_env(command[i]);
 		if (!ite || !check_envsid(ite->name))
 		{
-			printf("bash: export: `%s': not a valid identifier\n", command[i]);
+			printf("export: `%s': not a valid identifier\n", command[i]);
 			g_vars.exit_status = 1;
 			break ;
 		}
@@ -97,7 +97,6 @@ static void	export_util_mode(char **command, t_env **envs)
 void	export_mode(char **command, t_env **envs)
 {
 	t_env	*ite;
-	size_t	i;
 
 	ite = *envs;
 	if (command[1] == NULL)

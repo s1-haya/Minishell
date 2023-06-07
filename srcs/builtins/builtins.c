@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:56 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/07 14:23:12 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:37:51 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	builtins(char **command, t_env **envs, t_output *out)
 	if (!(ft_strcmp(command[0], "echo")))
 		echo_mode(command);
 	else if (!(ft_strcmp(command[0], "pwd")))
-		pwd_mode(command);
+		pwd_mode();
 	else if (!(ft_strcmp(command[0], "cd")))
 		cd_mode(command, envs);
 	else if (!(ft_strcmp(command[0], "export")))
@@ -25,15 +25,18 @@ void	builtins(char **command, t_env **envs, t_output *out)
 	else if (!(ft_strcmp(command[0], "env")))
 		env_mode(command, envs);
 	else if (!(ft_strcmp(command[0], "unset")))
-		unset_mode(command, envs);
+	{
+		if (check_unset(command))
+			unset_mode(command, envs);
+	}
 	else if (!(ft_strcmp(command[0], "exit")))
-		exit_mode(command, envs);
+		exit_mode(command);
+	free(out);
 }
 
 pid_t	output_process(char **command, t_env **envs, t_output *out)
 {
 	int	fd;
-	int	fd2;
 
 	fd = dup(STDOUT_FILENO);
 	if (fd < 0)

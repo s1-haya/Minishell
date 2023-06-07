@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_filepath.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 14:26:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/18 14:26:20 by tterao           ###   ########.fr       */
+/*   Updated: 2023/06/07 18:39:52 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ char	*make_filepath(char **dirs, char *command)
 char	*get_filepath(char *command, t_env *envs)
 {
 	char	*path;
-	char	*tmp;
+	// char	*tmp;
 	char	**dirs;
-	size_t	i;
+	// size_t	i;
 
 	if (!command || command[0] == '\0')
 		return (NULL);
