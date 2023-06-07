@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/06/06 17:59:13 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:24:44 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ typedef struct s_g_vars
 extern t_g_vars	g_vars;
 
 //builtins
-pid_t		builtins(char **command, t_env **envs, t_output *out);
+void		builtins(char **command, t_env **envs, t_output *out);
 void		child_builtins(char **command, t_env **envs);
 void		echo_mode(char **command);
 void		cd_mode(char **command, t_env **envs);
@@ -116,7 +116,11 @@ t_env		*new_env(char *envs);
 char		**change_array(t_env *env);
 char		*get_pwd(void);
 void		envs_free(t_env **envs);
-void		output_process(t_output *out);
+pid_t		output_process(char **command, t_env **envs, t_output *out);
+char		**freeall(char **ptr, size_t i);
+bool		redirect_output_process(char *outfile);
+bool		append_process(char *outfile);
+bool		redirect_process(t_output *out);
 
 //tokenize
 bool		tokenize(t_token **head, char *line);

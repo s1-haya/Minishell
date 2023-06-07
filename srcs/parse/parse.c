@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 20:12:25 by tterao            #+#    #+#             */
-/*   Updated: 2023/06/06 16:16:48 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:18:10 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ pid_t	*parse(t_token **head, t_command_data *d, int dupped_stdin, pid_t *array)
 	output = parse_out_redirection(head);
 	if (output->have_pipe == false && array == NULL && \
 	is_builtin((d->command)[0]))
-		pid = builtins(d->command, &(d->envs), output);
+		pid = output_process(d->command, &(d->envs), output);
 	else
 		pid = execute_command(head, d, output);
 	free_data(d);

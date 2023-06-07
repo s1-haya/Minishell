@@ -6,67 +6,14 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:56 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/06 18:01:28 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:23:12 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	redirect_output_process(char *outfile)
+void	builtins(char **command, t_env **envs, t_output *out)
 {
-	int	fd;
-
-	if (!outfile)
-	{
-		syntax_error_str("newline");
-		exit(SYNTAX_ERROR);
-	}
-	fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-	if (fd < 0)
-		open_failed_exit(outfile);
-	if (dup2(fd, STDOUT_FILENO) < 0)
-		dup2_failed("dup2");
-	if (close(fd) < 0)
-		close_failed("close");
-}
-
-void	append_process(char *outfile)
-{
-	int	fd;
-
-	if (!outfile)
-	{
-		syntax_error_str("newline");
-		exit(SYNTAX_ERROR);
-	}
-	fd = open(outfile, O_CREAT | O_WRONLY | O_APPEND, 0666);
-	if (fd < 0)
-		open_failed_exit(outfile);
-	if (dup2(fd, STDOUT_FILENO) < 0)
-		dup2_failed("dup2");
-	if (close(fd) < 0)
-		close_failed("close");
-}
-
-void	output_process(t_output *out)
-{
-	if (out == NULL)
-		return ;
-	else if (out->kind == REDIRECT_OUTPUT)
-		redirect_output_process(out->outfile);
-	else if (out->kind == APPEND)
-		append_process(out->outfile);
-}
-
-pid_t	builtins(char **command, t_env **envs, t_output *out)
-{
-	int	fd;
-	int	fd2;
-
-	fd = dup(STDOUT_FILENO);
-	if (fd < 0)
-		dup_failed("dup");
-	output_process(out);
 	if (!(ft_strcmp(command[0], "echo")))
 		echo_mode(command);
 	else if (!(ft_strcmp(command[0], "pwd")))
@@ -81,8 +28,27 @@ pid_t	builtins(char **command, t_env **envs, t_output *out)
 		unset_mode(command, envs);
 	else if (!(ft_strcmp(command[0], "exit")))
 		exit_mode(command, envs);
+}
+
+pid_t	output_process(char **command, t_env **envs, t_output *out)
+{
+	int	fd;
+	int	fd2;
+
+	fd = dup(STDOUT_FILENO);
+	if (fd < 0)
+	{
+		perror("dup");
+		return (-1);
+	}
+	if (!redirect_process(out))
+		return (-1);
+	builtins(command, envs, out);
 	if (dup2(fd, STDOUT_FILENO) < 0)
-		dup2_failed("dup2");
+	{
+		perror("dup2");
+		return (-1);
+	}
 	free(out);
 	return (-1);
 }
