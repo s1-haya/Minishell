@@ -16,9 +16,10 @@
 void	sigaction_failed(char *str)
 {
 	perror(str);
+	g_vars.exit_status = EXIT_FAILURE;
 }
 
-void	exit_not_n_faild(char *str)
+void	exit_n_faild(char *str)
 {
 	printf("exit\n");
 	printf("exit: %s: numeric argument required\n", str);

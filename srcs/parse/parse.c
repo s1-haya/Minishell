@@ -67,7 +67,8 @@ t_token_kind	parse_output_direction(t_token **head)
 	return (token->kind);
 }
 
-pid_t	*parse(t_token **head, t_command_data *d, int dupped_stdin, pid_t *array)
+pid_t	*parse(t_token **head, t_command_data *d,
+					int dupped_stdin, pid_t *array)
 {
 	pid_t		pid;
 	t_output	*output;
@@ -79,11 +80,7 @@ pid_t	*parse(t_token **head, t_command_data *d, int dupped_stdin, pid_t *array)
 	if (ret == 1)
 		return (parse(head, d, dupped_stdin, array));
 	else if (ret == 2)
-	{
-		free(array);
-		g_vars.sig_no = 0;
-		return (NULL);
-	}
+		return (handle_parse_signal(array));
 	d->command = make_command_array(head);
 	d->filepath = get_filepath(d->command[0], d->envs);
 	output = parse_out_redirection(head);

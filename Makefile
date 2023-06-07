@@ -40,6 +40,7 @@ SRCS_EXPANSION = expansion.c	\
 EXPANSION_DIR = srcs/expansion
 
 SRCS_PARSE = parse.c	\
+			 parse_utils.c	\
 			 get_filepath.c	\
 			 here_documents.c	\
 			 here_documents_utils.c	\
@@ -103,6 +104,9 @@ fclean:	clean
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(RM) $(OBJS)
+
+install:
+	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh brew update && brew upgrade && brew install readline
 
 bonus:	all
 

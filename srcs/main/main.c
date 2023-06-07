@@ -22,28 +22,8 @@ void	minishell(char *line, t_command_data *d)
 
 	head = NULL;
 	if (tokenize(&head, line))
-	{
-		free_tokens(&head);
-		return ;
-	}
+		return (free_tokens(&head));
 	expansion(&head, d->envs);
-	/*
-	// トークン確認用
-
-	tokenize(&head, line);
-	expansion(&head, d->envs);
-
-	t_token	*token;
-	token = head;
-	while (token)
-	{
-		printf("  str:%s---\n", token->str);
-		printf("e str:%s---\n", token->expanded_str);
-		printf("kind :%d---\n", token->kind);
-		token = token->next;
-	}
-	*/
-	// /*
 	dupped_stdin = dup(STDIN_FILENO);
 	if (dupped_stdin < 0)
 		dup_failed("dup");
@@ -54,7 +34,6 @@ void	minishell(char *line, t_command_data *d)
 		close_failed("close");
 	wait_child_process(array);
 	free_tokens(&head);
-	// */
 }
 
 int	main(int argc, char *argv[], char const *envp[])

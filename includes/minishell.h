@@ -27,15 +27,15 @@
 typedef enum e_token_kind
 {
 	WORD,
-	PIPE, // |
-	STDIN, // <
+	PIPE,
+	STDIN,
 	INFILE,
-	REDIRECT_OUTPUT, // >
-	HEREDOC, // <<
+	REDIRECT_OUTPUT,
+	HEREDOC,
 	DELIMITER,
-	HERESTRING, // <<<
+	HERESTRING,
 	INSTRING,
-	APPEND, // >>
+	APPEND,
 	STDOUT,
 	OUTFILE,
 }	t_token_kind;
@@ -145,10 +145,12 @@ char		*delete_quotation(char *str);
 //parse
 pid_t		*parse(t_token **head, t_command_data *d, \
 						int dupped_stdin, pid_t *array);
+void		*handle_parse_signal(pid_t *array);
 t_token		*get_next_token(t_token **head);
 int			parse_in_redirection(t_token **head, t_env *envs, int dupped_stdin);
 t_token		*here_documents(t_token *token, t_env *envs, int dupped_stdin);
 char		*init_heredoc_vars(char *buff);
+char		*sig_action_heredoc(char *str, char *here_doc);
 char		*handle_signal(char *str, int fd, char *buff);
 char		*make_delimiter(char *str);
 char		*expand_env_var_heredoc(char *str, char *delimiter, \
@@ -170,7 +172,7 @@ void		wait_child_process(pid_t *array);
 
 //signal
 void		ft_signal(enum e_signal no);
-void		signal_heredoc(void);
+void		signal_heredoc(int dupped_stdin);
 void		handle_eof(char *str);
 void		ctrl_c(void);
 void		put_siginal_msg(int no);
@@ -209,7 +211,7 @@ void		command_not_found(char *command);
 void		*syntax_error_c(char c);
 void		*syntax_error_str(char *str);
 void		sigaction_failed(char *str);
-void		exit_not_n_faild(char *str);
+void		exit_n_faild(char *str);
 void		cd_faild(char *str);
 void		exit_too_many_arguments_faild(char *str);
 

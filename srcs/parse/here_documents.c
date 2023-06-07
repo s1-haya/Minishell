@@ -36,13 +36,10 @@ char	*read_stdin(int fd)
 	str = init_heredoc_vars(buff);
 	while (!have_nl(buff))
 	{
-		// write(STDERR_FILENO, "reading", ft_strlen("reading"));
 		read_bytes = read(fd, buff, BUFFERSIZE);
 		str = handle_signal(str, fd, buff);
 		if (!str)
 			break ;
-		// printf("buff:%s--\n", buff);
-		// write(STDERR_FILENO, "2reading", ft_strlen("2reading"));
 		if (read_bytes == -1)
 		{
 			free(str);
@@ -55,7 +52,6 @@ char	*read_stdin(int fd)
 		if (!str)
 			malloc_failed("malloc");
 	}
-	// printf("str:%s---\n", str);
 	return (str);
 }
 
@@ -78,12 +74,9 @@ char	*get_here_documents(char *delimiter, int dupped_stdin)
 		malloc_failed("malloc");
 	while (true)
 	{
-		// write(STDERR_FILENO, "prompt\n", ft_strlen("prompt\n"));
 		show_heredoc_prompt(STDERR_FILENO);
-		str = read_stdin(dupped_stdin);
-		// printf("str:%s\n", str);
-		if (!str)
-			here_doc = NULL;
+		str = read_stdin(STDIN_FILENO);
+		here_doc = sig_action_heredoc(str, here_doc);
 		if (!str || (!ft_strncmp(str, delimiter, ft_strlen(delimiter))
 				&& ft_strlen(str) - 1 == ft_strlen(delimiter)))
 			break ;
@@ -108,7 +101,7 @@ t_token	*here_documents(t_token *token, t_env *envs, int dupped_stdin)
 	token->is_read = true;
 	delimiter = token->next;
 	expanded_delimiter = make_delimiter(delimiter->str);
-	signal_heredoc();
+	signal_heredoc(dupped_stdin);
 	here_doc = get_here_documents(expanded_delimiter, dupped_stdin);
 	here_doc = expand_env_var_heredoc(here_doc, expanded_delimiter,
 			delimiter->str, envs);

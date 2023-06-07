@@ -16,17 +16,18 @@ void	signal_handler_heredoc(int signo)
 {
 	g_vars.sig_no = signo;
 	g_vars.exit_status = 1;
-	// if (write(STDIN_FILENO, "\n", 1) < 0)
-	// 	write_failed("write");
-	// rl_replace_line("", 0);
-	// rl_on_new_line();
-	// rl_redisplay();
+	if (close(STDIN_FILENO) < 0)
+		close_failed("close");
+	if (write(STDOUT_FILENO, "\n", 1) < 0)
+		write_failed("write");
 }
 
-void	signal_heredoc(void)
+void	signal_heredoc(int dupped_stdin)
 {
 	struct sigaction	act;
 
+	if (dup2(dupped_stdin, STDIN_FILENO) < 0)
+		dup2_failed("dup2");
 	act.sa_handler = signal_handler_heredoc;
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_RESTART;

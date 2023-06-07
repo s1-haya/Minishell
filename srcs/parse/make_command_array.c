@@ -49,7 +49,6 @@ char	**make_command_array(t_token **head)
 
 	token = get_next_token(head);
 	len = count_tokens(head);
-	// printf("token:%s\n", token->expanded_str);
 	array = malloc(sizeof(char *) * (len + 1));
 	if (!array)
 		malloc_failed("malloc");
