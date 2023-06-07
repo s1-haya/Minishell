@@ -53,8 +53,7 @@ int	free_data(t_command_data *d)
 		i++;
 	}
 	free(d->command);
-	if (d->filepath)
-		free(d->filepath);
+	free(d->filepath);
 	return (1);
 }
 
@@ -87,17 +86,12 @@ pid_t	*parse(t_token **head, t_command_data *d, int dupped_stdin, pid_t *array)
 	}
 	d->command = make_command_array(head);
 	d->filepath = get_filepath(d->command[0], d->envs);
-	// printf("%s\n", d.command[0]);
-	// printf("%s\n", d.filepath);
 	output = parse_out_redirection(head);
-	// printf("output %p\n", output);
 	if (output->have_pipe == false && array == NULL && \
 	is_builtin((d->command)[0]))
 		pid = builtins(d->command, &(d->envs), output);
 	else
 		pid = execute_command(head, d, output);
-	// printf("builtin %s\n", (d->command)[0]);
-	// printf("builtin %s\n", (d->command)[0]);
 	free_data(d);
 	return (parse(head, d, dupped_stdin, make_process_array(pid, array)));
 }
