@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 14:25:43 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/04 13:13:35 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:36:49 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_pwd(void)
 	return (pwd);
 }
 
-void	pwd_mode(char **command)
+void	pwd_mode(void)
 {
 	char	*pwd;
 

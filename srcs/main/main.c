@@ -6,13 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:08:39 by tterao            #+#    #+#             */
-/*   Updated: 2023/06/07 14:08:07 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:35:31 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_g_vars	g_vars = {0, 0};
+t_g_vars	g_vars = {0, 0, 0};
 
 void	minishell(char *line, t_command_data *d)
 {
@@ -62,6 +62,8 @@ int	main(int argc, char *argv[], char const *envp[])
 	char			*line;
 	t_command_data	d;
 
+	(void) argc;
+	(void) argv;
 	d.envs = init_env((char **)envp);
 	while (true)
 	{

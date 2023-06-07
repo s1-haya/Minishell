@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 20:18:13 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/05 16:02:19 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:36:28 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	env_mode(char **command, t_env **envs)
 {
 	t_env	*ite;
-	size_t	i;
 
 	if (command[1] == NULL)
 	{

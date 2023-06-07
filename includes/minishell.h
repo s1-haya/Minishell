@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/06/07 15:56:15 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:38:43 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,13 @@ void		child_builtins(char **command, t_env **envs);
 void		echo_mode(char **command);
 void		cd_mode(char **command, t_env **envs);
 void		change_pwd(t_env **envs);
-void		pwd_mode(char **command);
+void		pwd_mode(void);
 void		export_mode(char **command, t_env **envs);
 void		env_mode(char **command, t_env **envs);
-void		exit_mode(char **command, t_env **envs);
+void		exit_mode(char **command);
 void		unset_mode(char **command, t_env **envs);
+bool		check_unset(char **command);
+bool		check_envsid(char *new_env);
 size_t		arrlen(char **arr);
 t_env		*init_env(char **env);
 t_env		*new_env(char *envs);
@@ -117,7 +119,6 @@ char		**change_array(t_env *env);
 char		*get_pwd(void);
 void		envs_free(t_env **envs);
 pid_t		output_process(char **command, t_env **envs, t_output *out);
-// char		**freeall(char **ptr, size_t i);
 bool		redirect_output_process(char *outfile);
 bool		append_process(char *outfile);
 bool		redirect_process(t_output *out);

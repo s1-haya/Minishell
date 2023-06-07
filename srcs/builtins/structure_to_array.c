@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 20:04:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/07 15:01:55 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:38:18 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static	char	*m_str(char const *s)
 	return (str);
 }
 
-static char	**freeall(char **ptr, size_t i)
+static char	**freeall(char **ptr, int i)
 {
 	while (i != -1)
 	{

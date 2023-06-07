@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:37:42 by tterao            #+#    #+#             */
-/*   Updated: 2023/05/17 14:37:44 by tterao           ###   ########.fr       */
+/*   Updated: 2023/06/07 18:39:37 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ size_t	get_end_index(char *line, size_t i)
 
 bool	tokenize(t_token **head, char *line)
 {
-	t_token	*token;
+	// t_token	*token;
 	size_t	i;
 	size_t	start;
 
