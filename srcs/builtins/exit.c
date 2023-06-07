@@ -51,7 +51,7 @@ void	exit_mode(char **command)
 	}
 	if (arrlen(command) >= 3)
 	{
-		exit_too_many_arguments_faild(command[i]);
+		exit_too_many_arguments_faild();
 		return ;
 	}
 	printf("exit\n");

@@ -116,7 +116,6 @@ char	*expand_env_var_heredoc(char *str, char *delimiter,
 {
 	char	*heredoc;
 	size_t	i;
-	size_t	start;
 
 	heredoc = NULL;
 	if (!str || (have_quotationmark(delimiter_str) || !have_dollarmark(str)))

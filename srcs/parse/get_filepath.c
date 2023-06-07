@@ -54,9 +54,7 @@ char	*make_filepath(char **dirs, char *command)
 char	*get_filepath(char *command, t_env *envs)
 {
 	char	*path;
-	// char	*tmp;
 	char	**dirs;
-	// size_t	i;
 
 	if (!command || command[0] == '\0')
 		return (NULL);

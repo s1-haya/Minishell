@@ -151,7 +151,7 @@ int			parse_in_redirection(t_token **head, t_env *envs, int dupped_stdin);
 t_token		*here_documents(t_token *token, t_env *envs, int dupped_stdin);
 char		*init_heredoc_vars(char *buff);
 char		*sig_action_heredoc(char *str, char *here_doc);
-char		*handle_signal(char *str, int fd, char *buff);
+char		*handle_signal(char *str, char *buff);
 char		*make_delimiter(char *str);
 char		*expand_env_var_heredoc(char *str, char *delimiter, \
 				char *delimiter_str, t_env *envs);
@@ -165,7 +165,7 @@ int			read_till_pipe(t_token **head);
 pid_t		*make_process_array(pid_t adding_pid, pid_t *array);
 
 //execve_command
-pid_t		execute_command(t_token **head, t_command_data *d, t_output *out);
+pid_t		execute_command(t_command_data *d, t_output *out);
 void		child_process(t_command_data *d, t_token_kind output_direction, \
 							char *outfile, int *pipefd);
 void		wait_child_process(pid_t *array);
@@ -213,6 +213,6 @@ void		*syntax_error_str(char *str);
 void		sigaction_failed(char *str);
 void		exit_n_faild(char *str);
 void		cd_faild(char *str);
-void		exit_too_many_arguments_faild(char *str);
+void		exit_too_many_arguments_faild(void);
 
 #endif

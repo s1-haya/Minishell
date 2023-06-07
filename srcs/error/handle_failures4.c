@@ -26,7 +26,7 @@ void	exit_n_faild(char *str)
 	exit(NUMERIC_ARGUMENT_REQUIRED);
 }
 
-void	exit_too_many_arguments_faild(char *str)
+void	exit_too_many_arguments_faild(void)
 {
 	printf("exit: too many arguments\n");
 	g_vars.exit_status = NUMERIC_ARGUMENT_REQUIRED;

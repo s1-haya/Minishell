@@ -49,7 +49,6 @@ size_t	get_end_index(char *line, size_t i)
 
 bool	tokenize(t_token **head, char *line)
 {
-	// t_token	*token;
 	size_t	i;
 	size_t	start;
 

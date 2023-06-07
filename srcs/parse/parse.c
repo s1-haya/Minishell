@@ -88,7 +88,7 @@ pid_t	*parse(t_token **head, t_command_data *d,
 	is_builtin((d->command)[0]))
 		pid = output_process(d->command, &(d->envs), output);
 	else
-		pid = execute_command(head, d, output);
+		pid = execute_command(d, output);
 	free_data(d);
 	return (parse(head, d, dupped_stdin, make_process_array(pid, array)));
 }

@@ -51,7 +51,7 @@ pid_t	execute_fork(t_command_data *d, t_output *out)
 	return (pid);
 }
 
-pid_t	execute_command(t_token **head, t_command_data *d, t_output *out)
+pid_t	execute_command(t_command_data *d, t_output *out)
 {
 	pid_t	pid;
 

@@ -26,7 +26,6 @@ size_t	get_array_size(pid_t *array)
 pid_t	*malloc_process_array(pid_t adding_pid,
 							pid_t *old_array, pid_t *new_array)
 {
-	pid_t	*array;
 	size_t	i;
 
 	i = 0;
@@ -49,7 +48,6 @@ pid_t	*malloc_process_array(pid_t adding_pid,
 pid_t	*make_process_array(pid_t adding_pid, pid_t *array)
 {
 	pid_t	*new_array;
-	size_t	size;
 
 	if (!array)
 	{

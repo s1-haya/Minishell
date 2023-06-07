@@ -37,7 +37,7 @@ char	*read_stdin(int fd)
 	while (!have_nl(buff))
 	{
 		read_bytes = read(fd, buff, BUFFERSIZE);
-		str = handle_signal(str, fd, buff);
+		str = handle_signal(str, buff);
 		if (!str)
 			break ;
 		if (read_bytes == -1)
@@ -63,7 +63,7 @@ void	show_heredoc_prompt(int fd)
 		write_failed("write");
 }
 
-char	*get_here_documents(char *delimiter, int dupped_stdin)
+char	*get_here_documents(char *delimiter)
 {
 	char	*here_doc;
 	char	*str;
@@ -102,7 +102,7 @@ t_token	*here_documents(t_token *token, t_env *envs, int dupped_stdin)
 	delimiter = token->next;
 	expanded_delimiter = make_delimiter(delimiter->str);
 	signal_heredoc(dupped_stdin);
-	here_doc = get_here_documents(expanded_delimiter, dupped_stdin);
+	here_doc = get_here_documents(expanded_delimiter);
 	here_doc = expand_env_var_heredoc(here_doc, expanded_delimiter,
 			delimiter->str, envs);
 	if (!here_doc)

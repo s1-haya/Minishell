@@ -23,7 +23,7 @@ char	*init_heredoc_vars(char *buff)
 	return (str);
 }
 
-char	*handle_signal(char *str, int fd, char *buff)
+char	*handle_signal(char *str, char *buff)
 {
 	if (g_vars.sig_no == SIGINT || *buff == '\0')
 	{
