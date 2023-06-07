@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:21:41 by tterao            #+#    #+#             */
-/*   Updated: 2023/06/04 17:40:16 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:58:49 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,6 @@ void	redirect_output_child_process(t_command_data *d, int *pipefd,
 
 	if (close(pipefd[R]) + close(pipefd[W]) < 0)
 		close_failed("close");
-	if (!outfile)
-	{
-		syntax_error_str("newline");
-		exit(SYNTAX_ERROR);
-	}
 	fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (fd < 0)
 		open_failed_exit(outfile);
@@ -68,11 +63,6 @@ void	append_child_process(t_command_data *d, int *pipefd, char *outfile)
 
 	if (close(pipefd[R]) + close(pipefd[W]) < 0)
 		close_failed("close");
-	if (!outfile)
-	{
-		syntax_error_str("newline");
-		exit(SYNTAX_ERROR);
-	}
 	fd = open(outfile, O_CREAT | O_WRONLY | O_APPEND, 0666);
 	if (fd < 0)
 		open_failed_exit(outfile);
