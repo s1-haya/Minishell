@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:57:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/08 20:18:14 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/09 08:27:49 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ static void	export_util_mode(char **command, t_env **envs)
 		}
 		else
 			envadd_back(envs, ite, sign_char_equal);
-		printf("ite %s\n", ite->value);
 		i++;
 	}
 }
@@ -109,5 +108,6 @@ void	export_mode(char **command, t_env **envs)
 			ite = ite->next;
 		}
 	}
+	g_vars.exit_status = 0;
 	export_util_mode(command, envs);
 }

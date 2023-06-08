@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 19:09:25 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/08 16:21:47 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/09 08:24:39 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 bool	check_unset(char **command)
 {
 	size_t	i;
+	bool	flag;
 
 	i = 0;
+	flag = true;
 	if (command[1][0] == '\0')
 	{
 		printf("unset: `%c': not a valid identifier\n", command[1][0]);
 		g_vars.exit_status = 1;
-		return (false);
+		flag = false;
 	}
 	while (command[++i])
 	{
@@ -29,10 +31,10 @@ bool	check_unset(char **command)
 		{
 			printf("unset: `%s': not a valid identifier\n", command[i]);
 			g_vars.exit_status = 1;
-			return (false);
+			flag = false;
 		}
 	}
-	return (true);
+	return (flag);
 }
 
 void	unset_mode(char **command, t_env **envs)
