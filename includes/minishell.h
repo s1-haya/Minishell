@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/06/08 16:24:47 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/08 19:52:49 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ bool		redirect_output_process(char *outfile);
 bool		append_process(char *outfile);
 bool		redirect_process(t_output *out);
 void		env_free(t_env *envs);
+char		**split_env(char const *s, char c);
 
 //tokenize
 bool		tokenize(t_token **head, char *line);

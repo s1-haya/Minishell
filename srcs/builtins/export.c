@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:57:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/08 17:25:08 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/08 20:18:14 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	envlast(t_env *env, t_env **p, t_env *new_env, bool sign_char_equal)
 		{
 			if (new_env->value)
 			{
-				// free((*p)->value);
+				free((*p)->value);
 				(*p)->value = new_env->value;
 			}
 			else if (sign_char_equal)
@@ -47,7 +47,9 @@ static void	envadd_back(t_env **env, t_env *new_env, bool sign_char_equal)
 		return ;
 	if (!envlast(*env, &p, new_env, sign_char_equal))
 	{
-		env_free(new_env);
+		free(new_env->name);
+		free(new_env->next);
+		free(new_env);
 		return ;
 	}
 	if (p)
@@ -83,6 +85,7 @@ static void	export_util_mode(char **command, t_env **envs)
 		}
 		else
 			envadd_back(envs, ite, sign_char_equal);
+		printf("ite %s\n", ite->value);
 		i++;
 	}
 }

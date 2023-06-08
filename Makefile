@@ -22,6 +22,7 @@ SRCS_BUILTINS = builtins.c	\
 				 exit.c \
 				 arrlen.c \
 				 init_env.c \
+				 split_env.c \
 				 structure_to_array.c
 BUILTINS_DIR = srcs/builtins
 
