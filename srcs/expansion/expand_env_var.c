@@ -63,6 +63,8 @@ char	*substr_exp_ev(char *str, char *expanded_str, size_t start, size_t end)
 	char	*adding_str;
 	char	*tmp;
 
+	if (start == end)
+		return (expanded_str);
 	adding_str = ft_substr(str, start, end - start);
 	if (!adding_str)
 		malloc_failed("malloc");
@@ -99,16 +101,16 @@ char	*expand_env_var(char *str, t_env *envs)
 			s_quotation = !s_quotation;
 		if (str[i] == '$' && !s_quotation)
 		{
-			if (start != i)
-				expanded_str = substr_exp_ev(str, expanded_str, start, i);
+			expanded_str = substr_exp_ev(str, expanded_str, start, i);
 			i++;
-			expanded_str = env_var(str, expanded_str, envs, &i);
+			if (is_quotation_mark(str[i]))
+				;
+			else
+				expanded_str = env_var(str, expanded_str, envs, &i);
 			start = i;
 		}
 		else
 			i++;
 	}
-	if (start != i)
-		expanded_str = substr_exp_ev(str, expanded_str, start, i);
-	return (expanded_str);
+	return (substr_exp_ev(str, expanded_str, start, i));
 }
