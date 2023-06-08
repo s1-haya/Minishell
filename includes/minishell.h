@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/06/07 18:38:43 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/08 13:42:46 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ typedef struct s_g_vars
 extern t_g_vars	g_vars;
 
 //builtins
-void		builtins(char **command, t_env **envs, t_output *out);
+void		builtins(char **command, t_env **envs);
 void		child_builtins(char **command, t_env **envs);
 void		echo_mode(char **command);
 void		cd_mode(char **command, t_env **envs);

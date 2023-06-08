@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:23:04 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/07 14:58:09 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/08 13:42:22 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,15 @@ bool	append_process(char *outfile)
 
 bool	redirect_process(t_output *out)
 {
+	bool	is_redirect;
+
+	is_redirect = true;
 	if (out == NULL)
-		return (false);
+		is_redirect = false;
 	else if (out->kind == REDIRECT_OUTPUT)
-		return (redirect_output_process(out->outfile));
+		is_redirect = redirect_output_process(out->outfile);
 	else if (out->kind == APPEND)
-		return (append_process(out->outfile));
-	return (true);
+		is_redirect = append_process(out->outfile);
+	free(out);
+	return (is_redirect);
 }

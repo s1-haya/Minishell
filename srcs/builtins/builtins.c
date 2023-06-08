@@ -6,13 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:56 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/07 18:37:51 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/08 13:43:04 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	builtins(char **command, t_env **envs, t_output *out)
+void	builtins(char **command, t_env **envs)
 {
 	if (!(ft_strcmp(command[0], "echo")))
 		echo_mode(command);
@@ -31,7 +31,6 @@ void	builtins(char **command, t_env **envs, t_output *out)
 	}
 	else if (!(ft_strcmp(command[0], "exit")))
 		exit_mode(command);
-	free(out);
 }
 
 pid_t	output_process(char **command, t_env **envs, t_output *out)
@@ -40,25 +39,18 @@ pid_t	output_process(char **command, t_env **envs, t_output *out)
 
 	fd = dup(STDOUT_FILENO);
 	if (fd < 0)
-	{
-		perror("dup");
-		return (-1);
-	}
+		dup_failed("dup");
 	if (!redirect_process(out))
 		return (-1);
-	builtins(command, envs, out);
+	builtins(command, envs);
 	if (dup2(fd, STDOUT_FILENO) < 0)
-	{
-		perror("dup2");
-		return (-1);
-	}
-	free(out);
+		dup2_failed("dup2");
 	return (-1);
 }
 
 void	child_builtins(char **command, t_env **envs)
 {
-	builtins(command, envs, NULL);
+	builtins(command, envs);
 	exit(g_vars.exit_status);
 }
 
