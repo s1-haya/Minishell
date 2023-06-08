@@ -6,25 +6,11 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:57:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/07 18:36:18 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:25:08 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-bool	check_envsid(char *new_env)
-{
-	size_t	i;
-
-	i = 0;
-	while (new_env[i])
-	{
-		if (!ft_isalpha(new_env[i]))
-			return (false);
-		i++;
-	}
-	return (true);
-}
 
 static bool	envlast(t_env *env, t_env **p, t_env *new_env, bool sign_char_equal)
 {
@@ -34,7 +20,10 @@ static bool	envlast(t_env *env, t_env **p, t_env *new_env, bool sign_char_equal)
 		if (ft_strcmp((*p)->name, new_env->name) == 0)
 		{
 			if (new_env->value)
+			{
+				// free((*p)->value);
 				(*p)->value = new_env->value;
+			}
 			else if (sign_char_equal)
 				(*p)->value = "";
 			else
@@ -57,7 +46,10 @@ static void	envadd_back(t_env **env, t_env *new_env, bool sign_char_equal)
 	if (!env || !new_env)
 		return ;
 	if (!envlast(*env, &p, new_env, sign_char_equal))
+	{
+		env_free(new_env);
 		return ;
+	}
 	if (p)
 	{
 		tmp_lst = p->next;
@@ -82,11 +74,12 @@ static void	export_util_mode(char **command, t_env **envs)
 	{
 		sign_char_equal = is_char_equal(command[i]);
 		ite = new_env(command[i]);
-		if (!ite || !check_envsid(ite->name))
+		if (!ite || !ft_isalpha(ite->name[0]))
 		{
 			printf("export: `%s': not a valid identifier\n", command[i]);
 			g_vars.exit_status = 1;
-			break ;
+			if (ite)
+				env_free(ite);
 		}
 		else
 			envadd_back(envs, ite, sign_char_equal);

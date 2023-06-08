@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:44:06 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/07 18:37:59 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:15:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,13 @@ t_env	*new_env(char *envs)
 	if (envs[0] == '\0' || list == NULL)
 		return (NULL);
 	split_envs = ft_split(envs, '=');
-	if (split_envs == NULL)
+	if (split_envs == NULL || split_envs[0] == NULL)
+	{
+		free(split_envs);
+		free(split_envs[0]);
+		free(list);
 		return (NULL);
+	}
 	list->name = split_envs[0];
 	if (split_envs[1] == NULL && is_char_equal(envs))
 		list->value = ft_strdup("");

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:10:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/06/08 13:42:46 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:24:47 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void		env_mode(char **command, t_env **envs);
 void		exit_mode(char **command);
 void		unset_mode(char **command, t_env **envs);
 bool		check_unset(char **command);
-bool		check_envsid(char *new_env);
 size_t		arrlen(char **arr);
 t_env		*init_env(char **env);
 t_env		*new_env(char *envs);
@@ -122,6 +121,7 @@ pid_t		output_process(char **command, t_env **envs, t_output *out);
 bool		redirect_output_process(char *outfile);
 bool		append_process(char *outfile);
 bool		redirect_process(t_output *out);
+void		env_free(t_env *envs);
 
 //tokenize
 bool		tokenize(t_token **head, char *line);
