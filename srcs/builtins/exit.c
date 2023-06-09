@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 19:35:45 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/08 14:41:31 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:44:21 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,6 @@ void	env_free(t_env *env)
 	env->next = NULL;
 	free(env);
 	env = NULL;
-}
-
-void	envs_free(t_env **envs)
-{
-	t_env	*tmp;
-
-	while ((*envs))
-	{
-		free((*envs)->name);
-		(*envs)->name = NULL;
-		free((*envs)->value);
-		(*envs)->value = NULL;
-		tmp = (*envs);
-		(*envs) = (*envs)->next;
-		free(tmp->next);
-		(*envs)->next = NULL;
-		free(tmp);
-		tmp = NULL;
-	}
 }
 
 void	exit_mode(char **command)

@@ -1,7 +1,7 @@
 NAME = minishell
 CC = cc
 
-INCLUDES = includes/minishell.h
+# INCLUDES = includes/minishell.h
 CFLAGS = -Wall -Wextra -Werror
 # CFLAGS = -fsanitize=address
 READLINE_DIR = $(shell brew --prefix readline)

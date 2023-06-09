@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 19:09:25 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/09 09:58:58 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/09 13:21:55 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void	unset_mode(char **command, t_env **envs)
 	size_t	i;
 
 	i = 0;
-	curr_env = *envs;
 	pre_env = NULL;
 	while (command[++i])
 	{
+		curr_env = *envs;
 		while (curr_env != NULL && ft_strcmp(curr_env->name, command[i]))
 		{
 			pre_env = curr_env;
