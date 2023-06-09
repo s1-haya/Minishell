@@ -6,29 +6,22 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 19:35:45 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/07 18:37:37 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:44:21 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	envs_free(t_env **envs)
+void	env_free(t_env *env)
 {
-	t_env	*tmp;
-
-	while ((*envs))
-	{
-		free((*envs)->name);
-		(*envs)->name = NULL;
-		free((*envs)->value);
-		(*envs)->value = NULL;
-		tmp = (*envs);
-		(*envs) = (*envs)->next;
-		free(tmp->next);
-		(*envs)->next = NULL;
-		free(tmp);
-		tmp = NULL;
-	}
+	free(env->name);
+	env->name = NULL;
+	free(env->value);
+	env->value = NULL;
+	free(env->next);
+	env->next = NULL;
+	free(env);
+	env = NULL;
 }
 
 void	exit_mode(char **command)

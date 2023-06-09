@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 17:01:06 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/05 12:25:33 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/08 14:13:42 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	change_oldpwd(char *pwd, t_env **envs)
 		}
 		(*envs) = (*envs)->next;
 	}
+	free(pwd);
 	printf("warning: cd: OLDPWD not set\n");
 }
 
@@ -53,6 +54,7 @@ void	change_pwd(t_env **envs)
 			}
 			(*envs) = (*envs)->next;
 		}
+		free(new_pwd);
 		printf("warning: cd: PWD not set\n");
 	}
 }

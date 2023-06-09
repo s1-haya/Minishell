@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:56 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/08 13:43:04 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/09 08:25:19 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	builtins(char **command, t_env **envs)
 	else if (!(ft_strcmp(command[0], "unset")))
 	{
 		if (check_unset(command))
-			unset_mode(command, envs);
+			g_vars.exit_status = 0;
+		unset_mode(command, envs);
 	}
 	else if (!(ft_strcmp(command[0], "exit")))
 		exit_mode(command);

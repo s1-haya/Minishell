@@ -6,11 +6,24 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:15:25 by tterao            #+#    #+#             */
-/*   Updated: 2023/06/06 14:37:29 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:46:11 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	no_such_file_or_directory(t_command_data *d)
+{
+	char	*path;
+
+	path = ft_getenv("PATH", d->envs);
+	if (!is_builtin((d->command)[0]) && path == NULL)
+	{
+		printf("%s: No such file or directory\n", (d->command)[0]);
+		exit(COMMAND_NOT_FOUND);
+	}
+	free(path);
+}
 
 char	*get_output_file(t_token **head)
 {
@@ -36,6 +49,7 @@ pid_t	execute_fork(t_command_data *d, t_output *out)
 	else if (pid == 0)
 	{
 		ft_signal(CHILD);
+		no_such_file_or_directory(d);
 		child_process(d, out->kind, out->outfile, pipefd);
 	}
 	else

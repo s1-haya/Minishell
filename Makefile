@@ -1,7 +1,7 @@
 NAME = minishell
 CC = cc
 
-INCLUDES = includes/minishell.h
+# INCLUDES = includes/minishell.h
 CFLAGS = -Wall -Wextra -Werror
 # CFLAGS = -fsanitize=address
 READLINE_DIR = $(shell brew --prefix readline)
@@ -22,6 +22,7 @@ SRCS_BUILTINS = builtins.c	\
 				 exit.c \
 				 arrlen.c \
 				 init_env.c \
+				 split_env.c \
 				 structure_to_array.c
 BUILTINS_DIR = srcs/builtins
 
