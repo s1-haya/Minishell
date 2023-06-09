@@ -41,15 +41,11 @@ char	*env_var_heredoc_helper(char *tmp, char *heredoc, t_env *envs)
 	if (!env)
 		return (heredoc);
 	if (!heredoc)
-	{
-		env = ft_strdup(env);
-		if (!env)
-			malloc_failed("malloc");
 		return (env);
-	}
 	tmp = heredoc;
 	heredoc = ft_strjoin(heredoc, env);
 	free(tmp);
+	free(env);
 	if (!heredoc)
 		malloc_failed("malloc");
 	return (heredoc);
@@ -76,9 +72,9 @@ char	*env_var_heredoc(char *str, char *heredoc, size_t *index, t_env *envs)
 			tmp = ft_strdup("$");
 		else
 			tmp = ft_substr(str, start, i - start);
-		if (!tmp)
-			malloc_failed("malloc");
 	}
+	if (!tmp)
+		malloc_failed("malloc");
 	*index = i;
 	return (env_var_heredoc_helper(tmp, heredoc, envs));
 }
@@ -103,9 +99,10 @@ char	*str_heredoc(char *str, char *heredoc, size_t *index)
 	{
 		tmp = heredoc;
 		heredoc = ft_strjoin(heredoc, adding_str);
+		free(tmp);
+		free(adding_str);
 		if (!heredoc)
 			malloc_failed("malloc");
-		free(tmp);
 	}
 	*index = i;
 	return (heredoc);
