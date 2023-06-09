@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:57:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/09 10:03:12 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:00:47 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ static bool	envlast(t_env *env, t_env **p, t_env *new_env, bool sign_char_equal)
 				(*p)->value = new_env->value;
 			}
 			else if (sign_char_equal)
+			{
+				free((*p)->value);
 				(*p)->value = "";
+			}
 			else
 			{
 			}
@@ -57,9 +60,7 @@ static void	envadd_back(t_env **env, t_env *new_env, bool sign_char_equal)
 		new_env->next = NULL;
 	}
 	else
-	{
 		*env = new_env;
-	}
 }
 
 static void	export_util_mode(char **command, t_env **envs)
@@ -77,7 +78,7 @@ static void	export_util_mode(char **command, t_env **envs)
 		{
 			printf("export: `%s': not a valid identifier\n", command[i]);
 			g_vars.exit_status = 1;
-			if (ite)
+			if (ite != NULL)
 				env_free(ite);
 		}
 		else
