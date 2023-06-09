@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:44:06 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/09 10:17:28 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:00:18 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_env	*new_env(char *envs)
 	char	*en_value;
 
 	list = malloc(sizeof(t_env));
-	if (envs[0] == '\0' || list == NULL)
+	if (list == NULL)
 		return (NULL);
 	en_name = env_name(envs);
 	if (en_name == NULL)
