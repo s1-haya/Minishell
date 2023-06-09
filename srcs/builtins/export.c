@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:57:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/09 08:27:49 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:03:12 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static bool	envlast(t_env *env, t_env **p, t_env *new_env, bool sign_char_equal)
 			}
 			return (false);
 		}
-		if (!(*p)->next->next)
+		if (!(*p)->next)
 			break ;
 		(*p) = (*p)->next;
 	}
@@ -41,7 +41,6 @@ static bool	envlast(t_env *env, t_env **p, t_env *new_env, bool sign_char_equal)
 static void	envadd_back(t_env **env, t_env *new_env, bool sign_char_equal)
 {
 	t_env	*p;
-	t_env	*tmp_lst;
 
 	if (!env || !new_env)
 		return ;
@@ -54,10 +53,8 @@ static void	envadd_back(t_env **env, t_env *new_env, bool sign_char_equal)
 	}
 	if (p)
 	{
-		tmp_lst = p->next;
 		p->next = new_env;
-		new_env->next = tmp_lst;
-		tmp_lst->next = NULL;
+		new_env->next = NULL;
 	}
 	else
 	{

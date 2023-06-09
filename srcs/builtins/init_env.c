@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:44:06 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/08 20:20:35 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:17:28 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,26 @@
 t_env	*new_env(char *envs)
 {
 	t_env	*list;
-	char	**split_envs;
+	char	*en_name;
+	char	*en_value;
 
 	list = malloc(sizeof(t_env));
 	if (envs[0] == '\0' || list == NULL)
 		return (NULL);
-	split_envs = split_env(envs, '=');
-	if (split_envs == NULL || split_envs[0] == NULL)
+	en_name = env_name(envs);
+	if (en_name == NULL)
 	{
-		free(split_envs);
-		free(split_envs[0]);
-		free(split_envs[1]);
+		free(en_name);
 		free(list);
 		return (NULL);
 	}
-	list->name = split_envs[0];
-	if (split_envs[1] == NULL && is_char_equal(envs))
+	list->name = en_name;
+	en_value = env_value(envs);
+	if (en_value == NULL && is_char_equal(envs))
 		list->value = ft_strdup("");
 	else
-		list->value = split_envs[1];
+		list->value = en_value;
 	list->next = NULL;
-	free(split_envs);
 	return (list);
 }
 
