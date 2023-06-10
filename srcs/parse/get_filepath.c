@@ -23,6 +23,14 @@ void	*free_dirs(char **dirs)
 	return (NULL);
 }
 
+bool	is_dir(char *path)
+{
+	struct stat	statbuf;
+
+	stat(path, &statbuf);
+	return (S_ISDIR(statbuf.st_mode));
+}
+
 char	*make_filepath(char **dirs, char *command)
 {
 	size_t	i;
@@ -40,7 +48,7 @@ char	*make_filepath(char **dirs, char *command)
 		free(tmp);
 		if (!filepath)
 			malloc_failed("malloc");
-		if (access(filepath, X_OK) == 0)
+		if (access(filepath, X_OK) == 0 && !is_dir(filepath))
 		{
 			free_dirs(dirs);
 			return (filepath);
@@ -53,12 +61,12 @@ char	*make_filepath(char **dirs, char *command)
 
 char	*get_filepath(char *command, t_env *envs)
 {
-	char	*path;
-	char	**dirs;
+	char		*path;
+	char		**dirs;
 
 	if (!command || command[0] == '\0')
 		return (NULL);
-	if (access(command, X_OK) == 0)
+	if (access(command, X_OK) == 0 && !is_dir(command))
 	{
 		path = ft_strdup(command);
 		if (!path)

@@ -33,6 +33,8 @@ bool	is_file(char *str)
 	char	*pwd;
 	char	*tmp;
 
+	if (str[0] == '/')
+		return (false);
 	pwd = getcwd(NULL, 0);
 	tmp = pwd;
 	pwd = ft_strjoin(pwd, "/");
