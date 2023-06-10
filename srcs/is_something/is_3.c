@@ -34,6 +34,17 @@ bool	is_char_equal(char *str)
 	return (false);
 }
 
+bool	have_slash(char *str)
+{
+	while (*str)
+	{
+		if (*str == '/')
+			return (true);
+		str++;
+	}
+	return (false);
+}
+
 bool	is_builtin(char *command)
 {
 	bool	is_builtin;
