@@ -14,7 +14,14 @@
 
 void	command_not_found(char *command)
 {
-	printf("%s: command not found\n", command);
+	char	*message;
+
+	message = ": command not found\n";
+	message = ft_strjoin(command, message);
+	if (!message)
+		malloc_failed("malloc");
+	if (write(STDOUT_FILENO, message, ft_strlen(message)) < 0)
+		write_failed("write");
 	exit(COMMAND_NOT_FOUND);
 }
 
