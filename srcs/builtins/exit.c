@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 19:35:45 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/09 10:44:21 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/10 16:40:42 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	env_free(t_env *env)
 void	exit_mode(char **command)
 {
 	size_t	i;
+	int		num;
 
 	i = 0;
 	if (command[1] == NULL)
@@ -36,17 +37,17 @@ void	exit_mode(char **command)
 	}
 	if (command[1][i] == '\0')
 		exit_n_faild(command[1]);
-	while (command[1][i])
-	{
-		if (!(ft_isdigit(command[1][i])))
-			exit_n_faild(command[1]);
-		i++;
-	}
 	if (arrlen(command) >= 3)
 	{
 		exit_too_many_arguments_faild();
 		return ;
 	}
-	printf("exit\n");
-	exit(ft_atoi(command[1]));
+	num = ft_atoi(command[1]);
+	if (num == 0)
+		exit_n_faild(command[1]);
+	else
+	{
+		printf("exit\n");
+		exit((unsigned int)num);
+	}
 }
