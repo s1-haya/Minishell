@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:44:06 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/09 15:00:18 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:03:49 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ t_env	*init_env(char **env)
 	t_env	*head;
 	size_t	i;
 
-	if (env == NULL)
-		exit(EXIT_FAILURE);
+	if (env[0] == NULL)
+		return (NULL);
 	head = new_env(env[0]);
 	list = head;
 	i = 1;
