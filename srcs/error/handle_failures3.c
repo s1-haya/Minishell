@@ -20,7 +20,7 @@ void	command_not_found(char *command)
 	message = ft_strjoin(command, message);
 	if (!message)
 		malloc_failed("malloc");
-	if (write(STDOUT_FILENO, message, ft_strlen(message)) < 0)
+	if (write(STDERR_FILENO, message, ft_strlen(message)) < 0)
 		write_failed("write");
 	exit(COMMAND_NOT_FOUND);
 }
