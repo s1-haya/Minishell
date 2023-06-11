@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <signal.h>
+# include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
@@ -55,6 +56,7 @@ enum	e_signal
 
 enum	e_exit_status
 {
+	FILENAME_REQUIRED = 2,
 	COMMAND_NOT_EXECUTABLE = 126,
 	COMMAND_NOT_FOUND = 127,
 	NUMERIC_ARGUMENT_REQUIRED = 255,
@@ -171,6 +173,7 @@ pid_t		execute_command(t_command_data *d, t_output *out);
 void		child_process(t_command_data *d, t_token_kind output_direction, \
 							char *outfile, int *pipefd);
 void		wait_child_process(pid_t *array);
+void		handle_file_dir(char *str);
 
 //signal
 void		ft_signal(enum e_signal no);
@@ -195,6 +198,7 @@ bool		have_quotationmark(char *str);
 bool		is_char_equal(char *str);
 bool		only_space(char *str);
 bool		is_builtin(char *command);
+bool		have_slash(char *str);
 
 //error
 void		malloc_failed(char *str);

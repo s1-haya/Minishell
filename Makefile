@@ -55,7 +55,8 @@ PARSE_DIR = srcs/parse
 
 SRCS_EXECVE_COMMAND = execve_command.c	\
 					  child_process.c	\
-					  wait_child_process.c
+					  wait_child_process.c	\
+					  file_dir.c
 EXECVE_COMMAND_DIR = srcs/execve_command
 
 SRCS_SIGNAL = signal.c	\
